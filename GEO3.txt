@@ -1,0 +1,3798 @@
+GEO3 prodedures
+Updated 24.09.21, 03.02.22, 06.07.22 stema@dtu.dk
+Init
+restart: with(plots): with(plottools):
+with(linalg):
+with(LinearAlgebra):
+with(VectorCalculus): BasisFormat(false):
+
+GEO3:= table[]:
+
+
+Base2d(x,y);  # option "len" er frivillig
+
+
+En procedure til at tegne det sædvanlige retvinklede koordinatsystem
+og basis i 2D :
+
+
+
+GEO3[Base2d]:= proc(x,y, len)
+description "2d basis plot";
+option `Rev. 02.10.09 (S.Markvorsen@mat.dtu.dk)`;
+###########################################################
+local e1_2d,mark1_2d, e2_2d, mark2_2d, axlong1, axlong2, Nlen;
+###########################################################
+if nargs=2 then 
+Nlen:= [0, 1.5, 0,1.5] 
+else Nlen:= len end if;
+
+e1_2d:= arrow([0,0], [1,0], 0.05, 0.10, 0.15,  color=red):
+e2_2d:= arrow([0,0], [0,1], 0.05, 0.10, 0.15,  color=blue):
+mark1_2d:= x-> textplot([1.2, -0.2,`x`], 
+color=black, font=[TIMES, ITALIC, 20]):
+mark2_2d:= y-> textplot([-0.2, 1.2,`y`], 
+color=black, font=[TIMES, ITALIC, 20]):
+axlong1:= plot([u,0, u=Nlen[1]...Nlen[2]], color=black);
+axlong2:= plot([0,u, u=Nlen[3]...Nlen[4]], color=black);
+display([e1_2d, mark1_2d(x), e2_2d, mark2_2d(y), axlong1, axlong2], 
+scaling=constrained, axes=none):
+###########################################################
+end:
+###########################################################
+
+
+
+Base3d(x,y,z,len); Base3dRot(p, A, x,y,z, len); Base3dFix(x,y,z,len); Base3dFixAll(x,y,z, len); # option "len" er frivillig
+
+
+GEO3[Base3d]:= proc(x,y,z, len, siz)
+description "3d base plot with axes of explicit length specification in list len";
+option `Rev. 10.09.09 (S.Markvorsen@mat.dtu.dk)`;
+####################
+local e1_3d, mark1_3d, e2_3d, mark2_3d, e3_3d, mark3_3d, 
+axlong1, axlong2, axlong3, Nlen, Nsiz;
+####################
+
+if nargs=3 then 
+Nsiz:= 20; Nlen:= [0, 1.5, 0,1.5, 0,1.5] 
+else end if;
+
+if nargs=4 then 
+Nsiz:= 20; Nlen:= len; else end if;
+
+if nargs=5 then 
+Nsiz:= siz; Nlen:= len; else end if;
+
+e1_3d:= arrow(<0,0,0>, <1,0,0>, 0.05, 0.1, 0.1, cylindrical_arrow, fringe = 'black', color=red):
+e2_3d:= arrow(<0,0,0>, <0,1,0>, 0.05, 0.1, 0.1, cylindrical_arrow, fringe = 'black', color=blue):
+e3_3d:= arrow(<0,0,0>, <0,0,1>, 0.05, 0.1, 0.1, cylindrical_arrow, fringe = 'black', color=green):
+mark1_3d:= x-> textplot3d([1.2, 0, -0.1,`x`], 
+color=black, font=[TIMES, ITALIC, Nsiz]):
+mark2_3d:= y-> textplot3d([0, 1.2, 0.1,`y`], 
+color=black, font=[TIMES, ITALIC, Nsiz]):
+mark3_3d:= z-> textplot3d([-0.1, 0, 1.2,`z`], 
+color=black, font=[TIMES, ITALIC, Nsiz]):
+axlong1:= spacecurve([u,0,0, u=Nlen[1]...Nlen[2]], color=black); #Axes lengths
+axlong2:= spacecurve([0,u,0, u=Nlen[3]...Nlen[4]], color=black);
+axlong3:= spacecurve([0,0,u, u=Nlen[5]...Nlen[6]], color=black);
+display(
+[axlong1, axlong2, axlong3, e1_3d, mark1_3d(x), e2_3d, mark2_3d(y), e3_3d, mark3_3d(z)], 
+lightmodel=light4, scaling=constrained, projection=0.8):
+
+####################
+end:
+####################
+
+
+
+
+GEO3[Base3dFixAll]:= proc(x,y,z, len)
+description "3d New Fixed base plot with axes of explicit length specification in list len";
+option `Rev. 15.10.09 (S.Markvorsen@mat.dtu.dk)`;
+####################
+local e1_3d, mark1_3d, e2_3d, mark2_3d, e3_3d, mark3_3d, 
+axlong1, axlong2, axlong3, Nlen, markOrigo, marke1, marke2, marke3;
+####################
+
+if nargs=3 then 
+Nlen:= [0, 1.5, 0,1.5, 0,1.5] 
+else Nlen:= len end if;
+
+
+e1_3d:= arrow(<0,0,0>, <1,0,0>, 0.05, 0.1, 0.1, cylindrical_arrow, fringe = 'black', color="PaleVioletRed"):
+e2_3d:= arrow(<0,0,0>, <0,1,0>, 0.05, 0.1, 0.1, cylindrical_arrow, fringe = 'black', color="SlateBlue"):
+e3_3d:= arrow(<0,0,0>, <0,0,1>, 0.05, 0.1, 0.1, cylindrical_arrow, fringe = 'black', color="SpringGreen"):
+mark1_3d:= x-> textplot3d([1.2, 0, -0.1,`x`], 
+color=black, font=[TIMES, ITALIC, 20]):
+mark2_3d:= y-> textplot3d([0, 1.2, 0.1,`y`], 
+color=black, font=[TIMES, ITALIC, 20]):
+mark3_3d:= z-> textplot3d([-0.1, 0, 1.2,`z`], 
+color=black, font=[TIMES, ITALIC, 20]):
+
+
+markOrigo:= textplot3d([-0.0, -0.15, 0.1, `Q`], 
+color=black, font=[TIMES, ITALIC, 20]):
+marke1:= textplot3d([0.5, 0.1, -0.1, 'e'], 
+color=black, font=[TIMES, BOLDITALIC, 25]):
+marke2:= textplot3d([0.1, 0.5, -0.1, `f`], 
+color=black, font=[TIMES, BOLDITALIC, 25]):
+marke3:= textplot3d([-0.1, 0.1, 0.5, `g`], 
+color=black, font=[TIMES, BOLDITALIC, 25]):
+
+
+
+
+axlong1:= spacecurve([u,0,0, u=Nlen[1]...Nlen[2]], color=black); #Axes lengths
+axlong2:= spacecurve([0,u,0, u=Nlen[3]...Nlen[4]], color=black);
+axlong3:= spacecurve([0,0,u, u=Nlen[5]...Nlen[6]], color=black);
+display(
+[axlong1, axlong2, axlong3, e1_3d, mark1_3d(x), e2_3d, mark2_3d(y), e3_3d, mark3_3d(z), markOrigo, marke1, marke2, marke3], 
+lightmodel=light4, scaling=constrained, projection=0.8):
+
+####################
+end:
+####################
+
+
+
+
+
+
+GEO3[Base3dRot]:= proc(p::list, A::Matrix, x,y,z, len::list)
+description "Rotated by A 3d base at p plot with axes of explicit length specification in list len";
+option `Rev. 15.10.09 (S.Markvorsen@mat.dtu.dk)`;
+####################
+local e1_3d, mark1_3d, e2_3d, e3_3d,lin1, lin2, lin3, 
+axlong1, axlong2, axlong3, Nlen, a1, a2, a3, m1, m2, m3;
+####################
+
+if nargs=5 then 
+Nlen:= [0, 1.5, 0,1.5, 0,1.5] 
+else Nlen:= len end if;
+
+
+
+
+
+
+a1:= convert(A.Vector([1.2,0,-0.1]), list);
+a2:= convert(A.Vector([0, 1.2,0.1]), list);
+a3:= convert(A.Vector([-0.1, 0, 1.2]), list);
+
+
+
+m1:= textplot3d([op(a1+p),`x`], 
+color=black, font=[TIMES, ITALIC, 20]):
+m2:= textplot3d([op(a2+p),`y`], 
+color=black, font=[TIMES, ITALIC, 20]):
+m3:= textplot3d([op(a3+p),`z`], 
+color=black, font=[TIMES, ITALIC, 20]):
+
+
+
+
+
+
+
+
+e1_3d:= arrow(<op(p)>, A.<1,0,0>, 0.05, 0.1, 0.1, cylindrical_arrow, fringe = 'black', color="PaleVioletRed"):
+e2_3d:= arrow(<op(p)>, A.<0,1,0>, 0.05, 0.1, 0.1, cylindrical_arrow, fringe = 'black', color="SlateBlue"):
+e3_3d:= arrow(<op(p)>, A.<0,0,1>, 0.05, 0.1, 0.1, cylindrical_arrow, fringe = 'black', color="SpringGreen"):
+
+lin1:= u-> convert(evalm(p+u*[A[1,1], A[2,1], A[3,1]]), list);
+lin2:= u-> convert(evalm(p+u*[A[1,2], A[2,2], A[3,2]]), list);
+lin3:= u-> convert(evalm(p+u*[A[1,3], A[2,3], A[3,3]]), list);
+
+
+
+axlong1:= spacecurve([op(lin1(u)), u=Nlen[1]...Nlen[2]], color=black); #Axes lengths
+axlong2:= spacecurve([op(lin2(u)), u=Nlen[3]...Nlen[4]], color=black);
+axlong3:= spacecurve([op(lin3(u)), u=Nlen[5]...Nlen[6]], color=black);
+display(
+[m1, m2, m3, axlong1, axlong2, axlong3, e1_3d,  e2_3d, e3_3d], 
+lightmodel=light4, scaling=constrained, projection=0.8):
+
+####################
+end:
+####################
+
+
+
+GEO3[Base3dFix]:= proc(x,y,z, len)
+description "3d New Fixed base plot with axes of explicit length specification in list len dimmed colors";
+option `Rev. 15.10.09 (S.Markvorsen@mat.dtu.dk)`;
+####################
+local e1_3d, mark1_3d, e2_3d, mark2_3d, e3_3d, mark3_3d, 
+axlong1, axlong2, axlong3, Nlen;
+####################
+
+if nargs=3 then 
+Nlen:= [0, 1.5, 0,1.5, 0,1.5] 
+else Nlen:= len end if;
+
+
+e1_3d:= arrow(<0,0,0>, <1,0,0>, 0.05, 0.1, 0.1, cylindrical_arrow, fringe = 'black', color="PaleVioletRed"):
+e2_3d:= arrow(<0,0,0>, <0,1,0>, 0.05, 0.1, 0.1, cylindrical_arrow, fringe = 'black', color="SlateBlue"):
+e3_3d:= arrow(<0,0,0>, <0,0,1>, 0.05, 0.1, 0.1, cylindrical_arrow, fringe = 'black', color="SpringGreen"):
+mark1_3d:= x-> textplot3d([1.2, 0, -0.1,`x`], 
+color=black, font=[TIMES, ITALIC, 20]):
+mark2_3d:= y-> textplot3d([0, 1.2, 0.1,`y`], 
+color=black, font=[TIMES, ITALIC, 20]):
+mark3_3d:= z-> textplot3d([-0.1, 0, 1.2,`z`], 
+color=black, font=[TIMES, ITALIC, 20]):
+axlong1:= spacecurve([u,0,0, u=Nlen[1]...Nlen[2]], color=black); #Axes lengths
+axlong2:= spacecurve([0,u,0, u=Nlen[3]...Nlen[4]], color=black);
+axlong3:= spacecurve([0,0,u, u=Nlen[5]...Nlen[6]], color=black);
+display(
+[axlong1, axlong2, axlong3, e1_3d, mark1_3d(x), e2_3d, mark2_3d(y), e3_3d, mark3_3d(z)], 
+lightmodel=light4, scaling=constrained, projection=0.8):
+
+####################
+end:
+####################
+
+
+
+
+
+Analysis(a,b); HingeAnalysis(a,b);
+
+
+
+En hjælpeprocedure til bestemmelse af vinkler, areal, kantlængder, omkreds
+for en trekant, der er givet ved to vektorer a og b fra eet af trekantens hængsler:
+
+
+
+GEO3[Analysis]:= proc(a::list, b::list)
+description "Angles, area, sum of lengths";
+option `Rev. 03.09.09 (S.Markvorsen@mat.dtu.dk)`;
+###########################################################
+local  aa, bb, cc, A, dab, dac, dbc, la, lb, lc, Angab, Angac, Angbc  ;
+global Ar, L, Ang, Llist ; 
+###########################################################
+aa:= Vector(a); bb:= Vector(b); cc:= aa-bb; # Kantvektorerne
+la:= Norm(aa); # Længden af kantvektorerne
+lb:= Norm(bb);
+lc:= Norm(cc);
+
+
+if nops(a)=2 then
+A:= Matrix([aa, bb]); # Matrix til bestemmelse af areal, orientering
+Ar:= Determinant(A)/2;
+else
+Ar:= (1/2)*Norm(CrossProduct(aa, bb));
+end if;
+
+
+
+dab:= DotProduct(aa, bb)/(Norm(aa)*Norm(bb)); #Skalarprodukter mellem kantvektorerne
+dac:= DotProduct(aa, cc)/(Norm(aa)*Norm(cc));
+dbc:= DotProduct(-bb, cc)/(Norm(bb)*Norm(cc)); #Note the minus sign!
+
+Angab:= arccos(dab); # Indre vinkler
+Angac:= arccos(dac);
+Angbc:= arccos(dbc);
+
+L:= la+lb+lc; # Omkreds
+
+Llist:= [la, lb, lc]; # Kantlængderne
+
+Ang:= [Angab, Angac, Angbc]: # De indre vinkler på listeform
+
+#############################################################
+end:
+#############################################################
+
+
+
+
+GEO3[HingeAnalysis]:= proc(a::list, b::list)
+description "Angles, area, sum of lengths";
+option `Rev. 03.09.09 (S.Markvorsen@mat.dtu.dk)`;
+###########################################################
+local  aa, bb, cc, A, dab, dac, dbc, la, lb, lc, Angab, Angac, Angbc  ;
+global Ar, L, Ang, Llist ; 
+###########################################################
+aa:= Vector(a); bb:= Vector(b); cc:= aa-bb; # Kantvektorerne
+la:= Norm(aa); # Længden af kantvektorerne
+lb:= Norm(bb);
+lc:= Norm(cc);
+
+
+if nops(a)=2 then
+A:= Matrix([aa, bb]); # Matrix til bestemmelse af areal, orientering
+Ar:= Determinant(A)/2;
+else
+Ar:= (1/2)*Norm(CrossProduct(aa, bb));
+end if;
+
+
+
+dab:= DotProduct(aa, bb)/(Norm(aa)*Norm(bb)); #Skalarprodukter mellem kantvektorerne
+dac:= DotProduct(aa, cc)/(Norm(aa)*Norm(cc));
+dbc:= DotProduct(-bb, cc)/(Norm(bb)*Norm(cc)); #Note the minus sign!
+
+Angab:= arccos(dab); # Indre vinkler
+Angac:= arccos(dac);
+Angbc:= arccos(dbc);
+
+L:= la+lb+lc; # Omkreds
+
+Llist:= [la, lb, lc]; # Kantlængderne
+
+Ang:= [Angab, Angac, Angbc]: # De indre vinkler på listeform
+
+#############################################################
+end:
+#############################################################
+
+
+
+
+
+
+Hinge(p, a, b);
+
+
+En procedure til at tegne hængsler og tilhørende 
+udspændte trekanter:
+
+
+
+
+GEO3[Hinge]:= proc(p::list, a::list, b::list)
+description "Hinge display with marked orientation.";
+option `Rev. 04.09.09 (S.Markvorsen@mat.dtu.dk)`;
+###########################################################
+local col, mat, pt, ara, arb, faceab;
+###########################################################
+
+##########
+if nops(a)=2 then
+##########
+
+mat:= Transpose(Matrix([a, b])); 
+
+if evalf(Determinant(mat))>=0 then col:=cyan 
+else col:=khaki; 
+end if;
+
+pt:= disk(p, 0.07, color=yellow);
+
+ara:= display(arrow(p, a+p, 0.08, 0.16, 0.16,  color=black));
+
+arb:= display(arrow(p, b+p, 0.08, 0.16, 0.16,  color=gray));
+
+display(pt, polygon([p, a+p, b+p], color = col,  thickness = 1), ara, arb, scaling=constrained, axes=none);
+##########
+else
+##########
+pt:= sphere(p, 0.07, color=yellow, style=patchnogrid);
+
+ara:= display(arrow(Vector(p), Vector(a), 0.06, 0.12, 0.12,  cylindrical_arrow, fringe=red, color=black));
+
+arb:= display(arrow(Vector(p), Vector(b), 0.06, 0.12, 0.12,  cylindrical_arrow, fringe=red, color=gray));
+
+faceab:=  polygonplot3d([p, a+p, b+p],   color = cyan);
+
+
+
+display(pt, ara, arb, faceab, scaling=constrained, axes=none, projection=0.8);
+
+
+##########
+end if;
+##########
+
+
+#############################################################
+end:
+#############################################################
+
+
+
+
+
+
+Tripod(p,a,b,c); TripodLegs(p,a,b,c);
+
+
+
+GEO3[Tripod]:= proc(p::list, a::list, b::list, c::list)
+description "ThreeLeg display with marked orientations and tetrahedron";
+option `Rev. 12.09.09 (S.Markvorsen@mat.dtu.dk)`;
+###########################################################
+local col, mat, pt, ara, arb, ac, faceab, faceac, facebc, faceabc, faceAll;
+###########################################################
+
+
+mat:= Transpose(Matrix([a, b, c])); 
+
+if evalf(Determinant(mat))>=0 then col:=cyan 
+else col:=khaki; 
+end if;
+
+
+
+
+pt:= sphere(p, 0.07, color=yellow, style=patchnogrid);
+
+ara:= display(arrow(Vector(p), Vector(a), 0.06, 0.12, 0.12,  cylindrical_arrow, fringe=red, color=black));
+
+arb:= display(arrow(Vector(p), Vector(b), 0.06, 0.12, 0.12,  cylindrical_arrow, fringe=red, color="Chocolate"));
+
+ac:= display(arrow(Vector(p), Vector(c), 0.06, 0.12, 0.12,  cylindrical_arrow, fringe=red, color=gray));
+
+
+faceab:=  polygonplot3d([p, a+p, b+p],   color = col);
+faceac:=  polygonplot3d([p, a+p, c+p],   color = col);
+facebc:=  polygonplot3d([p, b+p, c+p],   color = col);
+faceabc:= polygonplot3d([a+p, b+p, c+p], color = col);
+
+faceAll:= display(faceab, faceac, facebc, faceabc);
+
+display(pt, ara, arb, ac, faceAll, scaling=constrained, axes=none, projection=0.8);
+
+#############################################################
+end:
+#############################################################
+
+
+
+
+GEO3[TripodLegs]:= proc(p::list, a::list, b::list, c::list)
+description "Tripod 3 legs display with marked orientations";
+option `Rev. 12.09.09 (S.Markvorsen@mat.dtu.dk)`;
+###########################################################
+local col, pt, ara, arb, ac, linab, linac, linbc;
+###########################################################
+
+
+linab:= line(p+a, p+b, color=black);
+linac:= line(p+a, p+c, color=black);
+linbc:= line(p+b, p+c, color=black);
+
+
+pt:= sphere(p, 0.07, color=yellow, style=patchnogrid);
+
+ara:= display(arrow(Vector(p), Vector(a), 0.06, 0.12, 0.12,  cylindrical_arrow, fringe=red, color=black));
+
+arb:= display(arrow(Vector(p), Vector(b), 0.06, 0.12, 0.12,  cylindrical_arrow, fringe=red, color="Chocolate"));
+
+ac:= display(arrow(Vector(p), Vector(c), 0.06, 0.12, 0.12,  cylindrical_arrow, fringe=red, color=gray));
+
+
+display(pt, ara, arb, ac, linab, linac, linbc, scaling=constrained, axes=none, projection=0.8);
+
+#############################################################
+end:
+#############################################################
+
+
+
+
+TripodAnalysis(a,b,c);
+
+
+GEO3[TripodAnalysis]:= proc(a::list, b::list, c::list)
+description "Lengths of edges, areas of faces, volume";
+option `Rev. 12.09.09 (S.Markvorsen@mat.dtu.dk)`;
+###########################################################
+local  aa, bb, cc, ba, ca, cb, laa, lbb, lcc, lba, lca,lcb, V, 
+Aab, Aac, Abc, Abaca,   A, dab, dac, dbc, la, lb, lc;
+###########################################################
+global Vol, Llist, Alist, Area, L ; 
+###########################################################
+
+aa:= Vector(a); 
+bb:= Vector(b); 
+cc:= Vector(c);
+
+
+ba:=  Vector(b-a); 
+ca:=  Vector(c-a); 
+cb:=  Vector(c-b); 
+
+
+# Længden af kantvektorerne
+
+laa:= Norm(aa); 
+lbb:= Norm(bb);
+lcc:= Norm(cc);
+lba:= Norm(ba);
+lca:= Norm(ca);
+lcb:= Norm(cb);
+
+L:= laa+lbb+lcc+lba+lca+lcb; # Totale kantlængde
+
+Llist:= [laa, lbb, lcc, lba, lca, lcb]; # Kantlængderne på listeform
+
+V:= Matrix([aa, bb, cc]); # Matrix til bestemmelse af rumfang, orientering
+
+Vol:= Determinant(V)/6;
+
+Aab:=   Norm(CrossProduct(aa, bb))/2;
+Aac:=   Norm(CrossProduct(aa, cc))/2;
+Abc:=   Norm(CrossProduct(bb, cc))/2;
+Abaca:= Norm(CrossProduct(ba, ca))/2;
+
+Alist:= [Aab, Aac, Abc, Abaca];
+
+Area:= Aab+Aac+Abc+Abaca;
+
+
+#############################################################
+end:
+#############################################################
+
+
+
+
+
+
+ScaleX(a,k);  ScaleY(a,k);  ScaleZ(a,k); 
+
+
+
+GEO3[ScaleX]:= proc(a::list, k)
+description "List a scaled on first coordinate by k";
+option `Rev. 09.08.09 (S.Markvorsen@mat.dtu.dk)`;
+###########################################################
+local new;
+###########################################################
+
+if nops(a)=2 then
+[k*a[1], a[2]]
+else [k*a[1], a[2], a[3]]
+end if
+
+#############################################################
+end:
+#############################################################
+
+
+GEO3[ScaleY]:= proc(a::list, k)
+description "List a scaled on second coordinate by k";
+option `Rev. 09.08.09 (S.Markvorsen@mat.dtu.dk)`;
+###########################################################
+local new;
+###########################################################
+
+if nops(a)=2 then
+[a[1], k*a[2]]
+else 
+[a[1], k*a[2], a[3]]
+end if
+
+#############################################################
+end:
+#############################################################
+
+
+GEO3[ScaleZ]:= proc(a::list, k)
+description "List a scaled on third coordinate by k";
+option `Rev. 09.08.09 (S.Markvorsen@mat.dtu.dk)`;
+###########################################################
+local new;
+###########################################################
+
+
+[a[1], a[2], k*a[3]]
+
+
+#############################################################
+end:
+#############################################################
+
+
+
+
+
+Rx(t); Ry(t); Rz(t); RotX(a,t); RotY(a,t); RotZ(a,t);
+
+
+
+GEO3[Rx]:= proc(t)
+description "Rotation matrix angle  t  around x-axis. Output Matrix.";
+option `Rev. 30.10.09 (S.Markvorsen@mat.dtu.dk)`;
+###########################################################
+local new;
+###########################################################
+
+Matrix([
+[1, 0,0],
+[0, cos(t), -sin(t)], 
+[0, sin(t), cos(t)]
+]); 
+
+
+#############################################################
+end:
+#############################################################
+
+
+GEO3[Ry]:= proc(t)
+description "Rotation matrix angle  t  around y-axis. Output Matrix.";
+option `Rev. 30.10.09 (S.Markvorsen@mat.dtu.dk)`;
+###########################################################
+local new;
+###########################################################
+
+Matrix([
+[cos(t), 0,-sin(t)],
+[0, 1, 0], 
+[sin(t), 0, cos(t)]
+]); 
+
+
+#############################################################
+end:
+#############################################################
+
+
+
+GEO3[Rz]:= proc(t)
+description "Rotation matrix angle  t  around z-axis. Output Matrix.";
+option `Rev. 30.10.09 (S.Markvorsen@mat.dtu.dk)`;
+###########################################################
+local new;
+###########################################################
+
+Matrix([
+[cos(t), -sin(t), 0], 
+[sin(t), cos(t), 0],
+[0,0,1]
+]); 
+
+
+#############################################################
+end:
+#############################################################
+
+
+
+
+
+
+GEO3[RotX]:= proc(a::list, t)
+description "List a rotated angle  t  around x-axis";
+option `Rev. 21.09.09 (S.Markvorsen@mat.dtu.dk)`;
+###########################################################
+local new;
+###########################################################
+
+convert(Matrix([
+[1, 0,0],
+[0, cos(t), -sin(t)], 
+[0, sin(t), cos(t)]
+]).Vector(a), list); 
+
+
+
+#############################################################
+end:
+#############################################################
+
+
+
+
+
+
+GEO3[RotY]:= proc(a::list, t)
+description "List a rotated angle  t  around y-axis. Output list.";
+option `Rev. 21.09.09 (S.Markvorsen@mat.dtu.dk)`;
+###########################################################
+local new;
+###########################################################
+
+convert(Matrix([
+[cos(t), 0,-sin(t)],
+[0, 1, 0], 
+[sin(t), 0, cos(t)]
+]).Vector(a), list); 
+
+
+
+#############################################################
+end:
+#############################################################
+
+
+
+
+
+GEO3[RotZ]:= proc(a::list, t)
+description "List a rotated angle  t  around z-axis. Output list.";
+option `Rev. 21.09.09 (S.Markvorsen@mat.dtu.dk)`;
+###########################################################
+local new;
+###########################################################
+
+convert(Matrix([
+[cos(t), -sin(t), 0], 
+[sin(t), cos(t), 0],
+[0,0,1]
+]).Vector(a), list); 
+
+
+
+#############################################################
+end:
+#############################################################
+
+
+
+
+
+
+
+Singular Value Decomposition 2D:  SVD2D(a,b);
+
+
+GEO3[SVD2D]:= proc(a::list, b::list)
+description "SVD baseret 4-faktor split af given 2x2-matrix med søjle vektorer a og b.
+Out: Original SVD";
+option `Rev. 06.09.09 (S.Markvorsen@mat.dtu.dk)`;
+####################
+local SingValDec, Uraw, Vtraw, detAA, A, AA;
+####################
+global Sigma, Sigma1, Sigma2, U, Vt, F, Energy;
+####################
+      
+
+AA:= evalf(Matrix([
+[a[1],b[1]],
+[a[2], b[2]]
+]));
+
+
+
+detAA:= Determinant(AA);
+
+if detAA < 0 then 
+F:= Matrix([[0,1.], [1.,0]]);
+A:= evalf(AA.F); else
+A:= evalf(AA); 
+F:= Matrix([[1,0], [0,1]]);
+end if;
+
+
+
+
+SingValDec:= [SingularValues(A, output=['U', 'S', 'Vt'])];
+
+Uraw:= SingValDec[1];
+
+Sigma:= DiagonalMatrix(SingValDec[2]);
+
+Sigma1:= DiagonalMatrix([Sigma[1,1], 1]);
+Sigma2:= DiagonalMatrix([1, Sigma[2,2]]);
+
+Energy:= (1-Sigma[1,1])^2 + (1-Sigma[2,2])^2;
+
+Vtraw:= SingValDec[3];
+
+# Guarantee that the 'first' rotation is chosen positively 
+# oriented obtain by changing sign on first Vt row and then
+# corresondingly change sign on first U column:
+
+if Determinant(Vtraw) < 0 then 
+Vt:= RowOperation(Vtraw, 1, -1);
+else
+Vt:= Vtraw;
+end if;
+
+
+if Determinant(Vtraw) < 0 then 
+U:= ColumnOperation(Uraw, 1, -1);
+else
+U:= Uraw;
+end if;
+
+
+
+####################
+end:
+####################
+
+
+
+
+SVDshow2D(a, b, p); 
+
+
+
+
+
+GEO3[SVDshow2D]:= proc(a::list, b::list, p::list)
+description "Given column lists of two vectors a and b, the matrix is SVD
+decomposed and the corresponding deformation of standard triangle is displayed in 6 moves - the first FLIP only if 
+det([a,b]) < 0 and the last parallel translation only if p is given.";
+option `Rev. 10.09.12 (S.Markvorsen@mat.dtu.dk)`;
+###########################################################
+local alpha1, beta1, theta1, alpha2, beta2, theta2, a2, b2, e, f, A, ee, ff,aa,bb,q,
+a1, b1, a1m, b1m, figflip, figrot1, figrot2, figscaleX, figscaleY, Id, detA, rot, figparall, figEnd;
+global rot0, rot1, rot2, defX, defY, parall, tower, stillFin;
+###########################################################
+
+
+if nargs=3 then
+figEnd:= display(Hinge(p, a, b), transparency=0.7)
+else
+figEnd:= display(Hinge([0,0], a, b), transparency=0.7)
+end if;
+
+
+
+
+Id:= IdentityMatrix(2);
+A:= Matrix([a,b]);
+detA:= evalf(Determinant(A));
+
+rot:= t-> Matrix([
+[cos(t), -sin(t)],
+[sin(t), cos(t)]
+]);
+
+
+SVD2D(a,b); 
+
+
+alpha1:= Vt[1,1];
+beta1:= Vt[2,1];
+theta1:= sign(beta1)*arccos(alpha1);
+
+alpha2:= U[1,1];
+beta2:=  U[2,1];
+theta2:= sign(beta2)*arccos(alpha2);
+
+aa:= [(Sigma.Vt.F)[1,1], (Sigma.Vt.F)[2,1]];
+bb:= [(Sigma.Vt.F)[1,2], (Sigma.Vt.F)[2,2]];
+
+if detA >= 0 then 
+ee:= <1,0>; ff:= <0,1>; else
+ee:= <0,1>; ff:= <1,0>; end if;
+
+a2:= aa; b2:= bb;
+
+if detA >= 0 then 
+figrot1:= t-> display(Base2d(x,y), figEnd, Hinge([0,0], convert(rot(t).ee, list), convert(rot(t).ff, list)), title="ROTATION", titlefont=[TIMES,ROMAN, 15]);
+else
+figflip:= t-> display(Base2d(x,y), figEnd, Hinge([0,0], convert(evalm((1-t)*[1,0]  + t*[0,1]), list),  convert(evalm((1-t)*[0,1]  + t*[1,0]), list) ), title="FLIP", titlefont=[TIMES,ROMAN, 15]);
+
+figrot1:= t-> display(Base2d(x,y), figEnd, Hinge([0,0], convert(rot(t).ee, list), convert(rot(t).ff, list)), title="ROTATION", titlefont=[TIMES,ROMAN, 15]);
+end if;
+
+
+figrot2:= t-> display(Base2d(x,y), figEnd, Hinge([0,0], convert(rot(t).Vector(a2), list), convert(rot(t).Vector(b2), list)), title="ROTATION", titlefont=[TIMES,ROMAN, 15]);
+
+
+
+a1:= [(Vt.F)[1,1], (Vt.F)[2,1]]; b1:= [(Vt.F)[1,2], (Vt.F)[2,2]];
+
+
+a1m:= [Sigma[1,1]*(Vt.F)[1,1], (Vt.F)[2,1]]; b1m:= [Sigma[1,1]*(Vt.F)[1,2], (Vt.F)[2,2]];
+
+figscaleX:= t-> display(Base2d(x,y), figEnd, Hinge([0,0], ScaleX(a1,t), ScaleX(b1,t)), title="SKALERING I X-AKSE-RETNING", titlefont=[TIMES,ROMAN, 15]);
+figscaleY:= t-> display(Base2d(x,y), figEnd, Hinge([0,0], ScaleY(a1m,t), ScaleY(b1m,t)), title="SKALERING I Y-AKSE-RETNING", titlefont=[TIMES,ROMAN, 15]);
+
+
+
+rot1:= seq(figrot1(theta1*q/40), q=0....40);
+
+defX:= seq(figscaleX((1-(q/40)) + (Sigma[1,1]*q/40)), q=0....40);
+defY:= seq(figscaleY((1-(q/40)) + (Sigma[2,2]*q/40)), q=0....40);
+
+rot2:= seq(figrot2(theta2*q/40), q=0....40);
+
+
+
+if nargs=3 and evalf(Norm(Vector(p))) > 0 then 
+figparall:= t-> display(Base2d(x,y), figEnd, Hinge(t*p, a, b), title="PARALLELFORSKYDNING", titlefont=[TIMES,ROMAN, 15]);
+parall:= seq(figparall(q/20), q=0...20); 
+if detA>=0 then 
+tower:= [rot1, defX, defY, rot2, parall]
+else
+rot0:= seq(figflip(q/20), q=0....20);
+tower:= [rot0, rot1, defX, defY, rot2, parall]
+end if;
+
+else  
+
+if detA>=0 then 
+tower:= [rot1, defX, defY, rot2]
+else
+rot0:= seq(figflip(q/20), q=0....20);
+tower:= [rot0, rot1, defX, defY, rot2]
+end if;
+
+end if;
+
+
+
+
+stillFin:= display(Base2d(x,y), Hinge(p, a,b));
+
+#display(tower, insequence=true);
+
+
+
+
+
+#############################################################
+end:
+#############################################################
+
+
+
+
+
+Singular Value Decomposition 3D: SVD3D(a, b, c);
+
+
+
+GEO3[SVD3D]:= proc(a::list, b::list, c::list)
+description "SVD baseret 4-faktor split af given matrix med søjle-vektorer a og b og c.
+Out: Original SVD ";
+option `Rev. 06.09.09 (S.Markvorsen@mat.dtu.dk)`;
+####################
+local SingValDec, Uraw, Vtraw, detAA, A, AA;
+####################
+global Sigma, Sigma1, Sigma2, Sigma3, U, Vt, F, Energy;
+####################
+      
+
+AA:= evalf(Matrix([
+[a[1], b[1], c[1]],
+[a[2], b[2], c[2]],
+[a[3], b[3], c[3]]
+]));
+
+
+
+detAA:= Determinant(AA);
+
+if detAA < 0 then 
+F:= Matrix([
+[0, 1., 0], 
+[1., 0, 0],
+[0, 0, 1.]
+]);
+A:= evalf(AA.F); else
+A:= evalf(AA); 
+F:= IdentityMatrix(3);
+end if;
+
+
+
+SingValDec:= [SingularValues(A, output=['U', 'S', 'Vt'])];
+
+Uraw:= SingValDec[1];
+
+Sigma:= DiagonalMatrix(SingValDec[2]);
+
+Sigma1:= DiagonalMatrix([Sigma[1,1], 1, 1]);
+Sigma2:= DiagonalMatrix([1, Sigma[2,2], 1]);
+Sigma3:= DiagonalMatrix([1, 1, Sigma[3,3]]);
+
+Energy:= (1-Sigma[1,1])^2 + (1-Sigma[2,2])^2 + (1-Sigma[3,3])^2;
+
+Vtraw:= SingValDec[3];
+
+# Guarantee that the 'first' rotation is chosen positively 
+# oriented obtain by changing sign on first Vt row and then
+# corresondingly change sign on first U column:
+
+if Determinant(Vtraw) < 0 then 
+Vt:= RowOperation(Vtraw, 1, -1);
+else
+Vt:= Vtraw;
+end if;
+
+
+if Determinant(Vtraw) < 0 then 
+U:= ColumnOperation(Uraw, 1, -1);
+else
+U:= Uraw;
+end if;
+
+
+####################
+end:
+####################
+
+
+GEO3[SVD3Dmat]:= proc(B::Matrix)
+description "SVD baseret 4-faktor split af given matrix.
+Out: Original SVD ";
+option `Rev. 10.12.09 (S.Markvorsen@mat.dtu.dk)`;
+####################
+local SingValDec, Uraw, Vtraw, detAA, A, AA;
+####################
+global Sigma, Sigma1, Sigma2, Sigma3, U, Vt, F, Energy;
+####################
+      
+
+AA:= evalf(B);
+
+
+
+detAA:= Determinant(AA);
+
+if detAA < 0 then 
+F:= Matrix([
+[0, 1., 0], 
+[1., 0, 0],
+[0, 0, 1.]
+]);
+A:= evalf(AA.F); else
+A:= evalf(AA); 
+F:= IdentityMatrix(3);
+end if;
+
+
+
+SingValDec:= [SingularValues(A, output=['U', 'S', 'Vt'])];
+
+Uraw:= SingValDec[1];
+
+Sigma:= DiagonalMatrix(SingValDec[2]);
+
+Sigma1:= DiagonalMatrix([Sigma[1,1], 1, 1]);
+Sigma2:= DiagonalMatrix([1, Sigma[2,2], 1]);
+Sigma3:= DiagonalMatrix([1, 1, Sigma[3,3]]);
+
+Energy:= (1-Sigma[1,1])^2 + (1-Sigma[2,2])^2 + (1-Sigma[3,3])^2;
+
+Vtraw:= SingValDec[3];
+
+# Guarantee that the 'first' rotation is chosen positively 
+# oriented obtain by changing sign on first Vt row and then
+# corresondingly change sign on first U column:
+
+if Determinant(Vtraw) < 0 then 
+Vt:= RowOperation(Vtraw, 1, -1);
+else
+Vt:= Vtraw;
+end if;
+
+
+if Determinant(Vtraw) < 0 then 
+U:= ColumnOperation(Uraw, 1, -1);
+else
+U:= Uraw;
+end if;
+
+
+####################
+end:
+####################
+
+
+
+
+
+RotationFactors(R); (R er en ortogonal 3x3 matrix)
+
+
+GEO3[RotationFactors]:= proc(R::Matrix)
+description "Given orthogonal 3x3 matrix R decompose it into R = rotZ(w).rotY(v).rotX(u) and output: arguments [u,v,w] in  list.";
+option `Rev. 10.09.09 (S.Markvorsen@mat.dtu.dk)`;
+###########################################################
+local rot, uu, vv, ww, G, i;
+###########################################################
+
+
+rot:= (u,v,w)-> Matrix(3, 3, {(1, 1) = cos(w)*cos(v), (1, 2) = -sin(w)*cos(u)-cos(w)*sin(v)*sin(u), (1, 3) = sin(w)*sin(u)-cos(w)*sin(v)*cos(u), (2, 1) = sin(w)*cos(v), (2, 2) = cos(w)*cos(u)-sin(w)*sin(v)*sin(u), (2, 3) = -cos(w)*sin(u)-sin(w)*sin(v)*cos(u), (3, 1) = sin(v), (3, 2) = cos(v)*sin(u), (3, 3) = cos(v)*cos(u)});
+
+# Values in [-Pi/2, Pi/2]: 
+
+vv:= arcsin(R[3,1]);
+
+if evalf(abs(vv - Pi/2))<10^(-6) then uu:= 0; ww:= arccos(R[2,2]); else end if;
+if evalf(abs(vv + Pi/2))<10^(-6) then uu:= 0; ww:= -arccos(R[2,2]); else end if;
+
+if evalf(abs(cos(vv)))>10^(-6) then  uu:= arcsin(R[3,2]/cos(vv)); ww:= arccos(R[1,1]/cos(vv)); else end if;
+
+
+
+# Check for correct modification in [-Pi, Pi] :
+
+G[1]:= [MatrixNorm(evalf((rot(uu,vv,ww))-R)),          [uu,vv,ww]];
+G[2]:= [MatrixNorm(evalf((rot(Pi-uu,vv,ww))-R)),       [Pi-uu,vv,ww]];
+G[3]:= [MatrixNorm(evalf((rot(uu,Pi-vv,ww))-R)),       [uu, Pi-vv,ww]];
+G[4]:= [MatrixNorm(evalf((rot(uu,vv,-ww))-R)),         [uu,vv,-ww]];;
+G[5]:= [MatrixNorm(evalf((rot(Pi-uu,Pi-vv,ww))-R)),    [Pi-uu,Pi-vv,ww]];
+G[6]:= [MatrixNorm(evalf((rot(uu,Pi-vv,-ww))-R)),      [uu,Pi-vv,-ww]];
+G[7]:= [MatrixNorm(evalf((rot(Pi-uu,vv,-ww))-R)),      [Pi-uu,vv,-ww]];
+G[8]:= [MatrixNorm(evalf((rot(Pi-uu,Pi-vv,-ww))-R)),   [Pi-uu,Pi-vv,-ww]];
+
+
+
+(op(sort({seq(G[i], i=1...8)}))[1])[2];
+
+
+
+#############################################################
+end:
+#############################################################
+
+
+
+
+
+SVDshow3D(a,b,c,p); 
+
+
+
+GEO3[SVDshow3D]:= proc(a::list, b::list, c::list, p::list)
+description "Given column lists of three vectors a, b, and c, the matrix is SVD
+decomposed and the corresponding deformation of standard tripod is displayed in 6 or 7 moves, the first flip only if det(a,b,c)<0, 
+the last parallel translation only if p is given.";
+option `Rev. 10.09.12 (S.Markvorsen@mat.dtu.dk)`;
+###########################################################
+local pp, aa, bb, cc, Uargs, Vtargs, uu, vv, ww, uuu, vvv, www, aaa, bbb, ccc, q, figflip, figscaleX, figscaleY, figscaleZ, a1, b1, c1, a1m, b1m, c1m, a1mm, b1mm, c1mm, fig1, fig2, fig3, fig4, fig5, fig6, A, detA, ee, ff, gg, target, figparall, parall, rotZ, rotY, rotX;
+global rot0, rot1, rot2, rot3, rot4, rot5, rot6, defX, defY, defZ, tower, stillFin;
+###########################################################
+
+
+
+
+rotZ:= t-> Matrix([
+[cos(t), -sin(t),0], 
+[sin(t), cos(t), 0],
+[0,0,1]
+]); 
+
+rotY:= t-> Matrix([
+[cos(t), 0, -sin(t)], 
+[0, 1, 0],
+[sin(t),0,cos(t)]
+]); 
+
+rotX:= t-> Matrix([
+[1, 0,0],
+[0, cos(t), -sin(t)], 
+[0, sin(t), cos(t)]
+]); 
+
+
+
+
+
+
+target:= TripodLegs(p, a,b,c);
+
+A:= Matrix([a,b,c]);
+detA:= evalf(Determinant(A));
+
+if detA >= 0 then 
+ee:= <1,0,0>; ff:= <0,1,0>; gg:=<0,0,1>; else
+ee:= <0,1,0>; ff:= <1,0,0>; gg:=<0,0,1>; end if;
+
+
+#aa:= Vector(a);
+#bb:= Vector(b);
+#cc:= Vector(c);
+
+aa:= ee; bb:= ff; cc:= gg;
+
+
+SVD3D(a,b,c); 
+
+Uargs:= evalf(RotationFactors(U));
+Vtargs:= evalf(RotationFactors(Vt));
+
+
+
+uu:= Vtargs[1]; vv:=Vtargs[2]; ww:= Vtargs[3];
+
+
+
+figflip:= t-> display(Base3d(x,y,z), target, Tripod([0,0,0], convert(evalm((1-t)*[1,0,0] + t*[0,1,0]), list), convert(evalm((1-t)*[0,1,0] + t*[1,0,0]), list), [0,0,1]), title="FLIP", titlefont=[TIMES,ROMAN, 15]);
+
+fig1:= t-> display(Base3d(x,y,z), target, Tripod([0,0,0], convert(rotX(t*uu).aa , list), convert( rotX(t*uu).bb, list), convert(rotX(t*uu).cc , list)), title="ROTATION OM X-AKSEN", titlefont=[TIMES,ROMAN, 15]);
+
+fig2:= t-> display(Base3d(x,y,z), target, Tripod([0,0,0], convert(rotY(t*vv).rotX(uu).aa , list), convert( rotY(t*vv).rotX(uu).bb, list), convert(rotY(t*vv).rotX(uu).cc , list)), title="ROTATION OM Y-AKSEN", titlefont=[TIMES,ROMAN, 15]);
+
+fig3:= t-> display(Base3d(x,y,z), target, Tripod([0,0,0], convert(rotZ(t*ww).rotY(vv).rotX(uu).aa , list), convert( rotZ(t*ww).rotY(vv).rotX(uu).bb, list), convert(rotZ(t*ww).rotY(vv).rotX(uu).cc , list)), title="ROTATION OM Z-AKSEN", titlefont=[TIMES,ROMAN, 15]);
+
+
+aaa:= Sigma.Vt.aa;
+bbb:= Sigma.Vt.bb;
+ccc:= Sigma.Vt.cc;
+
+
+uuu:= Uargs[1]; vvv:=Uargs[2]; www:=Uargs[3];
+
+fig4:= t-> display(Base3d(x,y,z), target, Tripod([0,0,0], convert(rotX(t*uuu).aaa , list), convert( rotX(t*uuu).bbb, list), convert(rotX(t*uuu).ccc , list)), title="ROTATION OM X-AKSEN", titlefont=[TIMES,ROMAN, 15]);
+
+fig5:= t-> display(Base3d(x,y,z), target,  Tripod([0,0,0], convert(rotY(t*vvv).rotX(uuu).aaa , list), convert( rotY(t*vvv).rotX(uuu).bbb, list), convert(rotY(t*vvv).rotX(uuu).ccc , list)), title="ROTATION OM Y-AKSEN", titlefont=[TIMES,ROMAN, 15]);
+
+fig6:= t-> display(Base3d(x,y,z), target, Tripod([0,0,0], convert(rotZ(t*www).rotY(vvv).rotX(uuu).aaa , list), convert( rotZ(t*www).rotY(vvv).rotX(uuu).bbb, list), convert(rotZ(t*www).rotY(vvv).rotX(uuu).ccc , list)), title="ROTATION OM Z-AKSEN", titlefont=[TIMES,ROMAN, 15]);
+
+
+a1:= convert(Vt.aa , list);
+b1:= convert(Vt.bb, list);
+c1:= convert(Vt.cc , list);
+a1m:= convert(Sigma1.Vt.aa , list);
+b1m:= convert(Sigma1.Vt.bb, list);
+c1m:= convert(Sigma1.Vt.cc , list);
+a1mm:= convert(Sigma2.Sigma1.Vt.aa , list);
+b1mm:= convert(Sigma2.Sigma1.Vt.bb, list);
+c1mm:= convert(Sigma2.Sigma1.Vt.cc , list);
+
+
+
+figscaleX:= t-> display(Base3d(x,y,z), target, Tripod([0,0,0], ScaleX(a1,t), ScaleX(b1,t), ScaleX(c1,t)), title="SKALERING I X-AKSE-RETNING", titlefont=[TIMES,ROMAN, 15]);
+
+figscaleY:= t-> display(Base3d(x,y,z), target, Tripod([0,0,0], ScaleY(a1m,t), ScaleY(b1m,t), ScaleY(c1m,t)), title="SKALERING I Y-AKSE-RETNING", titlefont=[TIMES,ROMAN, 15]);
+
+figscaleZ:= t-> display(Base3d(x,y,z), target, Tripod([0,0,0], ScaleZ(a1mm,t), ScaleZ(b1mm,t), ScaleZ(c1mm,t)), title="SKALERING I Z-AKSE-RETNING", titlefont=[TIMES,ROMAN, 15]);
+
+defX:= seq(figscaleX((1-(q/20)) + (Sigma[1,1]*q/20)), q=0....20);
+defY:= seq(figscaleY((1-(q/20)) + (Sigma[2,2]*q/20)), q=0....20);
+defZ:= seq(figscaleZ((1-(q/20)) + (Sigma[3,3]*q/20)), q=0....20);
+
+
+rot0:= seq(figflip(q/20), q=0....20);
+
+rot1:= seq(fig1(q/20), q=0....20);
+rot2:= seq(fig2(q/20), q=0....20);
+rot3:= seq(fig3(q/20), q=0....20);
+
+
+rot4:= seq(fig4(q/20), q=0....20);
+rot5:= seq(fig5(q/20), q=0....20);
+rot6:= seq(fig6(q/20), q=0....20);
+
+
+
+
+
+
+if nargs=4 and evalf(Norm(Vector(p))) > 0 then 
+figparall:= t-> display(Base3d(x,y,z), target, Tripod(t*p, a, b, c), title="PARALLELFORSKYDNING", titlefont=[TIMES,ROMAN, 15]);
+parall:= seq(figparall(q/20), q=0...20); 
+if detA>=0 then 
+tower:= [rot1, rot2, rot3, defX, defY, defZ, rot4, rot5, rot6, parall]
+else
+tower:= [rot0, rot1, rot2, rot3, defX, defY, defZ, rot4, rot5, rot6, parall];
+end if;
+
+else
+if detA>=0 then 
+tower:= [rot1, rot2, rot3, defX, defY, defZ, rot4, rot5, rot6]
+else
+tower:= [rot0, rot1, rot2, rot3, defX, defY, defZ, rot4, rot5, rot6];
+end if;
+
+
+end if;
+
+stillFin:= display(Base3d(x,y,z), Tripod(p, a,b,c));
+
+#display(tower, insequence=true);
+
+
+
+#############################################################
+end:
+#############################################################
+
+
+
+
+
+
+
+
+SVDshowPair3D(a1,b1,c1,p1, a2,b2,c2,p2);
+
+
+
+GEO3[SVDshowPair3D]:= proc(a1::list, b1::list, c1::list, p1::list, a2::list, b2::list, c2::list, p2::list)
+description "Given column lists of three vectors a, b, and c, the matrix is SVD
+decomposed and the corresponding deformation is displayed in 11 moves --
+the last parallel translation only if p is given.";
+option `Rev. 10.09.12 (S.Markvorsen@mat.dtu.dk)`;
+###########################################################
+local pp, aa, bb, cc, Uargs, Vtargs, uu, vv, ww, uuu, vvv, www, aaa, bbb, ccc, q, figflip, figscaleX, figscaleY, figscaleZ, a1m, b1m, c1m, a1mm, b1mm, c1mm, fig1, fig2, fig3, fig4, fig5, fig6, A, detA, ee, ff, gg, target, figparall,  rotZ, rotY, rotX, a,b,c,a10,b10,c10,a1t, b1t, c1t, a2t, b2t, c2t, K1, K2, K, p, detK, FF, KK, KK1, KK2;
+global rot0, rot1, rot2, rot3, rot4, rot5, rot6, defX, defY, defZ, tower, stillFin, parall;
+###########################################################
+
+a1t:= Vector(a1); b1t:= Vector(b1); c1t:= Vector(c1);
+a2t:= Vector(a2); b2t:= Vector(b2); c2t:= Vector(c2);
+K1:= Matrix([a1t, b1t, c1t]); Determinant(K1);
+K2:= Matrix([a2t, b2t, c2t]); Determinant(K2);
+
+K:= K2.MatrixInverse(K1);
+
+p:= p2-p1;
+
+rotZ:= t-> Matrix([
+[cos(t), -sin(t),0], 
+[sin(t), cos(t), 0],
+[0,0,1]
+]); 
+
+rotY:= t-> Matrix([
+[cos(t), 0, -sin(t)], 
+[0, 1, 0],
+[sin(t),0,cos(t)]
+]); 
+
+rotX:= t-> Matrix([
+[1, 0,0],
+[0, cos(t), -sin(t)], 
+[0, sin(t), cos(t)]
+]); 
+
+
+target:= TripodLegs(p2, a2,b2,c2);
+
+FF:= Matrix([ [0,1,0], [1,0,0], [0,0,1] ]);
+
+
+detK:= evalf(Determinant(K));
+
+if detK >= 0 then 
+KK1:= K1 ; KK2:= K2; else
+KK1:= K1.FF; KK2:= K2;  end if;
+
+KK:= KK2.MatrixInverse(KK1);
+
+
+aa:= Column(KK1, 1) ;
+bb:= Column(KK1, 2) ;
+cc:= Column(KK1, 3) ;
+
+
+a:= convert(Column(KK, 1) , list);
+b:= convert(Column(KK, 2) , list);
+c:= convert(Column(KK, 3) , list);
+
+SVD3D(a,b,c); 
+
+Uargs:= evalf(RotationFactors(U));
+Vtargs:= evalf(RotationFactors(Vt));
+
+
+
+uu:= Vtargs[1]; vv:=Vtargs[2]; ww:= Vtargs[3];
+
+figflip:= t-> display(Base3d(x,y,z), target, Tripod(p1, convert(evalm((1-t)*[a1[1], a1[2], a1[3]] + t*[aa[1], aa[2], aa[3]]), list), convert( evalm((1-t)*[b1[1], b1[2], b1[3]] + t*[bb[1], bb[2], bb[3]]), list), convert(evalm((1-t)*[c1[1], c1[2], c1[3]] + t*[cc[1], cc[2], cc[3]]) , list)), title="FLIP", titlefont=[TIMES,ROMAN, 15]);
+
+fig1:= t-> display(Base3d(x,y,z), target, Tripod(p1, convert(rotX(t*uu).aa , list), convert( rotX(t*uu).bb, list), convert(rotX(t*uu).cc , list)), title="X-ROTATION", titlefont=[TIMES,ROMAN, 15]);
+
+fig2:= t-> display(Base3d(x,y,z), target, Tripod(p1, convert(rotY(t*vv).rotX(uu).aa , list), convert( rotY(t*vv).rotX(uu).bb, list), convert(rotY(t*vv).rotX(uu).cc , list)), title="Y-ROTATION", titlefont=[TIMES,ROMAN, 15]);
+
+fig3:= t-> display(Base3d(x,y,z), target, Tripod(p1, convert(rotZ(t*ww).rotY(vv).rotX(uu).aa , list), convert( rotZ(t*ww).rotY(vv).rotX(uu).bb, list), convert(rotZ(t*ww).rotY(vv).rotX(uu).cc , list)), title="Z-ROTATION", titlefont=[TIMES,ROMAN, 15]);
+
+
+aaa:= Sigma.Vt.aa;
+bbb:= Sigma.Vt.bb;
+ccc:= Sigma.Vt.cc;
+
+
+uuu:= Uargs[1]; vvv:=Uargs[2]; www:=Uargs[3];
+
+fig4:= t-> display(Base3d(x,y,z), target, Tripod(p1, convert(rotX(t*uuu).aaa , list), convert( rotX(t*uuu).bbb, list), convert(rotX(t*uuu).ccc , list)), title="X-ROTATION", titlefont=[TIMES,ROMAN, 15]);
+
+fig5:= t-> display(Base3d(x,y,z), target,  Tripod(p1, convert(rotY(t*vvv).rotX(uuu).aaa , list), convert( rotY(t*vvv).rotX(uuu).bbb, list), convert(rotY(t*vvv).rotX(uuu).ccc , list)), title="Y-ROTATION", titlefont=[TIMES,ROMAN, 15]);
+
+fig6:= t-> display(Base3d(x,y,z), target, Tripod(p1, convert(rotZ(t*www).rotY(vvv).rotX(uuu).aaa , list), convert( rotZ(t*www).rotY(vvv).rotX(uuu).bbb, list), convert(rotZ(t*www).rotY(vvv).rotX(uuu).ccc , list)), title="Z-ROTATION", titlefont=[TIMES,ROMAN, 15]);
+
+
+a10:= convert(Vt.aa , list);
+b10:= convert(Vt.bb, list);
+c10:= convert(Vt.cc , list);
+a1m:= convert(Sigma1.Vt.aa , list);
+b1m:= convert(Sigma1.Vt.bb, list);
+c1m:= convert(Sigma1.Vt.cc , list);
+a1mm:= convert(Sigma2.Sigma1.Vt.aa , list);
+b1mm:= convert(Sigma2.Sigma1.Vt.bb, list);
+c1mm:= convert(Sigma2.Sigma1.Vt.cc , list);
+
+
+
+figscaleX:= t-> display(Base3d(x,y,z), target, Tripod(p1, ScaleX(a10,t), ScaleX(b10,t), ScaleX(c10,t)), title="SKALERING I X-AKSE-RETNING", titlefont=[TIMES,ROMAN, 15]);
+
+figscaleY:= t-> display(Base3d(x,y,z), target, Tripod(p1, ScaleY(a1m,t), ScaleY(b1m,t), ScaleY(c1m,t)), title="SKALERING I Y-AKSE-RETNING", titlefont=[TIMES,ROMAN, 15]);
+
+figscaleZ:= t-> display(Base3d(x,y,z), target, Tripod(p1, ScaleZ(a1mm,t), ScaleZ(b1mm,t), ScaleZ(c1mm,t)), title="SKALERING I Z-AKSE-RETNING", titlefont=[TIMES,ROMAN, 15]);
+
+defX:= seq(figscaleX((1-(q/20)) + (Sigma[1,1]*q/20)), q=0....20);
+defY:= seq(figscaleY((1-(q/20)) + (Sigma[2,2]*q/20)), q=0....20);
+defZ:= seq(figscaleZ((1-(q/20)) + (Sigma[3,3]*q/20)), q=0....20);
+
+rot0:=  seq(figflip(q/20), q=0....20);
+
+rot1:= seq(fig1(q/20), q=0....20);
+rot2:= seq(fig2(q/20), q=0....20);
+rot3:= seq(fig3(q/20), q=0....20);
+
+
+rot4:= seq(fig4(q/20), q=0....20);
+rot5:= seq(fig5(q/20), q=0....20);
+rot6:= seq(fig6(q/20), q=0....20);
+
+
+
+
+
+
+if evalf(Norm(Vector(p))) > 0 then 
+figparall:= t-> display(Base3d(x,y,z), target, Tripod(p1+t*p, a2, b2, c2), title="PARALLELFORSKYDNING", titlefont=[TIMES,ROMAN, 15]);
+parall:= seq(figparall(q/20), q=0...20); 
+
+if detK>=0 then 
+tower:= [rot1, rot2, rot3, defX, defY, defZ, rot4, rot5, rot6, parall];
+else 
+tower:= [rot0, rot1, rot2, rot3, defX, defY, defZ, rot4, rot5, rot6, parall];
+end if;
+
+else
+
+if detK>=0 then 
+tower:= [rot1, rot2, rot3, defX, defY, defZ, rot4, rot5, rot6];
+else 
+tower:= [rot0, rot1, rot2, rot3, defX, defY, defZ, rot4, rot5, rot6];
+end if;
+
+ end if;
+
+stillFin:= display(Base3d(x,y,z), Tripod(p2, a2,b2,c2));
+
+#display(tower, insequence=true);
+
+
+
+#############################################################
+end:
+#############################################################
+
+
+
+
+
+
+
+base2d (planar drawing of basis)
+
+
+GEO3[base2d]:= proc(x,y)
+description "2d basis plot";
+option `Rev. 01.07.06 (S.Markvorsen@mat.dtu.dk)`;
+local e1_2d,mark1_2d, e2_2d, mark2_2d, axlong1, axlong2;
+e1_2d:= arrow(<1, 0>, color=red):
+e2_2d:= arrow(<0, 1>, color=blue):
+mark1_2d:= x-> textplot([1.2, -0.2,`x`], 
+color=black, font=[TIMES, ITALIC, 20]):
+mark2_2d:= y-> textplot([-0.2, 1.2,`y`], 
+color=black, font=[TIMES, ITALIC, 20]):
+axlong1:= plot([u,0, u=-0.5...1.5], color=black);
+axlong2:= plot([0,u, u=-0.5...1.5], color=black);
+display([e1_2d, mark1_2d(x), e2_2d, mark2_2d(y), axlong1, axlong2], 
+scaling=constrained, axes=none):
+end:
+
+
+base3d (drawing of basis in space)
+
+
+GEO3[base3d]:= proc(x,y,z, len::list:=[-0.5, 1.5, -0.5, 1.5, -0.5, 1.5])
+description "3d base plot";
+option `Rev. 01.07.06 (S.Markvorsen@mat.dtu.dk)`;
+local e1_3d, mark1_3d, e2_3d, mark2_3d, e3_3d, mark3_3d,
+axlong1, axlong2, axlong3;
+e1_3d:= arrow(<0,0,0>, <1,0,0>, 0.05, 0.1, 0.1, cylindrical_arrow, fringe = 'black', color=red):
+e2_3d:= arrow(<0,0,0>, <0,1,0>, 0.05, 0.1, 0.1, cylindrical_arrow, fringe = 'black', color=blue):
+e3_3d:= arrow(<0,0,0>, <0,0,1>, 0.05, 0.1, 0.1, cylindrical_arrow, fringe = 'black', color=green):
+mark1_3d:= x-> textplot3d([1.2, -0.2, -0.2,`x`], 
+color=black, font=[TIMES, ITALIC, 20]):
+mark2_3d:= y-> textplot3d([-0.2, 1.2, -0.2,`y`], 
+color=black, font=[TIMES, ITALIC, 20]):
+mark3_3d:= z-> textplot3d([0.2, 0.2, 1.2,`z`], 
+color=black, font=[TIMES, ITALIC, 20]):
+axlong1:= spacecurve([u,0,0, u=len[1]...len[2]], color=black);
+axlong2:= spacecurve([0,u,0, u=len[3]...len[4]], color=black);
+axlong3:= spacecurve([0,0,u, u=len[5]...len[6]], color=black);
+display(
+[axlong1, axlong2, axlong3, e1_3d, mark1_3d(x), e2_3d, mark2_3d(y), e3_3d, mark3_3d(z)], 
+lightmodel=light4, scaling=constrained, projection=0.8):
+end:
+
+
+
+
+
+
+
+base3dPlus (allows translation and rotation of base3d)
+GEO3[base3dPlus]:= proc(x,y,z, trans, rot, col)
+description "3d base plot translated and rotated and colored";
+option `Rev. 23.08.05 (S.Markvorsen@mat.dtu.dk)`;
+local e1_3d, mark1_3d, e2_3d, mark2_3d, e3_3d, mark3_3d, i;
+e1_3d:= arrow(trans, evalm((rot&*[1,0,0])),  0.05, 0.1, 0.1,shape=cylindrical_arrow, fringe = 'black', color=col):
+e2_3d:= arrow(trans, evalm((rot&*[0,1,0])),  0.05, 0.1, 0.1,shape=cylindrical_arrow, fringe = 'black', color=col):
+e3_3d:= arrow(trans, evalm((rot&*[0,0,1])),  0.05, 0.1, 0.1,shape=cylindrical_arrow, fringe = 'black', color=col):
+mark1_3d:= x-> textplot3d([seq(evalm(trans+(rot&*[1.2,0,0]))[i], i=1..3),`x`], 
+color=black, font=[TIMES, ITALIC, 20]):
+mark2_3d:= y-> textplot3d([seq(evalm(trans+(rot&*[0,1.2,0]))[i], i=1..3),`y`],
+color=black, font=[TIMES, ITALIC, 20]):
+mark3_3d:= z-> textplot3d([seq(evalm(trans+(rot&*[0,0,1.2]))[i], i=1..3),`z`], 
+color=black, font=[TIMES, ITALIC, 20]):
+display([e1_3d, mark1_3d(x), e2_3d, mark2_3d(y), e3_3d, mark3_3d(z)], lightmodel=light4, scaling=constrained):
+end:
+
+
+Jac (absolute valued Jacobi function of vector functions in 1D, 2D, 3D into 3D)
+
+GEO3[Jac]:= proc(r, L)
+description "The Jacobi-function of the vector function r: L=[u]; L=[u,v]; or L=[u,v,w].
+Target space R^3.";
+option `Rev. 11.01.06 (S.Markvorsen@mat.dtu.dk)`;
+          local Jacobi, rP, uTang, vTang, wTang, A, Kryds  ;
+          
+############################################
+
+if nops(L)=1 then
+
+rP:= unapply(convert(diff(r(u), u),D), u);
+Jacobi:= u-> simplify(sqrt(dotprod(rP(u), rP(u), 'orthogonal')));
+Jacobi(L[1]);
+############################################
+
+else
+if nops(L)=2 then
+
+uTang:= unapply(simplify(convert(diff(r(u,v), u), D)), u,v);
+vTang:= unapply(simplify(convert(diff(r(u,v), v), D)), u,v);
+Kryds:= (u,v)-> crossprod(uTang(u,v), vTang(u,v));
+Jacobi:= (u,v)-> simplify(sqrt(combine(dotprod(Kryds(u,v), Kryds(u,v), 'orthogonal'))));
+Jacobi(L[1], L[2]);
+############################################
+
+else
+if nops(L)=3 then
+
+uTang:= unapply(simplify(convert(diff(r(u,v,w), u), D)), u,v,w);
+vTang:= unapply(simplify(convert(diff(r(u,v,w), v), D)), u,v,w);
+wTang:= unapply(simplify(convert(diff(r(u,v,w), w), D)), u,v,w);
+A:= (u,v,w)-> augment(uTang(u,v,w), vTang(u,v,w), wTang(u,v,w)):
+Jacobi:= (u,v,w)-> simplify(
+signum(det(A(u,v,w)))*simplify(det(A(u,v,w)))):
+Jacobi(L[1], L[2], L[3]);
+##################################################
+
+end if
+end if
+end if
+
+##################################################
+end:
+##################################################
+
+
+JacSigned (signed Jacobi-function of vector functions in 1D, 2D, 3D) 
+
+GEO3[JacSigned]:= proc(r, L)
+description "Jacobi-function of vector function r 
+: L=[u]; L=[u,v]; eller L=[u,v,w].
+Target space R^3.";
+option `Rev. 11.01.06 (S.Markvorsen@mat.dtu.dk)`;
+          local Jacobi, rP, uTang, vTang, wTang, A, Kryds  ;
+          
+############################################
+
+if nops(L)=1 then
+
+rP:= unapply(convert(diff(r(u), u), D), u);
+Jacobi:= u-> simplify(sqrt(dotprod(rP(u), rP(u), 'orthogonal')));
+Jacobi(L[1]);
+############################################
+
+else
+if nops(L)=2 then
+
+uTang:= unapply(simplify(convert(diff(r(u,v), u), D)), u,v);
+vTang:= unapply(simplify(convert(diff(r(u,v), v), D)), u,v);
+Kryds:= (u,v)-> crossprod(uTang(u,v), vTang(u,v));
+Jacobi:= (u,v)-> simplify(sqrt(combine(dotprod(Kryds(u,v), Kryds(u,v), 'orthogonal'))));
+Jacobi(L[1], L[2]);
+############################################
+
+else
+if nops(L)=3 then
+
+uTang:= unapply(simplify(convert(diff(r(u,v,w), u), D)), u,v,w);
+vTang:= unapply(simplify(convert(diff(r(u,v,w), v), D)), u,v,w);
+wTang:= unapply(simplify(convert(diff(r(u,v,w), w), D)), u,v,w);
+A:= (u,v,w)-> augment(uTang(u,v,w), vTang(u,v,w), wTang(u,v,w)):
+Jacobi:= (u,v,w)-> simplify(det(A(u,v,w))):
+Jacobi(L[1], L[2], L[3]);
+##################################################
+
+end if
+end if
+end if
+
+##################################################
+end:
+##################################################
+
+
+curveDrawFat (animated drawing of fat tube around curve)
+
+GEO3[curveDrawFat]:= proc(r, B, netraw)
+description "Fat drawing of a given space curve 
+parametrized by r in interval B with netraw. 
+Non-regular points are highlighted. 
+Further output global: static, dynamic: call with display.";
+option `Rev. 22.01.06 (S.Markvorsen@mat.dtu.dk)`;
+          local 
+k,w, i, j,anim, net, questn, Af,Delta, questr, questB, kurve,  maksval, extension, 
+maxi, mini, hs, n, c, res, rP, p, aU, rPOrig, rp, LrP, a, b, rPU, circStak, 
+circ, combiner, listSing, listReal, q, t, singulStack, mollif, thinstatic, particle;
+          global static, dynamic;
+
+##################################################
+
+if nargs=3 then
+net:= netraw;
+if
+type(net[1], numeric) then 
+questn:=true else questn:=false;
+net:= [5] end if;
+else questn:=false; net:=[5] end if;
+
+questB:= type(evalf(B[1]), numeric) and type(evalf(B[2]), numeric); 
+
+Delta[1]:= evalf((B[2]-B[1])/net[1]);
+
+Af:= [seq(evalf(r(B[1]+p*Delta[1])), p=0...net[1])];
+
+questr:= type(sum(sum('evalf(Af[i][k])', 'i'=1...net[1]+1), 
+'k'=1...3), numeric);
+
+if questr and questB and questn then
+
+maxi:= k-> max(seq(seq(Af[i,k], i=1...nops(Af)), j=1...3));
+mini:= k-> min(seq(seq(Af[i,k], i=1...nops(Af)), j=1...3));
+extension:= max(seq(maxi(k)-mini(k), k=1...3));
+
+kurve:= p-> tubeplot(r(t), t=B[1]...(B[1]+p*Delta[1]),  grid=[5*p+1, 20], radius=extension/70,
+style=patchnogrid, scaling=constrained, projection=0.8, color=cyan):
+
+
+rPOrig:= convert(diff(r(t), t), array);
+
+
+
+for p from 0 to net[1] do 
+rp:= evalf(r(B[1]+p*Delta[1]));
+rP:= evalf(subs(t=B[1]+p*Delta[1], eval(rPOrig)));
+LrP:= evalf(dotprod(rP, rP, 'orthogonal'));
+n[0]:= evalf(dotprod(rP, rP, 'orthogonal'));
+c[1]:= evalf(crossprod([1,0,0], rP));
+n[1]:= evalf(dotprod(c[1], c[1], 'orthogonal'));
+c[2]:= evalf(crossprod([0,1,0], rP));
+n[2]:= evalf(dotprod(c[2], c[2], 'orthogonal'));
+c[3]:= evalf(crossprod([0,0,1], rP));
+n[3]:= evalf(dotprod(c[3], c[3], 'orthogonal'));
+
+if LrP > 0 then 
+if n[1]>= max(n[2], n[3]) then  res[p]:= 1 else 
+if n[2]>= max(n[1], n[3]) then  res[p]:= 2 else 
+res[p]:= 3 end if end if;
+a[p]:= 
+evalm(c[res[p]]/sqrt(dotprod(c[res[p]], c[res[p]], orthogonal)));
+rPU:= rP/sqrt(LrP);
+b[p]:= evalm(crossprod(rPU, a[p]));
+circ[p]:= 
+tubeplot(evalm(rp + (extension/60)*cos(v)*a[p] + (extension/60)*sin(v)*b[p]), v=-Pi...Pi, radius=extension/600, color=black)
+else 
+circ[p]:= plot3d(evalm(rp + (extension/48)*[sin(u)*cos(v), sin(u)*sin(v), cos(u)]),
+u=0..Pi, v=-Pi..Pi, style=wireframe, grid=[7,14], color=red) end if
+end do;
+
+circStak:= i-> seq(circ[q], q=0...i);
+
+combiner:= i-> display([kurve(i), circStak(i)]);
+
+listSing:= [evalf(solve(dotprod(rPOrig, rPOrig, 'orthogonal')=0.001, t))];
+
+listReal:= { };
+
+if nops(listSing) > 0 then
+for q from 1 to nops(listSing) do
+if type(listSing[q], realcons) then 
+listReal:= listReal union {listSing[q]};
+else end if;
+end do;
+else end if;
+
+if nops(listReal) > 0 then
+singulStack:= 
+seq(plot3d(evalm(r(listReal[w]) + (extension/30)*[sin(u)*cos(v), sin(u)*sin(v), cos(u)]),
+u=0..Pi, v=-Pi..Pi, style=wireframe, grid=[7,14], color=red), w=1..nops(listReal));
+else singulStack:=NULL; end if;
+
+thinstatic:= tubeplot(r(u), u=B[1]...B[2], style=patchnogrid, 
+radius=extension/120, grid=[5*net[1], 20], scaling=constrained, projection=0.8, color=cyan):
+
+
+
+
+mollif:= 3;
+
+anim:= display([seq(combiner(i), i=1...net[1])], insequence=true);
+
+if nops([singulStack]) > 0 then
+static:= display([combiner(net[1]), singulStack], scaling = constrained, lightmodel = light3, projection = .8); 
+particle:= i-> display(singulStack, thinstatic, plot3d(
+convert(
+evalm(
+r(B[1]+i*(Delta[1]/mollif)) + (extension/25)*[sin(u)*cos(v), sin(u)*sin(v), cos(u)]), 
+list), u=0...Pi, v=-Pi...Pi, grid=[5, 10], style=patchnogrid, color=yellow,
+scaling=constrained, projection=0.8, lightmodel=light4)):
+
+dynamic:= display(seq(particle(k), k=0....mollif*net[1]), insequence=true):
+print(display([anim, base3d(x,y,z), singulStack], scaling=constrained,
+lightmodel=light4, projection=0.8));
+else 
+static:= display(combiner(net[1]), scaling = constrained, lightmodel = light3, projection = .8);
+particle:= i-> display(thinstatic, plot3d(
+convert(
+evalm(
+r(B[1]+i*(Delta[1]/mollif)) + (extension/30)*[sin(u)*cos(v), sin(u)*sin(v), cos(u)]), 
+list), u=0...Pi, v=-Pi...Pi, grid=[5, 10], style=patchnogrid, color=yellow,
+scaling=constrained, projection=0.8, lightmodel=light4)):
+dynamic:= display([seq(particle(k), k=0....mollif*net[1])], insequence=true):
+print(display([anim, base3d(x,y,z)], scaling=constrained,
+lightmodel=light4, projection=0.8));
+end if;
+
+else end if;
+
+end:
+
+
+dot (dotproduct)
+GEO3[dot]:= proc(X,Y)
+    simplify(dotprod(X,Y,'orthogonal'));
+end:
+
+
+nrm (norm)
+
+GEO3[nrm]:= proc(X)
+local nr;
+sqrt(dot(X, X));
+end:
+
+crs (crossproduct)
+
+GEO3[crs]:= proc(X,Y)
+    local a,b,c;
+    a := X[2]*Y[3]-X[3]*Y[2];
+    b := X[3]*Y[1]-X[1]*Y[3];
+    c := X[1]*Y[2]-X[2]*Y[1];
+    convert(evalm(simplify([a,b,c])), list);
+end:
+
+
+kappa (curvature of space curves)
+
+GEO3[kappa]:= proc(r, L)
+local kap, rP, rPP;
+rP:= unapply(convert(diff(r(t),t), D),t);
+rPP:= unapply(convert(diff(rP(t),t), D), t);
+kap:= unapply(simplify(nrm(crs(rPP(t), rP(t)))/(nrm(rP(t))^3)), t);
+kap(L[1]);
+end:
+
+GEO3[kappaTrunc]:= proc(r, L)
+description "Auxiliary version of kappa for display purposes.
+This version is only infty if tangent vector vanishes.";
+option `Rev. 04.02.06 (S.Markvorsen@mat.dtu.dk)`;
+local kap, rP, rPP;
+rP:= unapply(convert(diff(r(t),t), D),t);
+rPP:= unapply(convert(diff(rP(t),t), D), t);
+kap:= unapply(evalf((nrm(crs(rPP(t), rP(t))))/(0.0000001+ nrm(rP(t))^3)), t);
+kap(L[1]);
+end:
+
+GEO3[kappaSimp]:= proc(r, L)
+description "Auxiliary version of kappa for result presentation only.
+Using 'abs' and symbolic simplification.";
+option `Rev. 04.02.06 (S.Markvorsen@mat.dtu.dk)`;
+local kap, rP, rPP;
+rP:= unapply(convert(diff(r(t),t), D),t);
+rPP:= unapply(convert(diff(rP(t),t), D), t);
+kap:= unapply(abs(simplify(nrm(crs(rPP(t), rP(t)))/(nrm(rP(t))^3), symbolic)), t);
+kap(L[1]);
+end:
+
+
+tau (torsion of space curves)
+
+GEO3[tau]:= proc(r, L)
+local ta, rP, rPP, rPPP;
+rP:= unapply(convert(diff(r(t),t), D),t);
+rPP:= unapply(convert(diff(rP(t),t), D), t);
+rPPP:= unapply(convert(diff(rPP(t),t), D), t);
+ta:= unapply(simplify(dot(rPPP(t), crs(rP(t), rPP(t)))/nrm(crs(rPP(t), rP(t)))^2), t);
+ta(L[1]);
+end:
+
+FSt, FSn, FSb (Frenet-Serret frame vectors)
+
+GEO3[FSt]:= proc(r, L)
+local rP, fst;
+rP:= unapply(convert(diff(r(t),t), D),t);
+fst:= unapply(simplify(rP(t)/nrm(rP(t))), t);
+convert(evalm(fst(L[1])), list);
+end:
+
+GEO3[FStTrunc]:= proc(r, L)
+local rP, fst;
+rP:= unapply(convert(diff(r(t),t), D),t);
+fst:= unapply(rP(t)/(0.0001+nrm(rP(t))), t);
+convert(evalm(fst(L[1])), list);
+end:
+
+
+GEO3[FSn]:= proc(r, L)
+local fsn; 
+fsn:= unapply(simplify(crs(FSb(r, [t]), FSt(r, [t]))),t);
+convert(evalm(fsn(L[1])), list);
+end:
+
+
+GEO3[FSnTrunc]:= proc(r, L)
+local fsn; 
+fsn:= unapply(evalf(crs(FSbTrunc(r, [t]), FStTrunc(r, [t]))),t);
+convert(evalm(fsn(L[1])), list);
+end:
+
+
+
+GEO3[FSb]:= proc(r, L)
+local rP, rPP, cr, fsb;
+rP:=  unapply(convert(diff(r(t),t), D),t);
+rPP:= unapply(convert(diff(rP(t),t), D),t);
+cr:=  unapply(crs(rP(t), rPP(t)),t);
+fsb:= unapply(simplify(cr(t)/nrm(cr(t))), t);
+convert(evalm(fsb(L[1])),list);
+end:
+
+GEO3[FSbTrunc]:= proc(r, L)
+local rP, rPP, cr, fsb;
+rP:=  unapply(convert(diff(r(t),t), D),t);
+rPP:= unapply(convert(diff(rP(t),t), D),t);
+cr:=  unapply(crs(rP(t), rPP(t)),t);
+fsb:= unapply(evalf(cr(t)/(0.0001+nrm(cr(t)))), t);
+convert(evalm(fsb(L[1])),list);
+end:
+
+
+FSstatic (drawing of curve according to FS frame)
+
+GEO3[FSstatic]:= proc(r, B, netraw)
+description "Display of Frenet-Serret oriented fat tube in given
+parametrization, arc-length or not. The tube has square cross section.
+The normals to the tube-faces are the n and b fields resp.
+Singular points (red) and points close to zero curvature (yellowish)
+are marked in order to prepare for breakdown of Frenet-Serret apparatus.";
+option `Rev. 03.02.06 (S.Markvorsen@mat.dtu.dk)`;
+          local k, w, i, j, questn, questB, Delta, Af, questr, maxi, mini, 
+extension, rP, listSing, listReal, p, q, net, singulStack, rad, pt, 
+tang, len, curvat, fragment, FStube, curv, listCurv, listRealCurv, CurvStack, counter, zeroC,
+zeroCstack, ex;
+
+##################################################
+
+if nargs=3 then
+net:= netraw;
+if
+type(net[1], numeric) then 
+questn:=true else questn:=false;
+net:= [5] end if;
+else questn:=false; net:=[5] end if;
+
+questB:= type(evalf(B[1]), numeric) and type(evalf(B[2]), numeric); 
+
+Delta[1]:= evalf((B[2]-B[1])/net[1]);
+
+Af:= [seq(evalf(r(B[1]+p*Delta[1])), p=0...net[1])];
+
+questr:= type(sum(sum('evalf(Af[i][k])', 'i'=1...net[1]+1), 
+'k'=1...3), numeric);
+
+if questr and questB and questn then
+
+maxi:= k-> max(seq(Af[i,k], i=1...nops(Af)));
+mini:= k-> min(seq(Af[i,k], i=1...nops(Af)));
+
+extension:= max(seq(maxi(k), k=1...3), seq(-mini(k), k=1..3));
+
+
+
+rP:= unapply(diff(r(u), u), u);
+curv:= unapply(kappaTrunc(r, [u]), u);
+
+
+listSing:= [evalf(solve(dot(rP(t), rP(t))=0.0001, t))];
+
+listCurv:= [evalf(solve(evalf(kappa(r, [t]))=1000, t))];
+
+
+
+listReal:= { }:
+if nops(listSing) > 0 then
+for q from 1 to nops(listSing) do
+if type(listSing[q], realcons) then 
+listReal:= listReal union {listSing[q]};
+else end if;
+end do;
+else end if;
+if nops(listReal) > 0 then
+singulStack:= 
+seq(plot3d(evalm(r(listReal[w]) + (extension/25)*[sin(u)*cos(v), sin(u)*sin(v), cos(u)]),
+u=0..Pi, v=-Pi..Pi, style=wireframe, grid=[7,14], color=red), w=1..nops(listReal));
+else singulStack:=NULL; end if;
+
+
+listRealCurv:= { }:
+if nops(listCurv) > 0 then
+for q from 1 to nops(listCurv) do
+if type(listCurv[q], realcons) then 
+listRealCurv:= listRealCurv union {listCurv[q]};
+else end if;
+end do;
+else end if;
+if nops(listRealCurv) > 0 then
+CurvStack:= 
+seq(plot3d(evalm(r(listRealCurv[w]) + (extension/15)*[sin(u)*cos(v), sin(u)*sin(v), cos(u)]),
+u=0..Pi, v=-Pi..Pi, style=wireframe, grid=[7,14], color=blue), w=1..nops(listRealCurv));
+else CurvStack:=NULL; end if;
+
+
+rad:= extension/40;
+
+counter:= 1;
+
+for p from 1 to net[1] do 
+len:=    min(seq(evalf(nrm(rP(B[1]+(p-(q/10))*Delta[1]))), q=0...10));
+curvat:= min(seq(evalf(curv(  B[1]+(p-(q/10))*Delta[1])), q=0...10));
+if  len > 10^(-3) then 
+if curvat > 10^(-3) then 
+fragment[p]:= 
+plot3d(evalm(r(u) + (rad)*cos(v+(Pi/4))*(FSbTrunc(r, [u])) + 
+(rad)*sin(v+(Pi/4))*(FSnTrunc(r, [u]))), 
+u=evalf(B[1]+(p-1)*Delta[1])...evalf(B[1]+p*Delta[1]), v=-Pi...Pi, grid=[3, 5], scaling=constrained);
+else
+
+fragment[p]:= display(spacecurve(r(u), 
+u=evalf(B[1]+(p-1)*Delta[1])...evalf(B[1]+p*Delta[1]), thickness=2, color=black),
+tubeplot(r(u), u=evalf(B[1]+(p-1)*Delta[1])...evalf(B[1]+p*Delta[1]), 
+radius=rad, style=wireframe, color=yellow, grid=[3,21]));
+zeroC[counter]:= fragment[p];
+end if;
+else fragment[p]:=display(spacecurve(r(u), 
+u=evalf(B[1]+(p-1)*Delta[1])...evalf(B[1]+p*Delta[1]), thickness=2, color=black),
+tubeplot(r(u), u=evalf(B[1]+(p-1)*Delta[1])...evalf(B[1]+p*Delta[1]), 
+radius=rad, style=wireframe, color=yellow, grid=[3,21]));
+end if;
+end do;
+
+
+if counter > 1 then
+zeroCstack:= seq(zeroC[q], q=1...counter-1);
+else zeroCstack:= NULL
+end if;
+
+ex:= 1.5*max(extension, 2);
+
+display([base3d(x,y,z), singulStack, CurvStack, zeroCstack, seq(fragment[k], k=1....net[1])], 
+view=[-ex...ex, -ex...ex, -ex...ex]):
+
+else end if;
+end:
+
+
+FSdynamic (drawing of Frenet-Serret frame motion along curve) 
+
+
+
+
+GEO3[FSdynamic]:= proc(r, B, netraw, siz)
+description "Display of Frenet-Serret frame fields t, b, and n 
+together with the osculating plane (square of side siz) based on given
+parametrization, arc-length or not. Along thin curve. 
+Singular points and points of zero curvature 
+are tracked down and marked. Single frames are globally accessible: call
+FSstill(p), p=1....netraw[1]. ";
+option `Rev. 01.02.06 (S.Markvorsen@mat.dtu.dk)`;
+          local k, w, i, j, questn, questB, Delta, Af, questr, maxi, mini, 
+extension, rP, listSing, listReal, p, q, net, singulStack, rad, pt, 
+tang, len, curvat, fragment, FStube, curv, pind1, pind2, pind3, hat1, hat2, hat3, oscPlane,
+pil1, pil2, pil3, frame, counter, zeroC, zeroCstack, curveThin, anim, FSanim;
+          global FSstill, FSAll, listCurv, listRealCurv, CurvStack, ex, FSframe;
+
+##################################################
+
+if nargs=4 then
+net:= netraw;
+if
+type(net[1], numeric) then 
+questn:=true else questn:=false;
+net:= [5] end if;
+else questn:=false; net:=[5] end if;
+
+questB:= type(evalf(B[1]), numeric) and type(evalf(B[2]), numeric); 
+
+Delta[1]:= evalf((B[2]-B[1])/net[1]);
+
+Af:= [seq(evalf(r(B[1]+p*Delta[1])), p=0...net[1])];
+
+questr:= type(sum(sum('evalf(Af[i][k])', 'i'=1...net[1]+1), 
+'k'=1...3), numeric);
+
+if questr and questB and questn then
+
+maxi:= k-> max(seq(Af[i,k], i=1...nops(Af)));
+mini:= k-> min(seq(Af[i,k], i=1...nops(Af)));
+extension:= max(seq(maxi(k), k=1...3), seq(-mini(k), k=1..3));
+
+
+
+rP:= unapply(diff(r(u), u), u);
+curv:= unapply(kappaTrunc(r, [u]), u);
+
+
+
+listSing:= [evalf(solve(dot(rP(t), rP(t))=0.0001, t))];
+
+listCurv:= [evalf(solve(evalf(kappa(r, [t]))=1000, t))];
+
+
+
+listReal:= { }:
+if nops(listSing) > 0 then
+for q from 1 to nops(listSing) do
+if type(listSing[q], realcons) then 
+listReal:= listReal union {listSing[q]};
+else end if;
+end do;
+else end if;
+if nops(listReal) > 0 then
+singulStack:= 
+seq(plot3d(evalm(r(listReal[w]) + (extension/25)*[sin(u)*cos(v), sin(u)*sin(v), cos(u)]),
+u=0..Pi, v=-Pi..Pi, style=wireframe, grid=[7,14], color=red), w=1..nops(listReal));
+else singulStack:=NULL; end if;
+
+
+
+
+listRealCurv:= { }:
+if nops(listCurv) > 0 then
+for q from 1 to nops(listCurv) do
+if type(listCurv[q], realcons) then 
+listRealCurv:= listRealCurv union {listCurv[q]};
+else end if;
+end do;
+else end if;
+if nops(listRealCurv) > 0 then
+CurvStack:= 
+seq(plot3d(evalm(r(listRealCurv[w]) + (extension/15)*[sin(u)*cos(v), sin(u)*sin(v), cos(u)]),
+u=0..Pi, v=-Pi..Pi, style=wireframe, grid=[7,14], color=blue), w=1..nops(listRealCurv));
+else CurvStack:=NULL; end if;
+
+
+
+
+rad:= extension/40;
+
+
+#############################################################
+
+ pind1:= u-> tubeplot(evalm(r(u)+t*FStTrunc(r,[u])), 
+                            t=0..0.8, radius=extension/80, grid=[3, 11],
+                            style=patchnogrid, scaling=constrained, 
+                            color=coral):
+  hat1:= u-> tubeplot(evalm(r(u)+t*FStTrunc(r,[u])), 
+     t=0.8...1, radius=(2*(1-t)/0.2)*extension/80,
+                            grid=[3, 7],  style=patch):
+  pil1:= u-> display([pind1(u), hat1(u)]):
+
+
+##############################################################
+  
+ pind2:= u-> tubeplot(evalm(r(u)+t*FSnTrunc(r,[u])), 
+                            t=0..0.8, radius=extension/80, grid=[3, 11],
+                            style=patchnogrid, scaling=constrained, 
+                            color=cyan):
+  hat2:= u-> tubeplot(evalm(r(u)+t*FSnTrunc(r,[u])), 
+     t=0.8...1, radius=(2*(1-t)/0.2)*extension/80,
+                            grid=[3, 7],  style=patch):
+  pil2:= u-> display([pind2(u), hat2(u)]):
+
+
+##################################################
+
+ pind3:= u-> tubeplot(evalm(r(u)+t*FSbTrunc(r,[u])), 
+                            t=0..0.8, radius=extension/80, grid=[3, 11],
+                            style=patchnogrid, scaling=constrained, 
+                            color=sienna):
+  hat3:= u-> tubeplot(evalm(r(u)+t*FSbTrunc(r,[u])), 
+     t=0.8...1, radius=(2*(1-t)/0.2)*extension/80,
+                            grid=[3, 7],  style=patch):
+  pil3:= u-> display([pind3(u), hat3(u)]):
+
+#########################################################
+
+oscPlane:= t-> plot3d(evalm(r(t) + u*FStTrunc(r,[t]) + v*FSnTrunc(r,[t])), 
+u=-siz....siz, v=-siz...siz, color=cyan, grid=[3,3], transparency=0.3):
+
+#########################################################
+
+FSframe:= u-> display(pil1(u), pil2(u), pil3(u), oscPlane(u));
+
+
+counter:= 1;
+
+for p from 1 to net[1] do 
+len:=    min(seq(evalf(nrm(rP(B[1]+(p-(q/10))*Delta[1]))), q=0...10));
+curvat:= min(seq(evalf(curv(  B[1]+(p-(q/10))*Delta[1])), q=0...10));
+if  len > 10^(-3) then 
+if curvat > 10^(-3) then
+frame[p]:= FSframe(evalf(B[1]+((2*p-1)/2)*Delta[1]));
+FSstill[p]:= frame[p]; 
+fragment[p]:=NULL; #MAIN DISCREPANCY: NO FS TUBE HERE
+else
+frame[p]:= NULL;
+fragment[p]:= display(
+spacecurve(r(u), u=evalf(B[1]+(p-1)*Delta[1])...evalf(B[1]+p*Delta[1]), thickness=2, color=black),
+tubeplot(r(u), u=evalf(B[1]+(p-1)*Delta[1])...evalf(B[1]+p*Delta[1]), 
+radius=rad, style=wireframe, color=yellow, grid=[3,21]));
+zeroC[counter]:= fragment[p];
+counter:= counter+1;
+end if;
+else frame[p]:= NULL; fragment[p]:=display(
+spacecurve(r(u), u=evalf(B[1]+(p-1)*Delta[1])...evalf(B[1]+p*Delta[1]), thickness=2, color=black),
+tubeplot(r(u), u=evalf(B[1]+(p-1)*Delta[1])...evalf(B[1]+p*Delta[1]), 
+radius=rad, style=wireframe, color=yellow, grid=[3,21]));
+end if;
+end do;
+
+
+if counter > 1 then
+zeroCstack:= seq(zeroC[q], q=1...counter-1);
+else zeroCstack:= NULL
+end if;
+
+
+curveThin:= display(seq(fragment[k], k=1...net[1]), spacecurve(r(u), u=B[1]...B[2], thickness=2, color=black));
+
+
+FSAll:= display(base3d(x,y,z), singulStack, zeroCstack, seq(frame[k], k=1...net[1]));
+
+
+anim:= display(seq(frame[k], k=1...net[1]), insequence=true);
+
+ex:= 1.5*max(extension, 2);
+
+FSanim:= display([base3d(x,y,z), singulStack, CurvStack, zeroCstack, curveThin, anim],
+view=[-ex...ex, -ex...ex, -ex...ex]);
+else end if;
+######################
+end:
+######################
+
+
+
+
+
+
+
+FSdynamicGyro (FSdynamic plus centered FS frame motion)
+
+
+
+
+
+GEO3[FSdynamicGyro]:= proc(r, B, netraw, siz, Gpoint)
+description "Display of Frenet-Serret frame fields t, b, and n and osculating plane based on given
+parametrization, arc-length or not. Plus Gyro vision of all three in 2-sphere positioned at Gpoint. 
+Along thin curve. Singular points and points of zero curvature 
+are tracked down and marked. Single frames are globally accessible: call
+FSstill(p), p=1....net[1]. ";
+option `Rev. 01.02.06 (S.Markvorsen@mat.dtu.dk)`;
+          local k, w, i, j, questn, questB, Delta, Af, questr, maxi, mini, 
+extension, rP, listSing, listReal, p, q, net, singulStack, rad, pt, 
+tang, len, curvat, fragment, FStube, curv, pind1, pind2, pind3, hat1, hat2, hat3,
+pil1, pil2, pil3, pind1G, pind2G, pind3G, hat1G, hat2G, hat3G,
+pil1G, pil2G, pil3G, FSframe, frame, counter, zeroC, zeroCstack, curveThin, anim, FSanim, oscPlane, oscPlaneG;
+          global FSstill, FSAll, listCurv, listRealCurv, CurvStack, FSgyroFrame, ex;
+
+##################################################
+
+if nargs=5 then
+net:= netraw;
+if
+type(net[1], numeric) then 
+questn:=true else questn:=false;
+net:= [5] end if;
+else questn:=false; net:=[5] end if;
+
+questB:= type(evalf(B[1]), numeric) and type(evalf(B[2]), numeric); 
+
+Delta[1]:= evalf((B[2]-B[1])/net[1]);
+
+Af:= [seq(evalf(r(B[1]+p*Delta[1])), p=0...net[1])];
+
+questr:= type(sum(sum('evalf(Af[i][k])', 'i'=1...net[1]+1), 
+'k'=1...3), numeric);
+
+if questr and questB and questn then
+
+maxi:= k-> max(seq(Af[i,k], i=1...nops(Af)));
+mini:= k-> min(seq(Af[i,k], i=1...nops(Af)));
+extension:= max(seq(maxi(k), k=1...3), seq(-mini(k), k=1..3));
+
+
+
+rP:= unapply(diff(r(u), u), u);
+curv:= unapply(kappaTrunc(r, [u]), u);
+
+
+
+listSing:= [evalf(solve(dot(rP(t), rP(t))=0.0001, t))];
+
+listCurv:= [evalf(solve(evalf(kappa(r, [t]))=1000, t))];
+
+
+
+listReal:= { }:
+if nops(listSing) > 0 then
+for q from 1 to nops(listSing) do
+if type(listSing[q], realcons) then 
+listReal:= listReal union {listSing[q]};
+else end if;
+end do;
+else end if;
+if nops(listReal) > 0 then
+singulStack:= 
+seq(plot3d(evalm(r(listReal[w]) + (extension/25)*[sin(u)*cos(v), sin(u)*sin(v), cos(u)]),
+u=0..Pi, v=-Pi..Pi, style=wireframe, grid=[7,14], color=red), w=1..nops(listReal));
+else singulStack:=NULL; end if;
+
+
+
+
+listRealCurv:= { }:
+if nops(listCurv) > 0 then
+for q from 1 to nops(listCurv) do
+if type(listCurv[q], realcons) then 
+listRealCurv:= listRealCurv union {listCurv[q]};
+else end if;
+end do;
+else end if;
+if nops(listRealCurv) > 0 then
+CurvStack:= 
+seq(plot3d(evalm(r(listRealCurv[w]) + (extension/15)*[sin(u)*cos(v), sin(u)*sin(v), cos(u)]),
+u=0..Pi, v=-Pi..Pi, style=wireframe, grid=[7,14], color=blue), w=1..nops(listRealCurv));
+else CurvStack:=NULL; end if;
+
+
+
+
+rad:= extension/40;
+
+
+#############################################################
+
+ pind1:= u-> tubeplot(evalm(r(u)+t*FStTrunc(r,[u])), 
+                            t=0..0.8, radius=extension/80, grid=[3, 11],
+                            style=patchnogrid, scaling=constrained, 
+                            color=coral):
+  hat1:= u-> tubeplot(evalm(r(u)+t*FStTrunc(r,[u])), 
+     t=0.8...1, radius=(2*(1-t)/0.2)*extension/80,
+                            grid=[3, 7],  style=patch):
+  pil1:= u-> display([pind1(u), hat1(u)]):
+
+
+##############################################################
+  
+ pind2:= u-> tubeplot(evalm(r(u)+t*FSnTrunc(r,[u])), 
+                            t=0..0.8, radius=extension/80, grid=[3, 11],
+                            style=patchnogrid, scaling=constrained, 
+                            color=cyan):
+  hat2:= u-> tubeplot(evalm(r(u)+t*FSnTrunc(r,[u])), 
+     t=0.8...1, radius=(2*(1-t)/0.2)*extension/80,
+                            grid=[3, 7],  style=patch):
+  pil2:= u-> display([pind2(u), hat2(u)]):
+
+
+##################################################
+
+ pind3:= u-> tubeplot(evalm(r(u)+t*FSbTrunc(r,[u])), 
+                            t=0..0.8, radius=extension/80, grid=[3, 11],
+                            style=patchnogrid, scaling=constrained, 
+                            color=sienna):
+  hat3:= u-> tubeplot(evalm(r(u)+t*FSbTrunc(r,[u])), 
+     t=0.8...1, radius=(2*(1-t)/0.2)*extension/80,
+                            grid=[3, 7],  style=patch):
+  pil3:= u-> display([pind3(u), hat3(u)]):
+
+
+#########################################################
+
+oscPlane:= t-> plot3d(evalm(r(t) + u*FStTrunc(r,[t]) + v*FSnTrunc(r,[t])), 
+u=-siz....siz, v=-siz...siz, color=cyan, grid=[3,3], transparency=0.3):
+
+#########################################################
+
+FSframe:= u-> display(pil1(u), pil2(u), pil3(u), oscPlane(u));
+
+
+
+#############################################################
+
+ pind1G:= u-> tubeplot(evalm(Gpoint+t*FStTrunc(r,[u])), 
+                            t=0..0.8, radius=extension/80, grid=[3, 11],
+                            style=patchnogrid, scaling=constrained, 
+                            color=coral):
+  hat1G:= u-> tubeplot(evalm(Gpoint+t*FStTrunc(r,[u])), 
+     t=0.8...1, radius=(2*(1-t)/0.2)*extension/80,
+                            grid=[3, 7],  style=patch):
+  pil1G:= u-> display([pind1G(u), hat1G(u)]):
+
+
+##############################################################
+  
+ pind2G:= u-> tubeplot(evalm(Gpoint+t*FSnTrunc(r,[u])), 
+                            t=0..0.8, radius=extension/80, grid=[3, 11],
+                            style=patchnogrid, scaling=constrained, 
+                            color=cyan):
+  hat2G:= u-> tubeplot(evalm(Gpoint+t*FSnTrunc(r,[u])), 
+     t=0.8...1, radius=(2*(1-t)/0.2)*extension/80,
+                            grid=[3, 7],  style=patch):
+  pil2G:= u-> display([pind2G(u), hat2G(u)]):
+
+
+##################################################
+
+ pind3G:= u-> tubeplot(evalm(Gpoint+t*FSbTrunc(r,[u])), 
+                            t=0..0.8, radius=extension/80, grid=[3, 11],
+                            style=patchnogrid, scaling=constrained, 
+                            color=sienna):
+  hat3G:= u-> tubeplot(evalm(Gpoint+t*FSbTrunc(r,[u])), 
+     t=0.8...1, radius=(2*(1-t)/0.2)*extension/80,
+                            grid=[3, 7],  style=patch):
+  pil3G:= u-> display([pind3G(u), hat3G(u)]):
+
+
+#########################################################
+
+
+oscPlaneG:= t-> plot3d(evalm(Gpoint + u*FStTrunc(r,[t]) + v*FSnTrunc(r,[t])), 
+u=-siz....siz, v=-siz...siz, color=cyan, grid=[3,3], transparency=0.3):
+
+#########################################################
+
+FSgyroFrame:= u-> display(pil1G(u), pil2G(u), pil3G(u), oscPlaneG(u));
+
+
+counter:= 1;
+
+for p from 1 to net[1] do 
+len:=    min(seq(evalf(nrm(rP(B[1]+(p-(q/10))*Delta[1]))), q=0...10));
+curvat:= min(seq(evalf(curv(  B[1]+(p-(q/10))*Delta[1])), q=0...10));
+if  len > 10^(-3) then 
+if curvat > 10^(-3) then
+frame[p]:= display(FSgyroFrame(evalf(B[1]+((2*p-1)/2)*Delta[1])), FSframe(evalf(B[1]+((2*p-1)/2)*Delta[1])));
+FSstill[p]:= frame[p]; 
+fragment[p]:=NULL; #MAIN DISCREPANCY: NO FS TUBE HERE
+else
+frame[p]:= NULL;
+fragment[p]:= display(
+spacecurve(r(u), u=evalf(B[1]+(p-1)*Delta[1])...evalf(B[1]+p*Delta[1]), thickness=2, color=black),
+tubeplot(r(u), u=evalf(B[1]+(p-1)*Delta[1])...evalf(B[1]+p*Delta[1]), 
+radius=rad, style=wireframe, color=yellow, grid=[3,21]));
+zeroC[counter]:= fragment[p];
+counter:= counter+1;
+end if;
+else frame[p]:= NULL; fragment[p]:=display(
+spacecurve(r(u), u=evalf(B[1]+(p-1)*Delta[1])...evalf(B[1]+p*Delta[1]), thickness=2, color=black),
+tubeplot(r(u), u=evalf(B[1]+(p-1)*Delta[1])...evalf(B[1]+p*Delta[1]), 
+radius=rad, style=wireframe, color=yellow, grid=[3,21]));
+end if;
+end do;
+
+
+if counter > 1 then
+zeroCstack:= seq(zeroC[q], q=1...counter-1);
+else zeroCstack:= NULL
+end if;
+
+
+curveThin:= display(seq(fragment[k], k=1...net[1]), spacecurve(r(u), u=B[1]...B[2], thickness=2, color=black));
+
+
+FSAll:= display(base3d(x,y,z), singulStack, zeroCstack, seq(frame[k], k=1...net[1]));
+
+
+anim:= display(seq(frame[k], k=1...net[1]), insequence=true);
+
+ex:= 1.5*max(extension, 2);
+
+FSanim:= display([base3d(x,y,z), singulStack, CurvStack, zeroCstack, curveThin, anim], 
+view=[-ex...max(ex, 4), -ex...ex, -ex...ex]);
+else end if;
+##############################
+end:
+##############################
+
+
+
+evolute (calculates evolute of curve)
+
+GEO3[evolute]:= proc(r, L)
+description "Finds evolute vector function from given
+parametrization of non-null curved curve, arc-length param or not.";
+option `Rev. 04.02.06 (S.Markvorsen@mat.dtu.dk)`;
+local ev; 
+ev:= unapply(simplify(r(t) + (1/kappa(r, [t]))*FSn(r, [t])), t);
+convert(evalm(ev(L[1])), list);
+end:
+
+
+GEO3[evoluteTrunc]:= proc(r, L)
+description "Finds (display version, truncated) evolute vector function from given
+parametrization of non-null curved curve, arc-length param or not.";
+option `Rev. 04.02.06 (S.Markvorsen@mat.dtu.dk)`;
+local ev; 
+ev:= unapply(simplify(r(t) + (1/(0.0000001+kappaTrunc(r, [t])))*FSnTrunc(r, [t])), t);
+convert(evalm(ev(L[1])), list);
+end:
+
+
+
+FSnDraw (drawing of motion of framefield n) 
+
+GEO3[FSnDraw]:= proc(r, B, netraw)
+description "Display of Frenet-Serret frame field n from given
+parametrization, arc-length or not. Along thin curve. 
+Singular points and points of zero curvature 
+are tracked down and marked. Single frames are globally accessible: call
+FSstill(p), p=1....net[1]. ";
+option `Rev. 01.02.06 (S.Markvorsen@mat.dtu.dk)`;
+          local k, w, i, j, questn, questB, Delta, Af, questr, maxi, mini, 
+extension, rP, listSing, listReal, p, q, net, singulStack, rad, pt, 
+tang, len, curvat, fragment, FStube, curv, pind1, pind2, pind3, hat1, hat2, hat3,
+pil1, pil2, pil3, FSframe, frame, counter, zeroC, zeroCstack, curveThin, anim, FSanim;
+          global FSstill, FSAll, listCurv, listRealCurv, ex, CurvStack;
+
+##################################################
+
+if nargs=3 then
+net:= netraw;
+if
+type(net[1], numeric) then 
+questn:=true else questn:=false;
+net:= [5] end if;
+else questn:=false; net:=[5] end if;
+
+questB:= type(evalf(B[1]), numeric) and type(evalf(B[2]), numeric); 
+
+Delta[1]:= evalf((B[2]-B[1])/net[1]);
+
+Af:= [seq(evalf(r(B[1]+p*Delta[1])), p=0...net[1])];
+
+questr:= type(sum(sum('evalf(Af[i][k])', 'i'=1...net[1]+1), 
+'k'=1...3), numeric);
+
+if questr and questB and questn then
+
+maxi:= k-> max(seq(Af[i,k], i=1...nops(Af)));
+mini:= k-> min(seq(Af[i,k], i=1...nops(Af)));
+extension:= max(seq(maxi(k), k=1...3), seq(-mini(k), k=1..3));
+
+
+
+rP:= unapply(diff(r(u), u), u);
+curv:= unapply(kappaTrunc(r, [u]), u);
+
+
+
+listSing:= [evalf(solve(dot(rP(t), rP(t))=0.0001, t))];
+
+listCurv:= [evalf(solve(evalf(kappa(r, [t]))=1000, t))];
+
+
+
+listReal:= { }:
+if nops(listSing) > 0 then
+for q from 1 to nops(listSing) do
+if type(listSing[q], realcons) then 
+listReal:= listReal union {listSing[q]};
+else end if;
+end do;
+else end if;
+if nops(listReal) > 0 then
+singulStack:= 
+seq(plot3d(evalm(r(listReal[w]) + (extension/25)*[sin(u)*cos(v), sin(u)*sin(v), cos(u)]),
+u=0..Pi, v=-Pi..Pi, style=wireframe, grid=[7,14], color=red), w=1..nops(listReal));
+else singulStack:=NULL; end if;
+
+
+
+
+listRealCurv:= { }:
+if nops(listCurv) > 0 then
+for q from 1 to nops(listCurv) do
+if type(listCurv[q], realcons) then 
+listRealCurv:= listRealCurv union {listCurv[q]};
+else end if;
+end do;
+else end if;
+if nops(listRealCurv) > 0 then
+CurvStack:= 
+seq(plot3d(evalm(r(listRealCurv[w]) + (extension/15)*[sin(u)*cos(v), sin(u)*sin(v), cos(u)]),
+u=0..Pi, v=-Pi..Pi, style=wireframe, grid=[7,14], color=blue), w=1..nops(listRealCurv));
+else CurvStack:=NULL; end if;
+
+
+
+
+rad:= extension/40;
+
+
+##############################################################
+  
+ pind2:= u-> tubeplot(evalm(r(u)+t*FSnTrunc(r,[u])), 
+                            t=0..0.8, radius=extension/80, grid=[3, 11],
+                            style=patchnogrid, scaling=constrained, 
+                            color=cyan):
+  hat2:= u-> tubeplot(evalm(r(u)+t*FSnTrunc(r,[u])), 
+     t=0.8...1, radius=(2*(1-t)/0.2)*extension/80,
+                            grid=[3, 7],  style=patch):
+  pil2:= u-> display([pind2(u), hat2(u)]):
+
+
+
+#########################################################
+
+FSframe:= u-> display(pil2(u));
+
+
+counter:= 1;
+
+for p from 1 to net[1] do 
+len:=    min(seq(evalf(nrm(rP(B[1]+(p-(q/10))*Delta[1]))), q=0...10));
+curvat:= min(seq(evalf(curv(  B[1]+(p-(q/10))*Delta[1])), q=0...10));
+if  len > 10^(-3) then 
+if curvat > 10^(-3) then
+frame[p]:= FSframe(evalf(B[1]+((2*p-1)/2)*Delta[1]));
+FSstill[p]:= frame[p]; 
+fragment[p]:=NULL; #MAIN DISCREPANCY: NO FS TUBE HERE
+else
+frame[p]:= NULL;
+fragment[p]:= display(
+spacecurve(r(u), u=evalf(B[1]+(p-1)*Delta[1])...evalf(B[1]+p*Delta[1]), thickness=2, color=black),
+tubeplot(r(u), u=evalf(B[1]+(p-1)*Delta[1])...evalf(B[1]+p*Delta[1]), 
+radius=rad, style=wireframe, color=yellow, grid=[3,21]));
+zeroC[counter]:= fragment[p];
+counter:= counter+1;
+end if;
+else frame[p]:= NULL; fragment[p]:=display(
+spacecurve(r(u), u=evalf(B[1]+(p-1)*Delta[1])...evalf(B[1]+p*Delta[1]), thickness=2, color=black),
+tubeplot(r(u), u=evalf(B[1]+(p-1)*Delta[1])...evalf(B[1]+p*Delta[1]), 
+radius=rad, style=wireframe, color=yellow, grid=[3,21]));
+end if;
+end do;
+
+
+if counter > 1 then
+zeroCstack:= seq(zeroC[q], q=1...counter-1);
+else zeroCstack:= NULL
+end if;
+
+
+curveThin:= display(seq(fragment[k], k=1...net[1]), spacecurve(r(u), u=B[1]...B[2], thickness=2, color=black));
+
+
+FSAll:= display(base3d(x,y,z), singulStack, zeroCstack, seq(frame[k], k=1...net[1]));
+
+
+anim:= display(seq(frame[k], k=1...net[1]), insequence=true);
+
+ex:= 1.5*max(extension, 2);
+
+FSanim:= display([base3d(x,y,z), singulStack, CurvStack, zeroCstack, curveThin, anim], 
+view=[-ex...ex, -ex...ex, -ex...ex]);
+else end if;
+end:
+
+
+evoluteDraw (animated drawing of evolute construction) 
+
+GEO3[evoluteDraw]:= proc(r, B, netraw)
+description "Display of Frenet-Serret frame fields n from given
+parametrization, arc-length or not plus traced out evolute. Along thin curve. 
+Singular points and points of zero curvature 
+are tracked down and marked.";
+option `Rev. 04.02.06 (S.Markvorsen@mat.dtu.dk)`;
+          local w, i, questn, questB, Delta, Af, questr, maxi, mini, 
+extension, rP, listSing, listReal, p, q, net, singulStack, rad, pt, 
+tang, len, curvat, fragment, FStube, curv, pind1, pind2, pind3, hat1, hat2, hat3,
+pil1, pil2, pil3, FSframe, frame, counter, zeroC, zeroCstack, curveThin, anim, FSanim;
+          global FSstill, FSAll, ev, evPointer, k, evolev, ex, curvatMax, listCurv, listRealCurv, CurvStack;
+
+##################################################
+
+if nargs=3 then
+net:= netraw;
+if
+type(net[1], numeric) then 
+questn:=true else questn:=false;
+net:= [15] end if;
+else questn:=false; net:=[15] end if;
+
+questB:= type(evalf(B[1]), numeric) and type(evalf(B[2]), numeric); 
+
+Delta[1]:= evalf((B[2]-B[1])/net[1]);
+
+Af:= [seq(evalf(r(B[1]+p*Delta[1])), p=0...net[1])];
+
+questr:= type(sum(sum('evalf(Af[i][k])', 'i'=1...net[1]+1), 
+'k'=1...3), numeric);
+
+if questr and questB and questn then
+
+maxi:= k-> max(seq(Af[i,k], i=1...nops(Af)));
+mini:= k-> min(seq(Af[i,k], i=1...nops(Af)));
+extension:= max(seq(maxi(k), k=1...3), seq(-mini(k), k=1..3));
+
+
+rP:= unapply(diff(r(u), u), u);
+curv:= unapply(kappaTrunc(r, [u]), u);
+
+
+
+
+listSing:= [evalf(solve(dot(rP(t), rP(t))=0.0001, t))];
+
+listCurv:= [evalf(solve(evalf(kappa(r, [t]))=1000, t))];
+
+
+
+listReal:= { }:
+if nops(listSing) > 0 then
+for q from 1 to nops(listSing) do
+if type(listSing[q], realcons) then 
+listReal:= listReal union {listSing[q]};
+else end if;
+end do;
+else end if;
+if nops(listReal) > 0 then
+singulStack:= 
+seq(plot3d(evalm(r(listReal[w]) + (extension/25)*[sin(u)*cos(v), sin(u)*sin(v), cos(u)]),
+u=0..Pi, v=-Pi..Pi, style=wireframe, grid=[7,14], color=red), w=1..nops(listReal));
+else singulStack:=NULL; end if;
+
+
+listRealCurv:= { }:
+if nops(listCurv) > 0 then
+for q from 1 to nops(listCurv) do
+if type(listCurv[q], realcons) then 
+listRealCurv:= listRealCurv union {listCurv[q]};
+else end if;
+end do;
+else end if;
+if nops(listRealCurv) > 0 then
+CurvStack:= 
+seq(plot3d(evalm(r(listRealCurv[w]) + (extension/15)*[sin(u)*cos(v), sin(u)*sin(v), cos(u)]),
+u=0..Pi, v=-Pi..Pi, style=wireframe, grid=[7,14], color=blue), w=1..nops(listRealCurv));
+else CurvStack:=NULL; end if;
+
+
+rad:= extension/40;
+
+##################################################
+  
+ pind2:= u-> tubeplot(evalm(r(u)+t*FSnTrunc(r,[u])), 
+                            t=0..0.8, radius=extension/80, grid=[3, 11],
+                            style=patchnogrid, scaling=constrained, 
+                            color=cyan):
+  hat2:= u-> tubeplot(evalm(r(u)+t*FSnTrunc(r,[u])), 
+     t=0.8...1, radius=(2*(1-t)/0.2)*extension/80,
+                            grid=[3, 7],  style=patch):
+  pil2:= u-> display([pind2(u), hat2(u)]):
+##################################################
+
+
+FSframe:= u-> display(pil2(u));
+
+counter:= 1;
+
+for p from 1 to net[1] do 
+len:=    min(seq(evalf(nrm(rP(B[1]+(p-(q/10))*Delta[1]))), q=0...10));
+curvat:= min(seq(evalf(curv(  B[1]+(p-(q/10))*Delta[1])), q=0...10));
+
+if  len > evalf(10^(-3)) then 
+if curvat > evalf(10^(-3)) then
+
+frame[p]:= FSframe(evalf(B[1]+((2*p-1)/2)*Delta[1]));
+
+evPointer[p]:= display(frame[p], spacecurve(evalm(r(evalf(B[1]+((2*p-1)/2)*Delta[1])) + 
+t*(evoluteTrunc(r, [evalf(B[1]+((2*p-1)/2)*Delta[1])]) - r(evalf(B[1]+((2*p-1)/2)*Delta[1])))), 
+t=0...1, color=black), plot3d(evalm(evoluteTrunc(r, [(evalf(B[1]+((2*p-1)/2)*Delta[1]))]) + (extension/35)*[sin(u)*cos(v), sin(u)*sin(v), cos(u)]), u=0..Pi, v=-Pi..Pi, style=patchnogrid, grid=[7,14], color=yellow));
+
+ev[p]:= spacecurve(evoluteTrunc(r, [u]), u=evalf(B[1]+(p-1)*Delta[1])...evalf(B[1]+p*Delta[1]), grid=[3], thickness=2, color=blue);
+
+
+fragment[p]:=NULL; 
+else
+fragment[p]:= display(
+spacecurve(r(u), u=evalf(B[1]+(p-1)*Delta[1])...evalf(B[1]+p*Delta[1]), thickness=2, color=black),
+tubeplot(r(u), u=evalf(B[1]+(p-1)*Delta[1])...evalf(B[1]+p*Delta[1]), 
+radius=rad, style=wireframe, color=yellow, grid=[3,15]));
+zeroC[counter]:= fragment[p];
+counter:= counter+1;
+frame[p]:= NULL; ev[p]:= NULL;
+evPointer[p]:= pointplot3d([0,0,0]);
+end if;
+else 
+
+fragment[p]:= display(
+spacecurve(r(u), u=evalf(B[1]+(p-1)*Delta[1])...evalf(B[1]+p*Delta[1]), thickness=2, color=black),
+tubeplot(r(u), u=evalf(B[1]+(p-1)*Delta[1])...evalf(B[1]+p*Delta[1]), 
+radius=rad, style=wireframe, color=yellow, grid=[3,15]));
+zeroC[counter]:= fragment[p];
+counter:= counter+1;
+
+frame[p]:= NULL; evPointer[p]:= pointplot3d([0,0,0]);
+ev[p]:= NULL; 
+end if;
+end do;
+
+if counter > 1 then
+zeroCstack:= seq(zeroC[q], q=1...counter-1);
+else zeroCstack:= NULL
+end if;
+
+curveThin:= spacecurve(r(u), u=B[1]...B[2], thickness=2, color=black);
+
+for k from 1 to net[1] do 
+evolev[k]:= display(evPointer[k], seq(ev[p], p=1...k));
+end do;
+
+
+anim:= display(seq(evolev[k], k=1...net[1]), insequence=true);
+
+ex:= 1.5*max(extension, 2);
+
+FSanim:= display([base3d(x,y,z), singulStack, CurvStack, seq(fragment[k], k=1....net[1]), zeroCstack, curveThin, anim], 
+view=[-ex...ex, -ex...ex, -ex...ex]);
+
+else end if;
+end:
+
+
+kissingCircleDraw (animated drawing of osculating circles along curve) 
+
+GEO3[kissingCircleDraw]:= proc(r, B, netraw)
+description "Display of Frenet-Serret frame fields n from given
+parametrization, arc-length or not plus traced out evolute. Along thin curve. 
+Singular points and points of zero curvature 
+are tracked down and marked.";
+option `Rev. 04.02.06 (S.Markvorsen@mat.dtu.dk)`;
+          local w, i, questn, questB, Delta, Af, questr, maxi, mini, 
+extension, rP, listSing, listReal, p, q, net, singulStack, rad, pt, 
+tang, len, curvat, fragment, FStube, curv, pind1, pind2, pind3, hat1, hat2, hat3,
+pil1, pil2, pil3, FSframe, frame, counter, zeroC, zeroCstack, curveThin, anim, FSanim;
+          global FSstill, FSAll, ev, evPointer, k, evolev, ex, kiss, listCurv, listRealCurv, CurvStack;
+
+##################################################
+
+if nargs=3 then
+net:= netraw;
+if
+type(net[1], numeric) then 
+questn:=true else questn:=false;
+net:= [5] end if;
+else questn:=false; net:=[5] end if;
+
+questB:= type(evalf(B[1]), numeric) and type(evalf(B[2]), numeric); 
+
+Delta[1]:= evalf((B[2]-B[1])/net[1]);
+
+Af:= [seq(evalf(r(B[1]+p*Delta[1])), p=0...net[1])];
+
+questr:= type(sum(sum('evalf(Af[i][k])', 'i'=1...net[1]+1), 
+'k'=1...3), numeric);
+
+if questr and questB and questn then
+
+maxi:= k-> max(seq(Af[i,k], i=1...nops(Af)));
+mini:= k-> min(seq(Af[i,k], i=1...nops(Af)));
+
+
+extension:= max(seq(maxi(k), k=1...3), seq(-mini(k), k=1..3));
+
+
+
+rP:= unapply(diff(r(u), u), u);
+curv:= unapply(kappaTrunc(r, [u]), u);
+
+
+
+listSing:= [evalf(solve(dot(rP(t), rP(t))=0.0001, t))];
+
+listCurv:= [evalf(solve(evalf(kappa(r, [t]))=1000, t))];
+
+
+
+listReal:= { }:
+if nops(listSing) > 0 then
+for q from 1 to nops(listSing) do
+if type(listSing[q], realcons) then 
+listReal:= listReal union {listSing[q]};
+else end if;
+end do;
+else end if;
+if nops(listReal) > 0 then
+singulStack:= 
+seq(plot3d(evalm(r(listReal[w]) + (extension/25)*[sin(u)*cos(v), sin(u)*sin(v), cos(u)]),
+u=0..Pi, v=-Pi..Pi, style=wireframe, grid=[7,14], color=red), w=1..nops(listReal));
+else singulStack:=NULL; end if;
+
+
+listRealCurv:= { }:
+if nops(listCurv) > 0 then
+for q from 1 to nops(listCurv) do
+if type(listCurv[q], realcons) then 
+listRealCurv:= listRealCurv union {listCurv[q]};
+else end if;
+end do;
+else end if;
+if nops(listRealCurv) > 0 then
+CurvStack:= 
+seq(plot3d(evalm(r(listRealCurv[w]) + (extension/15)*[sin(u)*cos(v), sin(u)*sin(v), cos(u)]),
+u=0..Pi, v=-Pi..Pi, style=wireframe, grid=[7,14], color=blue), w=1..nops(listRealCurv));
+else CurvStack:=NULL; end if;
+
+
+rad:= extension/40;
+
+
+
+#############################################################
+ pind1:= u-> tubeplot(evalm(r(u)+t*FStTrunc(r,[u])), 
+                            t=0..0.8, radius=extension/80, grid=[3, 11],
+                            style=patchnogrid, scaling=constrained, 
+                            color=coral):
+  hat1:= u-> tubeplot(evalm(r(u)+t*FStTrunc(r,[u])), 
+     t=0.8...1, radius=(2*(1-t)/0.2)*extension/80,
+                            grid=[3, 7],  style=patch):
+  pil1:= u-> display([pind1(u), hat1(u)]):
+##############################################################
+
+  
+ pind2:= u-> tubeplot(evalm(r(u)+t*FSnTrunc(r,[u])), 
+                            t=0..0.8, radius=extension/80, grid=[3, 11],
+                            style=patchnogrid, scaling=constrained, 
+                            color=cyan):
+  hat2:= u-> tubeplot(evalm(r(u)+t*FSnTrunc(r,[u])), 
+     t=0.8...1, radius=(2*(1-t)/0.2)*extension/80,
+                            grid=[3, 7],  style=patch):
+  pil2:= u-> display([pind2(u), hat2(u)]):
+##################################################
+
+
+
+FSframe:= u-> display(pil1(u), pil2(u));
+
+
+
+counter:= 1;
+
+
+for p from 1 to net[1] do 
+len:=    min(seq(evalf(nrm(rP(B[1]+(p-(q/10))*Delta[1]))), q=0...10));
+curvat:= min(seq(evalf(curv(  B[1]+(p-(q/10))*Delta[1])), q=0...10));
+
+if  len > evalf(10^(-3)) then 
+if curvat > evalf(10^(-3)) then
+
+frame[p]:= FSframe(evalf(B[1]+((2*p-1)/2)*Delta[1]));
+
+kiss[p]:= spacecurve(
+evalm( 
+    evoluteTrunc(r, [evalf(B[1]+((2*p-1)/2)*Delta[1])]) + 
+   (1/(0.000001+kappa(r, [evalf(B[1]+((2*p-1)/2)*Delta[1])])))*
+(cos(v)*FStTrunc(r, [evalf(B[1]+((2*p-1)/2)*Delta[1])]) + 
+ sin(v)*FSnTrunc(r, [evalf(B[1]+((2*p-1)/2)*Delta[1])]))), 
+v=-Pi...Pi, thickness=2, color=green);
+
+evPointer[p]:= display(
+kiss[p], frame[p], 
+spacecurve(evalm(r(evalf(B[1]+((2*p-1)/2)*Delta[1])) + 
+t*(evoluteTrunc(r, [evalf(B[1]+((2*p-1)/2)*Delta[1])]) - r(evalf(B[1]+((2*p-1)/2)*Delta[1])))), 
+t=0...1, color=black), 
+plot3d(evalm(evoluteTrunc(r, [(evalf(B[1]+((2*p-1)/2)*Delta[1]))]) + 
+(extension/35)*[sin(u)*cos(v), sin(u)*sin(v), cos(u)]), u=0..Pi, v=-Pi..Pi, 
+style=patchnogrid, grid=[7,14], color=yellow));
+
+
+
+ev[p]:= spacecurve(
+evoluteTrunc(r, [u]), u=evalf(B[1]+(p-1)*Delta[1])...evalf(B[1]+p*Delta[1]), 
+thickness=2, color=blue);
+
+fragment[p]:=NULL; 
+else
+frame[p]:= NULL; kiss[p]:= NULL; evPointer[p]:= NULL; ev[p]:= NULL;
+fragment[p]:= display(
+spacecurve(r(u), u=evalf(B[1]+(p-1)*Delta[1])...evalf(B[1]+p*Delta[1]), thickness=2, color=black),
+tubeplot(r(u), u=evalf(B[1]+(p-1)*Delta[1])...evalf(B[1]+p*Delta[1]), 
+radius=rad, style=wireframe, color=yellow, grid=[3,15]));
+zeroC[counter]:= fragment[p];
+counter:= counter+1;
+end if;
+else frame[p]:= NULL; fragment[p]:=display(
+spacecurve(r(u), u=evalf(B[1]+(p-1)*Delta[1])...evalf(B[1]+p*Delta[1]), thickness=2, color=black),
+tubeplot(r(u), u=evalf(B[1]+(p-1)*Delta[1])...evalf(B[1]+p*Delta[1]), 
+radius=rad, style=wireframe, color=yellow, grid=[3,15])); kiss[p]:= NULL; evPointer[p]:= NULL; ev[p]:= NULL;
+end if;
+end do;
+
+if counter > 1 then
+zeroCstack:= seq(zeroC[q], q=1...counter-1);
+else zeroCstack:= NULL
+end if;
+
+curveThin:= display(seq(fragment[k], k=1...net[1]), 
+spacecurve(r(u), u=B[1]...B[2], thickness=2, color=black));
+
+for k from 1 to net[1] do 
+evolev[k]:= seq(ev[p], p=1...k);
+end do;
+
+
+
+
+anim:= display(seq(display(evPointer[k], evolev[k]), k=1...net[1]), insequence=true);
+
+
+ex:= 2*max(1, extension);
+
+
+FSanim:= display([base3d(x,y,z), singulStack, CurvStack, zeroCstack, curveThin, anim], 
+view=[-ex...ex, -ex...ex, -ex...ex]);
+
+else end if;
+end:
+
+
+Gitter (for comoving wireframe)
+
+GEO3[Gitter]:= proc(rr, t, B, net)
+description "Viser traadmodel af rumlige omraade  r(B), hvor B er 3d og tidsafhængig.";
+option `Rev. 04.11.13 (S.Markvorsen@mat.dtu.dk)`;
+          local u,v,w,x,y,z,tt, q, p,
+          Delta, ku, kv, kw, sys, r;
+
+############################################################################
+#map(assume, [u,v,w,t,x,y,z], real);
+#assume(u>=B[1], u<=B[2], v>=B[3], v<=B[4], w>=B[5], w<=B[6]);
+#################################################
+r:= unapply(convert(rr(u,v,w,tt),list), u,v,w,tt);
+#################################################
+
+Delta[1]:= evalf((B[2]-B[1])/net[1]);
+Delta[2]:= evalf((B[4]-B[3])/net[2]);
+Delta[3]:= evalf((B[6]-B[5])/net[3]);
+
+ku:= (v,w) -> spacecurve(r(u,v,w,t), u=B[1]...B[2], 
+color=black):
+kv:= (u,w) -> spacecurve(r(u,v,w,t), v=B[3]...B[4], 
+color=black):
+kw:= (u,v) -> spacecurve(r(u,v,w,t), w=B[5]...B[6], 
+color=black):
+sys[1]:= display(
+seq(seq(
+ku(B[3]+q*Delta[2], B[5]+tt*Delta[3]), q=0...net[2]), tt=0...net[3])):
+sys[2]:= display(
+seq(seq(
+kv(B[1]+p*Delta[1], B[5]+tt*Delta[3]), p=0...net[1]), tt=0...net[3])):
+sys[3]:= display[plots](
+seq(seq(
+kw(B[1]+p*Delta[1], B[3]+q*Delta[2]), p=0...net[1]), q=0...net[2])):
+
+display([sys[1], sys[2], sys[3]], scaling=constrained, projection=0.8, axes=none):
+
+end:
+
+
+
+SurfDraw (animated hand-like drawing of a surface)
+GEO3[SurfDraw]:= proc(r, B, netraw)
+description "Dynamic drawing of a given surface: 
+Four boundary curves and a number of coordiante curves according 
+to net-specifications.";
+option `Rev. 15.02.06 (S.Markvorsen@mat.dtu.dk)`;
+          local 
+q, p, i, anim, animu1, animu2, animv1, animv2, net, questn, Af,Delta, questr, questB, kurveu1, kurveu2, kurvev1, kurvev2,  maksval, extension, maxi, mini, hs, n, randkurv,
+bd, ku, kv, sys, deform, filling, m, j, coordu, coordv, ko, animko, k, w, animkou, qq, animfull, qqq, animfullT, animfullu, stillu, ww, mm, fullu, fullv, questf, minf, maxf, poly, fyld,
+brick, bb, kou, kov, animkov, animBdNet, br, bricklay;
+
+##################################################
+
+if nargs=3 then
+net:= netraw;
+if
+type(net[1], numeric) and type(net[2], numeric) then 
+questn:=true else questn:=false;
+net:= [5,5] end if;
+else questn:=false; net:=[5,5] end if;
+
+questB:= type(evalf(B[1]), numeric) and type(evalf(B[2]), numeric)
+and type(evalf(B[3]), numeric) and type(evalf(B[4]), numeric); 
+
+Delta[1]:= evalf((B[2]-B[1])/net[1]);
+Delta[2]:= evalf((B[4]-B[3])/net[2]);
+
+
+Af:= [seq(seq(evalf(r(B[1]+p*Delta[1], B[3]+q*Delta[2])), p=0...net[1]), q=0...net[2])];
+
+questr:= type(sum(sum('evalf(Af[i][k])', 'i'=1...net[1]*net[2]), 
+'k'=1...3), 'numeric');
+
+
+if questr and questB and questn then
+
+poly:= (u,v)-> plot3d(r(u+tt,v+ss), 
+tt=0...Delta[1], ss=0...Delta[2], grid=[3,3], style=patchnogrid, scaling=constrained):
+
+
+fyld:= display(
+[seq(seq(poly(
+B[1]+p*Delta[1], B[3]+q*Delta[2]), 
+p=0...net[1]-1), q=0...net[2]-1)], 
+scaling=constrained):
+
+# print(display([base3d(x,y,z), fyld]));
+
+maxi:= k-> max(seq(Af[i][k], i=1...nops(Af)));
+mini:= k-> min(seq(Af[i][k], i=1...nops(Af)));
+extension:= max(seq(maxi(k)-mini(k), k=1...3));
+
+kurveu1:= p-> spacecurve(r(u, B[3]), u=B[1]...(B[1]+p*Delta[1]), color=black, thickness=2):
+
+kurveu2:= p-> spacecurve(r(B[2]+B[1]-u, B[4]), u=B[1]...(B[1]+p*Delta[1]), color=black, thickness=2):
+
+kurvev1:= q-> spacecurve(r(B[1], B[4]+B[3]-v), v=B[3]...(B[3]+q*Delta[2]), color=black, thickness=2):
+
+kurvev2:= q-> spacecurve(r(B[2], v), v=B[3]...(B[3]+q*Delta[2]),  color=black, thickness=2):
+
+for n from 1 to net[1] do 
+bd[n]:= display([kurveu1(n)]) od:
+
+for n from net[1]+1 to net[1]+net[2] do 
+bd[n]:= display([kurveu1(net[1]), kurvev2(n-net[1])]) od:
+
+for n from net[1]+net[2]+1 to 2*net[1]+net[2] do 
+bd[n]:= display([kurveu1(net[1]), kurvev2(net[2]), kurveu2(n-net[1]-net[2])]) od:
+
+for n from 2*net[1]+net[2]+1 to 2*net[1]+2*net[2] do 
+bd[n]:= display([kurveu1(net[1]), kurvev2(net[2]), kurveu2(net[1]), kurvev1(n-2*net[1]-net[2])]) od:
+
+randkurv:= display([kurveu1(net[1]), kurvev2(net[2]), kurvev1(net[2]), kurveu2(net[1])]);
+
+#anim:= display(seq(bd[p], p=1...2*net[1]+2*net[2]), insequence=true);
+
+
+  ku:= (p,q) -> spacecurve(r(u,B[3]+q*Delta[2]), u=B[1]...(B[1]+p*Delta[1]), 
+            color=red):
+
+  kv:= (p,q) -> spacecurve(r(B[1]+p*Delta[1],v), v=B[3]...(B[3]+q*Delta[2]), 
+            color=blue): 
+
+for w from 1 to net[2] do  
+for m from 1 to net[1] do 
+kou[w,m]:= display([seq(ku(net[1],j), j=0...w-1), seq(ku(i, w), i=1...m)]) od:
+animkou[w]:=  display([randkurv, display(seq(kou[w, p], p=1...net[1]), insequence=true)]) 
+od:
+
+fullu:= display(seq(ku(net[1],j), j=0...net[2]));
+fullv:= display(seq(kv(j, net[2]), j=0...net[1]));
+
+
+for ww from 1 to net[1] do  
+for mm from 1 to net[2] do 
+kov[ww,mm]:= display([seq(kv(j, net[2]), j=0...ww-1), seq(kv(ww,i), i=1...mm)]) od:
+animkov[ww]:=  display([fullu, randkurv, display(seq(kov[ww, p], p=1...net[2]), insequence=true)]) od:
+
+
+
+anim:= display(
+seq(bd[p], p=1...2*net[1]+2*net[2]), 
+seq(animkou[p], p=1...net[2]), 
+seq(animkov[q], q=1...net[1]),
+insequence=true);
+
+display(base3d(x,y,z), anim);
+
+else end if;
+
+end:
+
+
+EFG, Metric, MetricMat, FI (calculation of first fundamental form for surface)
+
+
+GEO3[EFG]:= proc(r, L)
+description "Calculates the 3 metric matrix components as a list
+[E, F, G] from given parametrization r. 
+Out parameters or values are specified in 2-element list L";
+option `Rev. 22.02.06 (S.Markvorsen@mat.dtu.dk)`;
+      local rP1,rP2, Er, Fr, Gr;
+      global E,F,G;
+      rP1 := unapply(convert(diff(r(u,v), u),D), u,v):
+      rP2 := unapply(convert(diff(r(u,v), v),D), u,v):
+      Er:= unapply(dot(rP1(u,v),rP1(u,v)), u,v):
+      Fr:= unapply(dot(rP1(u,v),rP2(u,v)), u,v):
+      Gr:= unapply(dot(rP2(u,v),rP2(u,v)), u,v):
+      [Er(L[1], L[2]), Fr(L[1], L[2]), Gr(L[1], L[2])];
+end:
+
+
+
+GEO3[Metric]:= proc(r, L)
+description "Calculates the metric components as a list from given 
+parametrization r. Out parameters or values are specified in 2-element list L";
+option `Rev. 22.02.06 (S.Markvorsen@mat.dtu.dk)`;
+      local rP1,rP2, E, F, G, met;
+      rP1 := unapply(convert(diff(r(u,v), u),D), u,v):
+      rP2 := unapply(convert(diff(r(u,v), v),D), u,v):
+      E:= unapply(dot(rP1(u,v),rP1(u,v)), u,v):
+      F:= unapply(dot(rP1(u,v),rP2(u,v)), u,v):
+      G:= unapply(dot(rP2(u,v),rP2(u,v)), u,v):
+      met:= unapply([[E(u,v), F(u,v)], [F(u,v), G(u,v)]], u,v):
+      met(L[1], L[2]);
+end:
+
+GEO3[MetricMat]:= proc(r, L)
+description "Calculates the metric matrix - same as FI - from given 
+parametrization r. Out parameters or values are specified in 2-element list L";
+option `Rev. 22.02.06 (S.Markvorsen@mat.dtu.dk)`;
+      local rP1,rP2, E, F, G, met;
+      rP1 := unapply(convert(diff(r(u,v), u),D), u,v):
+      rP2 := unapply(convert(diff(r(u,v), v),D), u,v):
+      E:= unapply(dot(rP1(u,v),rP1(u,v)), u,v):
+      F:= unapply(dot(rP1(u,v),rP2(u,v)), u,v):
+      G:= unapply(dot(rP2(u,v),rP2(u,v)), u,v):
+      met:= unapply([[E(u,v), F(u,v)], [F(u,v), G(u,v)]], u,v):
+      Matrix(2,2, met(L[1], L[2]));
+end:
+
+GEO3[FI]:= proc(r, L)
+description "Calculates the metric matrix FI from given 
+parametrization r. Out parameters or values are specified in 2-element list L";
+option `Rev. 22.02.06 (S.Markvorsen@mat.dtu.dk)`;
+      local rP1,rP2, E, F, G, met;
+      rP1 := unapply(convert(diff(r(u,v), u),D), u,v):
+      rP2 := unapply(convert(diff(r(u,v), v),D), u,v):
+      E:= unapply(dot(rP1(u,v),rP1(u,v)), u,v):
+      F:= unapply(dot(rP1(u,v),rP2(u,v)), u,v):
+      G:= unapply(dot(rP2(u,v),rP2(u,v)), u,v):
+      met:= unapply([[E(u,v), F(u,v)], [F(u,v), G(u,v)]], u,v):
+      Matrix(2,2, met(L[1], L[2]));
+end:
+
+FInrm, Length (calculates length of vectors and length of curves)
+
+GEO3[FInrm]:= proc(r, vec, L)
+description "Calculates the length of vector v with given coordinates [uP, vP] w.r.t. 
+standard coordinate basis at parameter point (L[1], L[2]) from given 
+parametrization r. Out parameters or values are as specified in 2-element list L";
+option `Rev. 25.02.06 (S.Markvorsen@mat.dtu.dk)`;
+      local rP1,rP2, u,v, E, F, G, len;
+      rP1 := unapply(convert(diff(r(u,v), u),D), u,v):
+      rP2 := unapply(convert(diff(r(u,v), v),D), u,v):
+      E:= unapply(dot(rP1(u,v),rP1(u,v)), u,v):
+      F:= unapply(dot(rP1(u,v),rP2(u,v)), u,v):
+      G:= unapply(dot(rP2(u,v),rP2(u,v)), u,v):
+len:= (u,v)-> sqrt(simplify((vec[1]^2)*E(u,v) + 2*vec[1]*vec[2]*F(u,v) + (vec[2]^2)*G(u,v)));
+len(L[1], L[2]);
+end:
+
+
+
+
+GEO3[Length]:= proc(gamU, r, Bgam)
+description "Calculates the length of r(gamU) via EFG for param-interval L, a list.";
+option `Rev. 25.02.06 (S.Markvorsen@mat.dtu.dk)`;
+local efg, e,f,g,uu,vv,uP,vP,LeDif;   
+efg:= unapply(EFG(r, [u,v]), u,v);
+e:= (u,v)-> efg(u,v)[1];
+f:= (u,v)-> efg(u,v)[2];
+g:= (u,v)-> efg(u,v)[3];
+uu:= unapply(gamU(t)[1], t);
+vv:= unapply(gamU(t)[2], t);
+uP:= unapply(convert(diff(uu(t), t),D),  t);
+vP:= unapply(convert(diff(vv(t), t),D),  t);
+LeDif:= t-> simplify(sqrt(
+  e(uu(t), vv(t))*uP(t)*uP(t) + 
+2*f(uu(t), vv(t))*uP(t)*vP(t) + 
+  g(uu(t), vv(t))*vP(t)*vP(t)));
+int(LeDif(t), t=Bgam[1]...Bgam[2]);
+end:
+
+
+
+FIdot, FIcosang
+
+
+
+GEO3[FIdot]:= proc(r, vec1, vec2, L)
+description "Calculates the scalar product of vectors v and w at parameter point (L[1], L[2]) from given 
+parametrization r. Out parameters or values are as specified in 2-element list L";
+option `Rev. 28.03.09 (S.Markvorsen@mat.dtu.dk)`;
+      local rP1,rP2, u,v, E, F, G, scal;
+      rP1 := unapply(convert(diff(r(u,v), u),D), u,v):
+      rP2 := unapply(convert(diff(r(u,v), v),D), u,v):
+      E:= unapply(dot(rP1(u,v),rP1(u,v)), u,v):
+      F:= unapply(dot(rP1(u,v),rP2(u,v)), u,v):
+      G:= unapply(dot(rP2(u,v),rP2(u,v)), u,v):
+scal:= (u,v)-> simplify(vec1[1]*E(u,v)*vec2[1] + vec1[1]*F(u,v)*vec2[2]  + vec1[2]*F(u,v)*vec2[1] + vec1[2]*G(u,v)*vec2[2]);
+scal(L[1], L[2]);
+end:
+
+
+
+
+
+GEO3[FIcosang]:= proc(r, vec1, vec2, L)
+description "Calculates COSINE OF the angle between vectors v and w at parameter point (L[1], L[2]) from given 
+parametrization r. Out parameters or values are as specified in 2-element list L";
+option `Rev. 28.03.09 (S.Markvorsen@mat.dtu.dk)`;
+      local rP1,rP2, u,v, E, F, G, ang;
+ang:= (u,v)-> simplify(FIdot(r, vec1, vec2, [u,v])/sqrt(FIdot(r, vec1, vec1, [u,v])*FIdot(r, vec2, vec2, [u,v])));
+ang(L[1], L[2]);
+end:
+
+
+
+
+
+UnitSurfNormal (calculates unit normal field for surface)
+
+GEO3[UnitSurfNormal]:= proc(r, L)
+description "Calculates the unit surface normal for a surface 
+from given parametrization r. NB: No check for regularity is included, so
+division by 0 is a possible error message.
+Out parameters or values are specified in the 2-element list L";
+option `Rev. 04.03.06 (S.Markvorsen@mat.dtu.dk)`;
+      local rPu, rPv, Ur, Nor;
+#####################################################################
+      rPu:= unapply(convert(diff(r(u,v), u), D), u,v):
+      rPv:= unapply(convert(diff(r(u,v), v), D), u,v):
+      Nor:= unapply(crs(rPu(u,v), rPv(u,v)), u,v);
+      Ur:= unapply(
+               simplify(
+                   convert(
+                       evalm(
+                           Nor(u,v)/nrm(Nor(u,v))
+                             ),
+                       list)
+                        ), 
+                u,v);
+      Ur(L[1], L[2]);
+end:
+
+
+
+Area (calculates areas of regions on surfaces)
+
+GEO3[Area]:= proc(r, Br)
+description "Calculates the area of surface patch r(Br) via EFG.";
+option `Rev. 25.02.06 (S.Markvorsen@mat.dtu.dk)`;
+local efg, e,f,g, ArDif;   
+efg:= unapply(EFG(r, [u,v]), u,v);
+e:= (u,v)-> efg(u,v)[1];
+f:= (u,v)-> efg(u,v)[2];
+g:= (u,v)-> efg(u,v)[3];
+ArDif:= (u,v)-> simplify(sqrt(e(u,v)*g(u,v)-f(u,v)*f(u,v)));
+
+simplify(int(int(ArDif(u,v), u=Br[1]...Br[2]), v=Br[3]...Br[4]));
+end:
+
+
+ParamDomain, ParamDomainCurve, wireFramePlanar, wireFramePlanarGray (displays)
+
+GEO3[ParamDomain]:= proc(BB, netnet)
+description "Shows the 2D-parameter domain.";
+option `Rev. 25.02.06 (S.Markvorsen@mat.dtu.dk)`;
+local q, p, x, y, kuT, kvT, sysT, Delta, paramC;   
+
+Delta[1]:= evalf((BB[2]-BB[1])/netnet[1]);
+Delta[2]:= evalf((BB[4]-BB[3])/netnet[2]);
+
+x:= (u,v)-> u;
+y:= (u,v)-> v;
+kuT:= v -> plot([u, v, u=BB[1]...BB[2]], color=red):
+kvT:= u -> plot([u, v, v=BB[3]...BB[4]], color=blue);
+
+sysT[1]:= display(seq(kuT(BB[3]+q*Delta[2]), q=0...netnet[2])):
+sysT[2]:= display(seq(kvT(BB[1]+p*Delta[1]), p=0...netnet[1])):
+
+display([base2d(u,v), sysT[1], sysT[2]], 
+scaling=constrained, tickmarks=[2,2]);
+
+end:
+
+
+GEO3[ParamDomainCurve]:= proc(BB, netnet, gamU, BgamU)
+description "Shows the 2D-parameter domain 
+and a parametrized curve in the domain,
+if given.";
+option `Rev. 25.02.06 (S.Markvorsen@mat.dtu.dk)`;
+local q, p, x, y, kuT, kvT, sysT, Delta, paramC;   
+
+Delta[1]:= evalf((BB[2]-BB[1])/netnet[1]);
+Delta[2]:= evalf((BB[4]-BB[3])/netnet[2]);
+
+x:= (u,v)-> u;
+y:= (u,v)-> v;
+kuT:= v -> plot([u, v, u=BB[1]...BB[2]], color=red):
+kvT:= u -> plot([u, v, v=BB[3]...BB[4]], color=blue);
+
+sysT[1]:= display(seq(kuT(BB[3]+q*Delta[2]), q=0...netnet[2])):
+sysT[2]:= display(seq(kvT(BB[1]+p*Delta[1]), p=0...netnet[1])):
+
+if nargs > 3 then 
+paramC:= plot([gamU(t)[1], gamU(t)[2], t=BgamU[1]...BgamU[2]], color=black, thickness=2);
+else
+paramC:= NULL;
+end if;
+
+display([base2d(u,v), sysT[1], sysT[2], paramC], 
+scaling=constrained, tickmarks=[2,2]);
+
+end:
+
+
+
+
+GEO3[wireFramePlanar]:= proc(r, B, net)
+description "Wireframe model of planar domain.";
+option `Rev. 24.02.06 (S.Markvorsen@mat.dtu.dk)`;
+          local 
+          q, p, Delta,x, y,  ku, kv, sys;
+Delta[1]:= evalf((B[2]-B[1])/net[1]);
+Delta[2]:= evalf((B[4]-B[3])/net[2]);
+
+
+x:= (u,v)-> r(u,v)[1];
+y:= (u,v)-> r(u,v)[2];
+
+ku:= v -> plot([x(u,v), y(u,v), u=B[1]...B[2]], color=red):
+kv:= u -> plot([x(u,v), y(u,v), v=B[3]...B[4]], color=blue):
+sys[1]:= display(seq(ku(B[3]+q*Delta[2]), q=0...net[2])):
+sys[2]:= display(seq(kv(B[1]+p*Delta[1]), p=0...net[1])):
+display([sys[1], sys[2]]):
+
+end:
+
+GEO3[wireFramePlanarGray]:= proc(r, B, net)
+description "Wireframe model of planar domain - in gray";
+option `Rev. 24.02.06 (S.Markvorsen@mat.dtu.dk)`;
+          local 
+          q, p, Delta,x, y,  ku, kv, sys;
+Delta[1]:= (B[2]-B[1])/net[1];
+Delta[2]:= (B[4]-B[3])/net[2];
+
+
+x:= (u,v)-> r(u,v)[1];
+y:= (u,v)-> r(u,v)[2];
+
+ku:= v -> plot([x(u,v), y(u,v), u=B[1]...B[2]], color=gray):
+kv:= u -> plot([x(u,v), y(u,v), v=B[3]...B[4]], color=gray):
+sys[1]:= display(seq(ku(B[3]+q*Delta[2]), q=0...net[2])):
+sys[2]:= display(seq(kv(B[1]+p*Delta[1]), p=0...net[1])):
+display([sys[1], sys[2]]):
+
+end:
+
+
+
+
+wireFrameSurface, wireFrameSurfaceGray, wireFrameSurfaceBound, deformAnim (displays)
+
+GEO3[wireFrameSurface]:= proc(r, B, net, gamU, BgamU)
+description "Wireframe model of surface. 
+And curve from parameterdomain if given.";
+option `Rev. 24.02.06 (S.Markvorsen@mat.dtu.dk)`;
+          local 
+          q, p, Delta, ku, kv, sys, paramC;
+
+  Delta[1]:= evalf((B[2]-B[1])/net[1]);
+  Delta[2]:= evalf((B[4]-B[3])/net[2]);
+
+  ku:= v -> spacecurve(r(u,v), u=B[1]...B[2], 
+            color=red):
+  kv:= u -> spacecurve(r(u,v), v=B[3]...B[4], 
+            color=blue):  
+  sys[1]:= display(seq(ku(B[3]+q*Delta[2]), q=0...net[2])):  
+  sys[2]:= display(seq(kv(B[1]+p*Delta[1]), p=0...net[1])): 
+
+if nargs > 3 then 
+paramC:= spacecurve(r(gamU(t)[1], gamU(t)[2]), t=BgamU[1]...BgamU[2], color=black, thickness=2);
+else
+paramC:= NULL;
+end if;
+
+ 
+  display([base3d(x,y,z), sys[1], sys[2], paramC],scaling=constrained, projection=0.8):
+
+end:
+
+GEO3[wireFrameSurfaceGray]:= proc(r, B, net, gamU, BgamU)
+description "Wireframe model of surface - in gray.";
+option `Rev. 24.02.06 (S.Markvorsen@mat.dtu.dk)`;
+          local 
+          q, p, Delta, ku, kv, sys, paramC;
+
+  Delta[1]:= evalf((B[2]-B[1])/net[1]);
+  Delta[2]:= evalf((B[4]-B[3])/net[2]);
+
+  ku:= v -> spacecurve(r(u,v), u=B[1]...B[2], 
+            color=gray):
+  kv:= u -> spacecurve(r(u,v), v=B[3]...B[4], 
+            color=gray):  
+  sys[1]:= display(seq(ku(B[3]+q*Delta[2]), q=0...net[2])):  
+  sys[2]:= display(seq(kv(B[1]+p*Delta[1]), p=0...net[1])): 
+ 
+if nargs > 3 then 
+paramC:= spacecurve(r(gamU(t)[1], gamU(t)[2]), t=BgamU[1]...BgamU[2], color=black, thickness=2);
+else
+paramC:= NULL;
+end if;
+
+
+  display([base3d(x,y,z), sys[1], sys[2], paramC], 
+           scaling=constrained, projection=0.8):
+
+end:
+
+
+GEO3[wireFrameSurfaceBound]:= proc(r, B, net, gamU, BgamU)
+description "Wireframe model of surface with boundary";
+option `Rev. 23.02.06 (S.Markvorsen@mat.dtu.dk)`;
+          local 
+     q, p, i, Delta, rr, ku, kv, sys, deform, kurve, kurveTotal, flade, paramC;
+
+Delta[1]:= evalf((B[2]-B[1])/net[1]);
+Delta[2]:= evalf((B[4]-B[3])/net[2]);
+
+rr[1]:= u-> r(u, B[3]);
+rr[2]:= v-> r(B[2], v);
+rr[3]:= u-> r(B[2]- u, B[4]);
+rr[4]:= v-> r(B[1], B[4] - v);
+
+  ku:= v -> spacecurve(r(u,v), u=B[1]...B[2], 
+            color=red):
+  kv:= u -> spacecurve(r(u,v), v=B[3]...B[4], 
+            color=blue):  
+
+  sys[1]:= display(seq(ku(B[3]+q*Delta[2]), q=0...net[2])):  
+  sys[2]:= display(seq(kv(B[1]+p*Delta[1]), p=0...net[1])):
+
+  deform:= display([sys[1], sys[2]], 
+           scaling=constrained, projection=0.8):
+  flade:= plot3d(r(u,v), u=B[1]...B[2], v=B[3]...B[4], 
+          grid=[3*net[1], 3*net[2]], scaling=constrained):
+
+kurve[1]:= spacecurve(rr[1](u), u=B[1]...B[2], thickness=2, color=green):
+kurve[2]:= spacecurve(rr[2](v), v=B[3]...B[4], thickness=2, color=green):
+kurve[3]:= spacecurve(rr[3](u), u=0...B[2]-B[1],thickness=2, color=green):
+kurve[4]:= spacecurve(rr[4](v), v=0...B[4]-B[3],  thickness=2, color=green):
+
+kurveTotal:= display(seq(kurve[i], i=1...4)):
+
+if nargs > 3 then 
+paramC:= spacecurve(r(gamU(t)[1], gamU(t)[2]), t=BgamU[1]...BgamU[2], color=black, thickness=2);
+else
+paramC:= NULL;
+end if;
+
+display([deform, kurveTotal, base3d(x,y,z), paramC], 
+scaling=constrained, projection=0.8);
+
+end:
+
+
+GEO3[deformAnimTrig]:= proc(r1, r2, Br, netr, frames)
+description "Display of animated deformation from first surface r1 
+to second surface r2 and back via cos(t)*r1(u,v) + sin(t)*r2(u,v) from common parameter 
+domain for (u,v). The integer frames is number of figures in full rotation sequence.";
+option `Rev. 05.04.06 (S.Markvorsen@mat.dtu.dk)`;
+local tt;
+#####################################################################
+
+display([seq(wireFrameSurfaceBound(
+(u,v)-> convert(evalm(cos(tt*2*Pi/frames)*r1(u,v) + sin(tt*2*Pi/frames)*r2(u,v)), list), 
+Br, netr), tt=0...frames)], insequence=true);
+
+end:
+
+
+
+
+GEO3[deformAnimLin]:= proc(r1, r2, Br, netr, frames)
+description "Display of animated deformation from first surface r1 
+to second surface r2 via (1-t)*r1(u,v) + t*r2(u,v) from common parameter 
+domain for (u,v). The integer frames is number of figures in one way sequence";
+option `Rev. 05.04.06 (S.Markvorsen@mat.dtu.dk)`;
+local tt;
+#####################################################################
+
+display([seq(wireFrameSurfaceBound(
+(u,v)-> convert(evalm(((frames-tt)/frames)*r1(u,v) + (tt/frames)*r2(u,v)), list), 
+Br, netr), tt=0...frames)], insequence=true);
+
+end:
+
+
+
+LMN, FII (calculation of second fundamental form of surface)
+
+GEO3[LMN]:= proc(r, L)
+description "Calculates the 3 components L, M, and N as a list
+[L, M, N] from given parametrization r. 
+Out parameters or values are specified in given 2-element list L";
+option `Rev. 04.03.06 (S.Markvorsen@mat.dtu.dk)`;
+      local rPPuu, rPPuv, rPPvv, Lr, Mr, Nr, Ur;
+#####################################################################
+      rPPuu := unapply(convert(diff(r(u,v), u,u),D), u,v):
+      rPPuv := unapply(convert(diff(r(u,v), u,v),D), u,v):
+      rPPvv := unapply(convert(diff(r(u,v), v,v),D), u,v):
+      Ur:= unapply(UnitSurfNormal(r, [u,v]), u,v);
+      Lr:= unapply(simplify(dot(rPPuu(u,v), Ur(u,v))), u,v):
+      Mr:= unapply(simplify(dot(rPPuv(u,v), Ur(u,v))), u,v):
+      Nr:= unapply(simplify(dot(rPPvv(u,v), Ur(u,v))), u,v):
+      [Lr(L[1], L[2]), Mr(L[1], L[2]), Nr(L[1], L[2])];
+end:
+
+
+GEO3[FII]:= proc(r, L)
+description "Calculates the second fundamental form FII as a matrix from given 
+parametrization r. Out parameters or values are specified in given 2-element list L";
+option `Rev. 04.03.06 (S.Markvorsen@mat.dtu.dk)`;
+      local rPPuu, rPPuv, rPPvv, Lr, Mr, Nr, Ur, sec;
+#####################################################################
+      rPPuu := unapply(convert(diff(r(u,v), u,u),D), u,v):
+      rPPuv := unapply(convert(diff(r(u,v), u,v),D), u,v):
+      rPPvv := unapply(convert(diff(r(u,v), v,v),D), u,v):
+      Ur:= unapply(UnitSurfNormal(r, [u,v]), u,v);
+      Lr:= unapply(simplify(dot(rPPuu(u,v), Ur(u,v))), u,v):
+      Mr:= unapply(simplify(dot(rPPuv(u,v), Ur(u,v))), u,v):
+      Nr:= unapply(simplify(dot(rPPvv(u,v), Ur(u,v))), u,v):
+      sec:= unapply([[Lr(u,v), Mr(u,v)], [Mr(u,v), Nr(u,v)]], u,v):
+      Matrix(2,2, sec(L[1], L[2]));
+end:
+
+
+
+W, Weingarten (calculates the Weingarten matrix for surface)
+
+GEO3[W]:= proc(r, L)
+description "Calculates the Weingarten matrix from given 
+parametrization r. Out parameters or values are specified in given 2-element list L";
+option `Rev. 11.03.06 (S.Markvorsen@mat.dtu.dk)`;
+      local wein;
+#####################################################################
+      wein:= (u,v)-> evalm(MatrixInverse(FI(r,[u,v]))&*FII(r, [u,v]));
+      Matrix(2,2, wein(L[1], L[2]));
+end:
+
+
+GEO3[Weingarten]:= proc(r, L)
+description "Calculates the Weingarten matrix from given 
+parametrization r. Out parameters or values are specified in given 2-element list L";
+option `Rev. 11.03.06 (S.Markvorsen@mat.dtu.dk)`;
+      local wein;
+#####################################################################
+      wein:= (u,v)-> evalm(MatrixInverse(FI(r,[u,v]))&*FII(r, [u,v]));
+      Matrix(2,2, wein(L[1], L[2]));
+end:
+
+
+meanC, H (calculates the mean curvature of surface)
+
+GEO3[meanC]:= proc(r, L)
+description "Calculates the mean curvature of regular surface from given 
+parametrization r. Out parameters or values are specified in given 2-element list L";
+option `Rev. 11.03.06 (S.Markvorsen@mat.dtu.dk)`;
+local efg, e,f,g,lmn,l,m,n,mean;
+#####################################################################
+efg:= EFG(r, [u,v]);  
+e:= efg[1];
+f:= efg[2];
+g:= efg[3];
+lmn:= LMN(r, [u,v]);
+l:= lmn[1];
+m:= lmn[2];
+n:= lmn[3];
+mean:= unapply(simplify((l*g-2*m*f+n*e)/(2*(e*g-(f^2)))), u,v);
+mean(L[1], L[2]);
+end:
+
+
+GEO3[H]:= proc(r, L)
+description "Calculates the mean curvature of regular surface from given 
+parametrization r. Out parameters or values are specified in given 2-element list L";
+option `Rev. 11.03.06 (S.Markvorsen@mat.dtu.dk)`;
+local efg, e,f,g,lmn,l,m,n,mean;
+#####################################################################
+efg:= EFG(r, [u,v]);  
+e:= efg[1];
+f:= efg[2];
+g:= efg[3];
+lmn:= LMN(r, [u,v]);
+l:= lmn[1];
+m:= lmn[2];
+n:= lmn[3];
+mean:= unapply(simplify((l*g-2*m*f+n*e)/(2*(e*g-(f^2)))), u,v);
+mean(L[1], L[2]);
+end:
+
+
+GaussC, K (calculates the Gaussian curvature of surface)
+
+GEO3[GaussC]:= proc(r, L)
+description "Calculates the Gaussian curvature of regular surface from given 
+parametrization r. Out parameters or values are specified in given 2-element list L";
+option `Rev. 11.03.06 (S.Markvorsen@mat.dtu.dk)`;
+local efg, e,f,g,lmn,l,m,n,gauss;
+#####################################################################
+efg:= EFG(r, [u,v]);  
+e:= efg[1];
+f:= efg[2];
+g:= efg[3];
+lmn:= LMN(r, [u,v]);
+l:= lmn[1];
+m:= lmn[2];
+n:= lmn[3];
+gauss:= unapply((l*n-m^2)/(e*g-(f^2)), u,v);
+gauss(L[1], L[2]);
+
+end:
+
+
+GEO3[K]:= proc(r, L)
+description "Calculates the Gaussian curvature of regular surface from given 
+parametrization r. Out parameters or values are specified in given 2-element list L";
+option `Rev. 11.03.06 (S.Markvorsen@mat.dtu.dk)`;
+local efg, e,f,g,lmn,l,m,n,gauss;
+#####################################################################
+efg:= EFG(r, [u,v]);  
+e:= efg[1];
+f:= efg[2];
+g:= efg[3];
+lmn:= LMN(r, [u,v]);
+l:= lmn[1];
+m:= lmn[2];
+n:= lmn[3];
+gauss:= unapply(simplify((l*n-m^2)/(e*g-(f^2))), u,v);
+gauss(L[1], L[2]);
+
+end:
+
+
+kappa12 (calculates the principal curvatures of surface)
+
+GEO3[kappa12]:= proc(r, L)
+description "Calculates the principal curvatures (in list form) of regular surface from given 
+parametrization r. Out parameters or values are specified in given 2-element list L";
+option `Rev. 11.03.06 (S.Markvorsen@mat.dtu.dk)`;
+local K, H, kap;
+#####################################################################
+K:= GaussC(r, [u,v]);
+H:=  meanC(r, [u,v]);
+kap:= unapply(simplify([H+sqrt(H^2 - K), H-sqrt(H^2-K)]), u,v);
+kap(L[1], L[2]);
+end:
+
+
+kappaNormal, kappaGeo (calculates normal and geodesic curvatures, resp.  of curves on surface)
+
+GEO3[kappaNormal]:= proc(r, gamU, L)
+description "Calculates the normal curvature along any regular 
+curve (specified in parameter domain by gamU(t)) on surface r(u,v) 
+Regularity check is not performed in procedure - division by zero may 
+thence occur as error-message. Note that the sign of the normal curvature is 
+parametrization dependent. If N is flipped, then the normal curvature is reversed.
+Output normal curvature is given at value (or parameter) specified in 
+one-element list L.";
+option `Rev. 07.04.06 (S.Markvorsen@mat.dtu.dk)`;
+local F2, gamUP, gamUPunit, kn;
+#####################################################################
+
+F2:= unapply(FII(r, gamU(t)), t);
+gamUP:= unapply(convert(diff(gamU(t), t), D), t);
+gamUPunit:= unapply(convert(evalm(gamUP(t)/FInrm(r, gamUP(t), gamU(t))), list), t);
+
+kn:= unapply(evalm(transpose(gamUPunit(t))&*F2(t)&*gamUPunit(t)), t);
+
+kn(L[1]);
+
+#####################################################################
+end:
+#####################################################################
+
+
+
+GEO3[kappaGeo]:= proc(r, gamU, L)
+description "Calculates the geodesic curvature along any regular 
+curve (specified in parameter domain by gamU(t)) on surface r(u,v) 
+Regularity check is not performed in procedure - division by zero may 
+thence occur as error-message. Note that the sign of the geodesic curvature is 
+parametrization dependent. If N is flipped, then the normal curvature is reversed.
+Output geodesic curvature is given at value (or parameter) specified in 
+one-element list L.";
+option `Rev. 07.04.06 (S.Markvorsen@mat.dtu.dk)`;
+local gam, gamP, gamPP, kapG, lentri;
+#####################################################################
+
+gam:=  unapply(r(gamU(t)[1], gamU(t)[2]), t);
+gamP:= unapply(convert(diff(gam(t), t), D), t);
+gamPP:= unapply(convert(diff(gam(t), t,t), D), t);
+lentri:= unapply(nrm(gamP(t), gamP(t))^3, t);
+
+kapG:= unapply(dot(gamPP(t), crs(UnitSurfNormal(r, gamU(t)), gamP(t)))/lentri(t), t);
+
+kapG(L[1]);
+
+#####################################################################
+end:
+#####################################################################
+
+
+
+
+
+
+Savings
+
+
+Nedenfor erstattes 
+C:\\MAPLE\\MYLIBRARY/GEO3.mla
+med den ønskede destination - evt direkte til 
+Maple's lib mappe.
+
+
+
+
+ march('create',"C:\\MAPLE/GEO3.mla");
+ savelibname:= "C:\\MAPLE/GEO3.mla":
+ savelib('GEO3'):
+
+
+Check the savings: 
+
+with(GEO3);
+
+Base3d(x,y,z, [-3,3, -4,4, -5, 5]);
+
+
+
