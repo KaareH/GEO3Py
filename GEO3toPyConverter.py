@@ -1,18 +1,22 @@
 # GEO3 Maple to Python converter
 # cd ../Google\ Drive/My\ Drive/Sync/DTU/Kurser/Differntialgeometri\ og\ Parametrisk\ design\ -\ 01237/GEO3Py;  
 
-
-from ctypes import sizeof
 import re
 
 class GEO3Function:
-  def __init__(self, name, params, description, locals, globals, codeStr):
-    self.name = name
-    self.params = params
-    self.description = description
-    self.locals = locals
-    self.globals = globals
-    self.codeStr = codeStr
+    def __init__(self, name, params, description, locals, globals, codeStr):
+        self.name = name
+        self.params = params
+        self.description = description
+        self.locals = locals
+        self.globals = globals
+        self.codeStr = codeStr
+    
+    def convertCode(self):
+        codeStr = self.codeStr
+        params = self.params
+
+
 
 def readFile(filePath):
     f = open(filePath, "r")
@@ -108,7 +112,7 @@ def makeFunction(funcStr):
 
 def makeFuncFile(path, func):
     filename = path +  func.name + ".py"
-    f = open(filename, "x")
+    f = open(filename, "w") # File options, w, x
 
     # Header
     f.write("# GEO3, Python port\n")
@@ -134,56 +138,60 @@ def makeFuncFile(path, func):
     # Close file
     f.close()
 
+def run():
+    descriptionCount, localCount, globalsCount, optionsCount = 0, 0, 0, 0
+
+    funcStrList = readFile("GEO3.txt")
+    #funcStrList = [funcStrList[22], funcStrList[25]] # Only run for one function for quicker development
+
+    print("Description count:", descriptionCount)
+    print("Local count:", localCount)
+    print("Globals count:", globalsCount)
+    print("Options count:", optionsCount)
+
+    # Make function dictionary
+    funcDict = {}
+    for funcStr in funcStrList:
+        func = makeFunction(funcStr)
+        funcDict[func.name] = func
+
+    print("Function dictionary size:", len(funcDict))
+
+    # Find deprecated
+    # Propagate deprecation to functions which reference deprecated functions
+    deprecatedPreDef = {"base2d", "base3d", "base3dPlus"} # Predefined things to look for
+    deprecated = set() # Functions that get marked deprecated
+    def checkDeprecate(i = 0):
+        didDeprecate = False
+        for func in funcDict:
+            if func in deprecated: continue
+            for dep in deprecated.union(deprecatedPreDef):
+                if re.search(dep, funcDict[func].codeStr) or dep == func:
+                    deprecated.add(func)
+                    didDeprecate = True
+                    break
+        if(didDeprecate):
+            i = 1 + checkDeprecate(i)
+        return i
+
+    print("Deprecation rounds:", checkDeprecate())
+
+    # Mark deprecated
+    for name in deprecated:
+        dep_name = "deprecated_" + name
+        try:
+            funcDict[dep_name] = funcDict.pop(name)
+            funcDict[dep_name].name = dep_name
+        except:
+            print("Trying to mark {} as deprecated failed. Didn't exist.".format(name))
+
+    # Make files
+    print("Making files...")
+    for func in funcDict.values():
+        print(func.name)
+        makeFuncFile("functions/", func)
+    print("Done making", len(funcDict), "files."
+        , "{}/{} are marked as deprecated.".format(len(deprecated), len(funcDict)))
 
 ##### Run #####
-descriptionCount, localCount, globalsCount, optionsCount = 0, 0, 0, 0
-
-funcStrList = readFile("GEO3.txt")
-
-# Make function dictionary
-funcDict = {}
-for funcStr in funcStrList:
-    func = makeFunction(funcStr)
-    funcDict[func.name] = func
-
-print("Function dictionary size:", len(funcDict))
-
-# Find deprecated
-deprecated = {"base2d", "base3d", "base3dPlus"}
-def checkDeprecate(i = 0):
-    global funcDict
-    global deprecated
-    didDeprecate = False
-    for func in funcDict:
-        if func in deprecated: continue
-        for dep in deprecated:
-            if re.search(dep, funcDict[func].codeStr):
-                deprecated.add(func)
-                didDeprecate = True
-                break
-    if(didDeprecate):
-        i = 1 + checkDeprecate(i)
-    return i
-
-print("Deprecation rounds:", checkDeprecate())
-
-# Deprecated
-for name in deprecated:
-    dep_name = "deprecated_" + name
-    funcDict[dep_name] = funcDict.pop(name)
-    funcDict[dep_name].name = dep_name
-
-# Make files
-print("Making files...")
-for func in funcDict.values():
-    print(func.name)
-    makeFuncFile("functions/", func)
-print("Done making", len(funcDict), "files."
-    , "{}/{} are marked as deprecated.".format(len(deprecated), len(funcDict)))
-
-
-# print("Description count:", descriptionCount)
-# print("Local count:", localCount)
-# print("Globals count:", globalsCount)
-# print("Options count:", optionsCount)
-
+run()
