@@ -1,5 +1,13 @@
+# Port af GEO3 i Python.
+# GEO3 Maple pakke fra DTU kursus #01237 - Differentialgeometri og parametrisk design
+
+# Port af Kaare G. S. Hansen (s214282)
+# Danmarks Tekniske Universitet
+# 2022
+
 # GEO3 Maple to Python converter
-# cd ../Google\ Drive/My\ Drive/Sync/DTU/Kurser/Differntialgeometri\ og\ Parametrisk\ design\ -\ 01237/GEO3Py;  
+# Dette script konverterer GEO3 fra Maplekode til Python.
+# !!! Endnu ikke færdig !!!
 
 import re
 
@@ -12,10 +20,31 @@ class GEO3Function:
         self.globals = globals
         self.codeStr = codeStr
     
-    def convertCode(self):
-        codeStr = self.codeStr
-        params = self.params
+    def makeFuncBody(self):
+        codeStr = self.codeStr or ''
+        params = self.params or ''
 
+        # Clean parameters
+        params = params.split(',')
+        for index, item in enumerate(params):
+            params[index] = item.split('::')[0].strip()
+        print("Parameters:", params)
+        params = ', '.join(params)
+
+        # Function definition
+        body = "def {}({}):\n".format(self.name, params)
+    
+        result = re.search("if([\s\S\n]*?)then([\s\S\n]*?)else([\s\S\n]*?)end if", codeStr)
+        
+        codeStr += "# Result: \n" + result.group(0) + "\n"
+        codeStr += "# Result: \n" + result.group(1) + "\n"
+        codeStr += "# Result: \n" + result.group(2) + "\n"
+        codeStr += "# Result: \n" + result.group(3) + "\n"
+
+
+        codeStr = codeStr.replace("\n", "\n\t")
+        body += "\t" + codeStr + "\n"
+        return body
 
 
 def readFile(filePath):
@@ -121,19 +150,14 @@ def makeFuncFile(path, func):
     f.write("\n\n")
     
     # Description
-    f.write("# " + (func.description or '') + "\n")
+    f.write("# Description:\n")
+    f.write("# " + (func.description.replace("\n", "\n# ") or '') + "\n#\n")
     f.write("# Globals: " + (func.globals or '') + "\n")
     f.write("# Locals: " + (func.locals or '') + "\n")
     f.write("# Parameters: " + (func.params or '') + "\n")
 
     # Function body
-    f.write("def " + func.name + '('+ (func.params or '') +'):' + "\n")
-    
-    codeStr = (func.codeStr or '')
-    #result = re.search("if([\s\S\n]*)then([\s\S\n]*)else([\s\S\n]*)end if", codeStr)
-    #result.group(1)
-    codeStr = codeStr.replace("\n", "\n\t")
-    f.write("\t" + codeStr + "\n")
+    f.write(func.makeFuncBody())
 
     # Close file
     f.close()
@@ -142,7 +166,8 @@ def run():
     descriptionCount, localCount, globalsCount, optionsCount = 0, 0, 0, 0
 
     funcStrList = readFile("GEO3.txt")
-    #funcStrList = [funcStrList[22], funcStrList[25]] # Only run for one function for quicker development
+    # Uncomment below to only run for some functions for quicker development
+    #funcStrList = [funcStrList[22], funcStrList[25]]
 
     print("Description count:", descriptionCount)
     print("Local count:", localCount)
