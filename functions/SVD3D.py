@@ -3,12 +3,14 @@
 # functions/SVD3D.py
 
 
+# Description:
 # SVD baseret 4-faktor split af given matrix med søjle-vektorer a og b og c.
-Out: Original SVD 
+# Out: Original SVD 
+#
 # Globals:  Sigma, Sigma1, Sigma2, Sigma3, U, Vt, F, Energy
 # Locals:  SingValDec, Uraw, Vtraw, detAA, A, AA
 # Parameters: a::list, b::list, c::list
-def SVD3D(a::list, b::list, c::list):
+def SVD3D(a, b, c):
 	
 	
 	####################
@@ -74,4 +76,30 @@ def SVD3D(a::list, b::list, c::list):
 	
 	
 	####################
+	# Result: 
+	if detAA < 0 then 
+	F:= Matrix([
+	[0, 1., 0], 
+	[1., 0, 0],
+	[0, 0, 1.]
+	]);
+	A:= evalf(AA.F); else
+	A:= evalf(AA); 
+	F:= IdentityMatrix(3);
+	end if
+	# Result: 
+	 detAA < 0 
+	# Result: 
+	 
+	F:= Matrix([
+	[0, 1., 0], 
+	[1., 0, 0],
+	[0, 0, 1.]
+	]);
+	A:= evalf(AA.F); 
+	# Result: 
+	
+	A:= evalf(AA); 
+	F:= IdentityMatrix(3);
+	
 	

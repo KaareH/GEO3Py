@@ -3,13 +3,15 @@
 # functions/SVDshow3D.py
 
 
+# Description:
 # Given column lists of three vectors a, b, and c, the matrix is SVD
-decomposed and the corresponding deformation of standard tripod is displayed in 6 or 7 moves, the first flip only if det(a,b,c)<0, 
-the last parallel translation only if p is given.
+# decomposed and the corresponding deformation of standard tripod is displayed in 6 or 7 moves, the first flip only if det(a,b,c)<0, 
+# the last parallel translation only if p is given.
+#
 # Globals:  rot0, rot1, rot2, rot3, rot4, rot5, rot6, defX, defY, defZ, tower, stillFin
 # Locals:  pp, aa, bb, cc, Uargs, Vtargs, uu, vv, ww, uuu, vvv, www, aaa, bbb, ccc, q, figflip, figscaleX, figscaleY, figscaleZ, a1, b1, c1, a1m, b1m, c1m, a1mm, b1mm, c1mm, fig1, fig2, fig3, fig4, fig5, fig6, A, detA, ee, ff, gg, target, figparall, parall, rotZ, rotY, rotX
 # Parameters: a::list, b::list, c::list, p::list
-def SVDshow3D(a::list, b::list, c::list, p::list):
+def SVDshow3D(a, b, c, p):
 	
 	
 	###########################################################
@@ -159,4 +161,16 @@ def SVDshow3D(a::list, b::list, c::list, p::list):
 	
 	
 	#############################################################
+	# Result: 
+	if detA >= 0 then 
+	ee:= <1,0,0>; ff:= <0,1,0>; gg:=<0,0,1>; else
+	ee:= <0,1,0>; ff:= <1,0,0>; gg:=<0,0,1>; end if
+	# Result: 
+	 detA >= 0 
+	# Result: 
+	 
+	ee:= <1,0,0>; ff:= <0,1,0>; gg:=<0,0,1>; 
+	# Result: 
+	
+	ee:= <0,1,0>; ff:= <1,0,0>; gg:=<0,0,1>; 
 	

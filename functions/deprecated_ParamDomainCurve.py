@@ -3,9 +3,11 @@
 # functions/deprecated_ParamDomainCurve.py
 
 
+# Description:
 # Shows the 2D-parameter domain 
-and a parametrized curve in the domain,
-if given.
+# and a parametrized curve in the domain,
+# if given.
+#
 # Globals: 
 # Locals:  q, p, x, y, kuT, kvT, sysT, Delta, paramC
 # Parameters: BB, netnet, gamU, BgamU
@@ -33,5 +35,21 @@ def deprecated_ParamDomainCurve(BB, netnet, gamU, BgamU):
 	
 	display([base2d(u,v), sysT[1], sysT[2], paramC], 
 	scaling=constrained, tickmarks=[2,2]);
+	
+	# Result: 
+	if nargs > 3 then 
+	paramC:= plot([gamU(t)[1], gamU(t)[2], t=BgamU[1]...BgamU[2]], color=black, thickness=2);
+	else
+	paramC:= NULL;
+	end if
+	# Result: 
+	 nargs > 3 
+	# Result: 
+	 
+	paramC:= plot([gamU(t)[1], gamU(t)[2], t=BgamU[1]...BgamU[2]], color=black, thickness=2);
+	
+	# Result: 
+	
+	paramC:= NULL;
 	
 	

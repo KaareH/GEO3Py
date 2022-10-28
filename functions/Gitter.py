@@ -3,7 +3,9 @@
 # functions/Gitter.py
 
 
+# Description:
 # Viser traadmodel af rumlige omraade  r(B), hvor B er 3d og tidsafhængig.
+#
 # Globals: 
 # Locals:  u,v,w,x,y,z,tt, q, p,
           Delta, ku, kv, kw, sys, r

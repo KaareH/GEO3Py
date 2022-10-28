@@ -3,12 +3,14 @@
 # functions/SVD3Dmat.py
 
 
+# Description:
 # SVD baseret 4-faktor split af given matrix.
-Out: Original SVD 
+# Out: Original SVD 
+#
 # Globals:  Sigma, Sigma1, Sigma2, Sigma3, U, Vt, F, Energy
 # Locals:  SingValDec, Uraw, Vtraw, detAA, A, AA
 # Parameters: B::Matrix
-def SVD3Dmat(B::Matrix):
+def SVD3Dmat(B):
 	
 	
 	####################
@@ -70,4 +72,30 @@ def SVD3Dmat(B::Matrix):
 	
 	
 	####################
+	# Result: 
+	if detAA < 0 then 
+	F:= Matrix([
+	[0, 1., 0], 
+	[1., 0, 0],
+	[0, 0, 1.]
+	]);
+	A:= evalf(AA.F); else
+	A:= evalf(AA); 
+	F:= IdentityMatrix(3);
+	end if
+	# Result: 
+	 detAA < 0 
+	# Result: 
+	 
+	F:= Matrix([
+	[0, 1., 0], 
+	[1., 0, 0],
+	[0, 0, 1.]
+	]);
+	A:= evalf(AA.F); 
+	# Result: 
+	
+	A:= evalf(AA); 
+	F:= IdentityMatrix(3);
+	
 	

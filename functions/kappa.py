@@ -3,7 +3,9 @@
 # functions/kappa.py
 
 
-# 
+# Description:
+No description provided
+#
 # Globals: 
 # Locals:  kap, rP, rPP
 # Parameters: r, L

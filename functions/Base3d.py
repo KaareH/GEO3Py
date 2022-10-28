@@ -3,12 +3,14 @@
 # functions/Base3d.py
 
 
+# Description:
 # 3d base plot with axes of explicit length specification in list len
+#
 # Globals: 
 # Locals:  e1_3d, mark1_3d, e2_3d, mark2_3d, e3_3d, mark3_3d, 
 axlong1, axlong2, axlong3, Nlen, Nsiz
 # Parameters: x,y,z, len, siz
-def Base3d(x,y,z, len, siz):
+def Base3d(x, y, z, len, siz):
 	
 	
 	####################
@@ -42,4 +44,16 @@ def Base3d(x,y,z, len, siz):
 	lightmodel=light4, scaling=constrained, projection=0.8):
 	
 	####################
+	# Result: 
+	if nargs=3 then 
+	Nsiz:= 20; Nlen:= [0, 1.5, 0,1.5, 0,1.5] 
+	else end if
+	# Result: 
+	 nargs=3 
+	# Result: 
+	 
+	Nsiz:= 20; Nlen:= [0, 1.5, 0,1.5, 0,1.5] 
+	
+	# Result: 
+	 
 	

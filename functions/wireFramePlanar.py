@@ -3,7 +3,9 @@
 # functions/wireFramePlanar.py
 
 
+# Description:
 # Wireframe model of planar domain.
+#
 # Globals: 
 # Locals:  
           q, p, Delta,x, y,  ku, kv, sys

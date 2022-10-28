@@ -3,12 +3,14 @@
 # functions/SVD2D.py
 
 
+# Description:
 # SVD baseret 4-faktor split af given 2x2-matrix med søjle vektorer a og b.
-Out: Original SVD
+# Out: Original SVD
+#
 # Globals:  Sigma, Sigma1, Sigma2, U, Vt, F, Energy
 # Locals:  SingValDec, Uraw, Vtraw, detAA, A, AA
 # Parameters: a::list, b::list
-def SVD2D(a::list, b::list):
+def SVD2D(a, b):
 	
 	
 	####################
@@ -70,4 +72,22 @@ def SVD2D(a::list, b::list):
 	
 	
 	####################
+	# Result: 
+	if detAA < 0 then 
+	F:= Matrix([[0,1.], [1.,0]]);
+	A:= evalf(AA.F); else
+	A:= evalf(AA); 
+	F:= Matrix([[1,0], [0,1]]);
+	end if
+	# Result: 
+	 detAA < 0 
+	# Result: 
+	 
+	F:= Matrix([[0,1.], [1.,0]]);
+	A:= evalf(AA.F); 
+	# Result: 
+	
+	A:= evalf(AA); 
+	F:= Matrix([[1,0], [0,1]]);
+	
 	

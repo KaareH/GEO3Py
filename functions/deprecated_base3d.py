@@ -3,12 +3,14 @@
 # functions/deprecated_base3d.py
 
 
+# Description:
 # 3d base plot
+#
 # Globals: 
 # Locals:  e1_3d, mark1_3d, e2_3d, mark2_3d, e3_3d, mark3_3d,
 axlong1, axlong2, axlong3
 # Parameters: x,y,z, len::list:=[-0.5, 1.5, -0.5, 1.5, -0.5, 1.5]
-def deprecated_base3d(x,y,z, len::list:=[-0.5, 1.5, -0.5, 1.5, -0.5, 1.5]):
+def deprecated_base3d(x, y, z, len, 1.5, -0.5, 1.5, -0.5, 1.5]):
 	
 	
 	

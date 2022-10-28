@@ -3,7 +3,9 @@
 # functions/Area.py
 
 
+# Description:
 # Calculates the area of surface patch r(Br) via EFG.
+#
 # Globals: 
 # Locals:  efg, e,f,g, ArDif
 # Parameters: r, Br

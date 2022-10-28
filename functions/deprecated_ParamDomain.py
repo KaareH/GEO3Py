@@ -3,7 +3,9 @@
 # functions/deprecated_ParamDomain.py
 
 
+# Description:
 # Shows the 2D-parameter domain.
+#
 # Globals: 
 # Locals:  q, p, x, y, kuT, kvT, sysT, Delta, paramC
 # Parameters: BB, netnet

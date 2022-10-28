@@ -3,11 +3,13 @@
 # functions/ScaleZ.py
 
 
+# Description:
 # List a scaled on third coordinate by k
+#
 # Globals: 
 # Locals:  new
 # Parameters: a::list, k
-def ScaleZ(a::list, k):
+def ScaleZ(a, k):
 	
 	
 	###########################################################

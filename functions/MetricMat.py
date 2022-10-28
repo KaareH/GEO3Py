@@ -3,8 +3,10 @@
 # functions/MetricMat.py
 
 
+# Description:
 # Calculates the metric matrix - same as FI - from given 
-parametrization r. Out parameters or values are specified in 2-element list L
+# parametrization r. Out parameters or values are specified in 2-element list L
+#
 # Globals: 
 # Locals:  rP1,rP2, E, F, G, met
 # Parameters: r, L

@@ -3,7 +3,9 @@
 # functions/nrm.py
 
 
-# 
+# Description:
+No description provided
+#
 # Globals: 
 # Locals:  nr
 # Parameters: X

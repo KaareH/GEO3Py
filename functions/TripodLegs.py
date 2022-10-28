@@ -3,11 +3,13 @@
 # functions/TripodLegs.py
 
 
+# Description:
 # Tripod 3 legs display with marked orientations
+#
 # Globals: 
 # Locals:  col, pt, ara, arb, ac, linab, linac, linbc
 # Parameters: p::list, a::list, b::list, c::list
-def TripodLegs(p::list, a::list, b::list, c::list):
+def TripodLegs(p, a, b, c):
 	
 	
 	###########################################################

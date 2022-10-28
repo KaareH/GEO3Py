@@ -3,7 +3,9 @@
 # functions/Length.py
 
 
+# Description:
 # Calculates the length of r(gamU) via EFG for param-interval L, a list.
+#
 # Globals: 
 # Locals:  efg, e,f,g,uu,vv,uP,vP,LeDif
 # Parameters: gamU, r, Bgam

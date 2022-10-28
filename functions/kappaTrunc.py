@@ -3,8 +3,10 @@
 # functions/kappaTrunc.py
 
 
+# Description:
 # Auxiliary version of kappa for display purposes.
-This version is only infty if tangent vector vanishes.
+# This version is only infty if tangent vector vanishes.
+#
 # Globals: 
 # Locals:  kap, rP, rPP
 # Parameters: r, L

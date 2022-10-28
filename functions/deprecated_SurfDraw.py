@@ -3,9 +3,11 @@
 # functions/deprecated_SurfDraw.py
 
 
+# Description:
 # Dynamic drawing of a given surface: 
-Four boundary curves and a number of coordiante curves according 
-to net-specifications.
+# Four boundary curves and a number of coordiante curves according 
+# to net-specifications.
+#
 # Globals: 
 # Locals:  
 q, p, i, anim, animu1, animu2, animv1, animv2, net, questn, Af,Delta, questr, questB, kurveu1, kurveu2, kurvev1, kurvev2,  maksval, extension, maxi, mini, hs, n, randkurv,
@@ -116,4 +118,22 @@ def deprecated_SurfDraw(r, B, netraw):
 	
 	else end if;
 	
+	# Result: 
+	if nargs=3 then
+	net:= netraw;
+	if
+	type(net[1], numeric) and type(net[2], numeric) then 
+	questn:=true else questn:=false;
+	net:= [5,5] end if
+	# Result: 
+	 nargs=3 
+	# Result: 
+	
+	net:= netraw;
+	if
+	type(net[1], numeric) and type(net[2], numeric) then 
+	questn:=true 
+	# Result: 
+	 questn:=false;
+	net:= [5,5] 
 	

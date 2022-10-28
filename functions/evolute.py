@@ -3,8 +3,10 @@
 # functions/evolute.py
 
 
+# Description:
 # Finds evolute vector function from given
-parametrization of non-null curved curve, arc-length param or not.
+# parametrization of non-null curved curve, arc-length param or not.
+#
 # Globals: 
 # Locals:  ev
 # Parameters: r, L

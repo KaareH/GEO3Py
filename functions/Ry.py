@@ -3,7 +3,9 @@
 # functions/Ry.py
 
 
+# Description:
 # Rotation matrix angle  t  around y-axis. Output Matrix.
+#
 # Globals: 
 # Locals:  new
 # Parameters: t

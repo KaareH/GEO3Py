@@ -3,11 +3,13 @@
 # functions/Base2d.py
 
 
+# Description:
 # 2d basis plot
+#
 # Globals: 
 # Locals:  e1_2d,mark1_2d, e2_2d, mark2_2d, axlong1, axlong2, Nlen
 # Parameters: x,y, len
-def Base2d(x,y, len):
+def Base2d(x, y, len):
 	
 	
 	###########################################################
@@ -28,4 +30,16 @@ def Base2d(x,y, len):
 	display([e1_2d, mark1_2d(x), e2_2d, mark2_2d(y), axlong1, axlong2], 
 	scaling=constrained, axes=none):
 	###########################################################
+	# Result: 
+	if nargs=2 then 
+	Nlen:= [0, 1.5, 0,1.5] 
+	else Nlen:= len end if
+	# Result: 
+	 nargs=2 
+	# Result: 
+	 
+	Nlen:= [0, 1.5, 0,1.5] 
+	
+	# Result: 
+	 Nlen:= len 
 	

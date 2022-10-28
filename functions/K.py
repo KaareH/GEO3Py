@@ -3,8 +3,10 @@
 # functions/K.py
 
 
+# Description:
 # Calculates the Gaussian curvature of regular surface from given 
-parametrization r. Out parameters or values are specified in given 2-element list L
+# parametrization r. Out parameters or values are specified in given 2-element list L
+#
 # Globals: 
 # Locals:  efg, e,f,g,lmn,l,m,n,gauss
 # Parameters: r, L

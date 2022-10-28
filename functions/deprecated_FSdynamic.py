@@ -3,12 +3,14 @@
 # functions/deprecated_FSdynamic.py
 
 
+# Description:
 # Display of Frenet-Serret frame fields t, b, and n 
-together with the osculating plane (square of side siz) based on given
-parametrization, arc-length or not. Along thin curve. 
-Singular points and points of zero curvature 
-are tracked down and marked. Single frames are globally accessible: call
-FSstill(p), p=1....netraw[1]. 
+# together with the osculating plane (square of side siz) based on given
+# parametrization, arc-length or not. Along thin curve. 
+# Singular points and points of zero curvature 
+# are tracked down and marked. Single frames are globally accessible: call
+# FSstill(p), p=1....netraw[1]. 
+#
 # Globals: ly accessible: call
 FSstill(p), p=1....netraw[1]. "
 # Locals:  k, w, i, j, questn, questB, Delta, Af, questr, maxi, mini, 
@@ -189,4 +191,22 @@ def deprecated_FSdynamic(r, B, netraw, siz):
 	view=[-ex...ex, -ex...ex, -ex...ex]);
 	else end if;
 	######################
+	# Result: 
+	if nargs=4 then
+	net:= netraw;
+	if
+	type(net[1], numeric) then 
+	questn:=true else questn:=false;
+	net:= [5] end if
+	# Result: 
+	 nargs=4 
+	# Result: 
+	
+	net:= netraw;
+	if
+	type(net[1], numeric) then 
+	questn:=true 
+	# Result: 
+	 questn:=false;
+	net:= [5] 
 	

@@ -3,12 +3,14 @@
 # functions/Base3dRot.py
 
 
+# Description:
 # Rotated by A 3d base at p plot with axes of explicit length specification in list len
+#
 # Globals: 
 # Locals:  e1_3d, mark1_3d, e2_3d, e3_3d,lin1, lin2, lin3, 
 axlong1, axlong2, axlong3, Nlen, a1, a2, a3, m1, m2, m3
 # Parameters: p::list, A::Matrix, x,y,z, len::list
-def Base3dRot(p::list, A::Matrix, x,y,z, len::list):
+def Base3dRot(p, A, x, y, z, len):
 	
 	
 	####################
@@ -62,4 +64,16 @@ def Base3dRot(p::list, A::Matrix, x,y,z, len::list):
 	lightmodel=light4, scaling=constrained, projection=0.8):
 	
 	####################
+	# Result: 
+	if nargs=5 then 
+	Nlen:= [0, 1.5, 0,1.5, 0,1.5] 
+	else Nlen:= len end if
+	# Result: 
+	 nargs=5 
+	# Result: 
+	 
+	Nlen:= [0, 1.5, 0,1.5, 0,1.5] 
+	
+	# Result: 
+	 Nlen:= len 
 	

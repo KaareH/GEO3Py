@@ -3,9 +3,11 @@
 # functions/deprecated_deformAnimTrig.py
 
 
+# Description:
 # Display of animated deformation from first surface r1 
-to second surface r2 and back via cos(t)*r1(u,v) + sin(t)*r2(u,v) from common parameter 
-domain for (u,v). The integer frames is number of figures in full rotation sequence.
+# to second surface r2 and back via cos(t)*r1(u,v) + sin(t)*r2(u,v) from common parameter 
+# domain for (u,v). The integer frames is number of figures in full rotation sequence.
+#
 # Globals: 
 # Locals:  tt
 # Parameters: r1, r2, Br, netr, frames

@@ -3,10 +3,12 @@
 # functions/deprecated_evoluteDraw.py
 
 
+# Description:
 # Display of Frenet-Serret frame fields n from given
-parametrization, arc-length or not plus traced out evolute. Along thin curve. 
-Singular points and points of zero curvature 
-are tracked down and marked.
+# parametrization, arc-length or not plus traced out evolute. Along thin curve. 
+# Singular points and points of zero curvature 
+# are tracked down and marked.
+#
 # Globals:  FSstill, FSAll, ev, evPointer, k, evolev, ex, curvatMax, listCurv, listRealCurv, CurvStack
 # Locals:  w, i, questn, questB, Delta, Af, questr, maxi, mini, 
 extension, rP, listSing, listReal, p, q, net, singulStack, rad, pt, 
@@ -167,4 +169,22 @@ def deprecated_evoluteDraw(r, B, netraw):
 	view=[-ex...ex, -ex...ex, -ex...ex]);
 	
 	else end if;
+	# Result: 
+	if nargs=3 then
+	net:= netraw;
+	if
+	type(net[1], numeric) then 
+	questn:=true else questn:=false;
+	net:= [15] end if
+	# Result: 
+	 nargs=3 
+	# Result: 
+	
+	net:= netraw;
+	if
+	type(net[1], numeric) then 
+	questn:=true 
+	# Result: 
+	 questn:=false;
+	net:= [15] 
 	

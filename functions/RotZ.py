@@ -3,11 +3,13 @@
 # functions/RotZ.py
 
 
+# Description:
 # List a rotated angle  t  around z-axis. Output list.
+#
 # Globals: 
 # Locals:  new
 # Parameters: a::list, t
-def RotZ(a::list, t):
+def RotZ(a, t):
 	
 	
 	###########################################################

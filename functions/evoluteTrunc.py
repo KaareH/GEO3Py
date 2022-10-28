@@ -3,8 +3,10 @@
 # functions/evoluteTrunc.py
 
 
+# Description:
 # Finds (display version, truncated) evolute vector function from given
-parametrization of non-null curved curve, arc-length param or not.
+# parametrization of non-null curved curve, arc-length param or not.
+#
 # Globals: 
 # Locals:  ev
 # Parameters: r, L

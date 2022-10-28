@@ -3,8 +3,10 @@
 # functions/kappa12.py
 
 
+# Description:
 # Calculates the principal curvatures (in list form) of regular surface from given 
-parametrization r. Out parameters or values are specified in given 2-element list L
+# parametrization r. Out parameters or values are specified in given 2-element list L
+#
 # Globals: 
 # Locals:  K, H, kap
 # Parameters: r, L

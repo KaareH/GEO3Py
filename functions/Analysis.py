@@ -3,11 +3,13 @@
 # functions/Analysis.py
 
 
+# Description:
 # Angles, area, sum of lengths
+#
 # Globals:  Ar, L, Ang, Llist 
 # Locals:   aa, bb, cc, A, dab, dac, dbc, la, lb, lc, Angab, Angac, Angbc  
 # Parameters: a::list, b::list
-def Analysis(a::list, b::list):
+def Analysis(a, b):
 	
 	
 	###########################################################
@@ -44,4 +46,22 @@ def Analysis(a::list, b::list):
 	Ang:= [Angab, Angac, Angbc]: # De indre vinkler på listeform
 	
 	#############################################################
+	# Result: 
+	if nops(a)=2 then
+	A:= Matrix([aa, bb]); # Matrix til bestemmelse af areal, orientering
+	Ar:= Determinant(A)/2;
+	else
+	Ar:= (1/2)*Norm(CrossProduct(aa, bb));
+	end if
+	# Result: 
+	 nops(a)=2 
+	# Result: 
+	
+	A:= Matrix([aa, bb]); # Matrix til bestemm
+	# Result: 
+	 af areal, orientering
+	Ar:= Determinant(A)/2;
+	else
+	Ar:= (1/2)*Norm(CrossProduct(aa, bb));
+	
 	

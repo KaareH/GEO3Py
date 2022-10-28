@@ -3,11 +3,13 @@
 # functions/deprecated_base2d.py
 
 
+# Description:
 # 2d basis plot
+#
 # Globals: 
 # Locals:  e1_2d,mark1_2d, e2_2d, mark2_2d, axlong1, axlong2
 # Parameters: x,y
-def deprecated_base2d(x,y):
+def deprecated_base2d(x, y):
 	
 	
 	

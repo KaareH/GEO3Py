@@ -3,14 +3,16 @@
 # functions/SVDshow2D.py
 
 
+# Description:
 # Given column lists of two vectors a and b, the matrix is SVD
-decomposed and the corresponding deformation of standard triangle is displayed in 6 moves - the first FLIP only if 
-det([a,b]) < 0 and the last parallel translation only if p is given.
+# decomposed and the corresponding deformation of standard triangle is displayed in 6 moves - the first FLIP only if 
+# det([a,b]) < 0 and the last parallel translation only if p is given.
+#
 # Globals:  rot0, rot1, rot2, defX, defY, parall, tower, stillFin
 # Locals:  alpha1, beta1, theta1, alpha2, beta2, theta2, a2, b2, e, f, A, ee, ff,aa,bb,q,
 a1, b1, a1m, b1m, figflip, figrot1, figrot2, figscaleX, figscaleY, Id, detA, rot, figparall, figEnd
 # Parameters: a::list, b::list, p::list
-def SVDshow2D(a::list, b::list, p::list):
+def SVDshow2D(a, b, p):
 	
 	
 	###########################################################
@@ -123,4 +125,20 @@ def SVDshow2D(a::list, b::list, p::list):
 	
 	
 	#############################################################
+	# Result: 
+	if nargs=3 then
+	figEnd:= display(Hinge(p, a, b), transparency=0.7)
+	else
+	figEnd:= display(Hinge([0,0], a, b), transparency=0.7)
+	end if
+	# Result: 
+	 nargs=3 
+	# Result: 
+	
+	figEnd:= display(Hinge(p, a, b), transparency=0.7)
+	
+	# Result: 
+	
+	figEnd:= display(Hinge([0,0], a, b), transparency=0.7)
+	
 	

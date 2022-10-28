@@ -34,18 +34,20 @@ class GEO3Function:
         # Function definition
         body = "def {}({}):\n".format(self.name, params)
     
-        result = re.search("if([\s\S\n]*?)then([\s\S\n]*?)else([\s\S\n]*?)end if", codeStr)
-        
-        codeStr += "# Result: \n" + result.group(0) + "\n"
-        codeStr += "# Result: \n" + result.group(1) + "\n"
-        codeStr += "# Result: \n" + result.group(2) + "\n"
-        codeStr += "# Result: \n" + result.group(3) + "\n"
-
+        # Behandling af if statements !!! Har brug for arbejde, virker ikke! Lav loop etc...
+        try:
+            result = re.search("if([\s\S\n]*?)then([\s\S\n]*?)else([\s\S\n]*?)end if", codeStr)
+            
+            codeStr += "# Result: \n" + result.group(0) + "\n"
+            codeStr += "# Result: \n" + result.group(1) + "\n"
+            codeStr += "# Result: \n" + result.group(2) + "\n"
+            codeStr += "# Result: \n" + result.group(3) + "\n"
+        except:
+            None
 
         codeStr = codeStr.replace("\n", "\n\t")
         body += "\t" + codeStr + "\n"
         return body
-
 
 def readFile(filePath):
     f = open(filePath, "r")
@@ -151,7 +153,10 @@ def makeFuncFile(path, func):
     
     # Description
     f.write("# Description:\n")
-    f.write("# " + (func.description.replace("\n", "\n# ") or '') + "\n#\n")
+    try:
+        f.write("# " + (func.description.replace("\n", "\n# ") or '') + "\n#\n")
+    except:
+        f.write("No description provided" + "\n#\n")
     f.write("# Globals: " + (func.globals or '') + "\n")
     f.write("# Locals: " + (func.locals or '') + "\n")
     f.write("# Parameters: " + (func.params or '') + "\n")
@@ -217,6 +222,12 @@ def run():
         makeFuncFile("functions/", func)
     print("Done making", len(funcDict), "files."
         , "{}/{} are marked as deprecated.".format(len(deprecated), len(funcDict)))
+    
+    return 1 # Success
 
 ##### Run #####
-run()
+runCode = run()
+if runCode == 1:
+    print("Program ran successfully!")
+else:
+    print("Something went wrong while executing program...")

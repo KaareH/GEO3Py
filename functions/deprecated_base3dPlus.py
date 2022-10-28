@@ -3,11 +3,13 @@
 # functions/deprecated_base3dPlus.py
 
 
+# Description:
 # 3d base plot translated and rotated and colored
+#
 # Globals: 
 # Locals:  e1_3d, mark1_3d, e2_3d, mark2_3d, e3_3d, mark3_3d, i
 # Parameters: x,y,z, trans, rot, col
-def deprecated_base3dPlus(x,y,z, trans, rot, col):
+def deprecated_base3dPlus(x, y, z, trans, rot, col):
 	
 	
 	

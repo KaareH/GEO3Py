@@ -3,7 +3,9 @@
 # functions/FSb.py
 
 
-# 
+# Description:
+No description provided
+#
 # Globals: 
 # Locals:  rP, rPP, cr, fsb
 # Parameters: r, L

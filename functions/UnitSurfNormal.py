@@ -3,10 +3,12 @@
 # functions/UnitSurfNormal.py
 
 
+# Description:
 # Calculates the unit surface normal for a surface 
-from given parametrization r. NB: No check for regularity is included, so
-division by 0 is a possible error message.
-Out parameters or values are specified in the 2-element list L
+# from given parametrization r. NB: No check for regularity is included, so
+# division by 0 is a possible error message.
+# Out parameters or values are specified in the 2-element list L
+#
 # Globals: 
 # Locals:  rPu, rPv, Ur, Nor
 # Parameters: r, L

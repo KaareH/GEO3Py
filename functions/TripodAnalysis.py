@@ -3,12 +3,14 @@
 # functions/TripodAnalysis.py
 
 
+# Description:
 # Lengths of edges, areas of faces, volume
+#
 # Globals:  Vol, Llist, Alist, Area, L 
 # Locals:   aa, bb, cc, ba, ca, cb, laa, lbb, lcc, lba, lca,lcb, V, 
 Aab, Aac, Abc, Abaca,   A, dab, dac, dbc, la, lb, lc
 # Parameters: a::list, b::list, c::list
-def TripodAnalysis(a::list, b::list, c::list):
+def TripodAnalysis(a, b, c):
 	
 	
 	###########################################################

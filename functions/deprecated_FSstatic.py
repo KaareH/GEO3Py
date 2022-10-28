@@ -3,11 +3,13 @@
 # functions/deprecated_FSstatic.py
 
 
+# Description:
 # Display of Frenet-Serret oriented fat tube in given
-parametrization, arc-length or not. The tube has square cross section.
-The normals to the tube-faces are the n and b fields resp.
-Singular points (red) and points close to zero curvature (yellowish)
-are marked in order to prepare for breakdown of Frenet-Serret apparatus.
+# parametrization, arc-length or not. The tube has square cross section.
+# The normals to the tube-faces are the n and b fields resp.
+# Singular points (red) and points close to zero curvature (yellowish)
+# are marked in order to prepare for breakdown of Frenet-Serret apparatus.
+#
 # Globals: 
 # Locals:  k, w, i, j, questn, questB, Delta, Af, questr, maxi, mini, 
 extension, rP, listSing, listReal, p, q, net, singulStack, rad, pt, 
@@ -127,4 +129,22 @@ def deprecated_FSstatic(r, B, netraw):
 	view=[-ex...ex, -ex...ex, -ex...ex]):
 	
 	else end if;
+	# Result: 
+	if nargs=3 then
+	net:= netraw;
+	if
+	type(net[1], numeric) then 
+	questn:=true else questn:=false;
+	net:= [5] end if
+	# Result: 
+	 nargs=3 
+	# Result: 
+	
+	net:= netraw;
+	if
+	type(net[1], numeric) then 
+	questn:=true 
+	# Result: 
+	 questn:=false;
+	net:= [5] 
 	

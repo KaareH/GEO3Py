@@ -3,11 +3,13 @@
 # functions/RotX.py
 
 
+# Description:
 # List a rotated angle  t  around x-axis
+#
 # Globals: 
 # Locals:  new
 # Parameters: a::list, t
-def RotX(a::list, t):
+def RotX(a, t):
 	
 	
 	###########################################################

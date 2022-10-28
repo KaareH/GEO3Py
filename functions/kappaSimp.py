@@ -3,8 +3,10 @@
 # functions/kappaSimp.py
 
 
+# Description:
 # Auxiliary version of kappa for result presentation only.
-Using 'abs' and symbolic simplification.
+# Using 'abs' and symbolic simplification.
+#
 # Globals: 
 # Locals:  kap, rP, rPP
 # Parameters: r, L

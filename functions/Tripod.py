@@ -3,11 +3,13 @@
 # functions/Tripod.py
 
 
+# Description:
 # ThreeLeg display with marked orientations and tetrahedron
+#
 # Globals: 
 # Locals:  col, mat, pt, ara, arb, ac, faceab, faceac, facebc, faceabc, faceAll
 # Parameters: p::list, a::list, b::list, c::list
-def Tripod(p::list, a::list, b::list, c::list):
+def Tripod(p, a, b, c):
 	
 	
 	###########################################################
@@ -43,4 +45,16 @@ def Tripod(p::list, a::list, b::list, c::list):
 	display(pt, ara, arb, ac, faceAll, scaling=constrained, axes=none, projection=0.8);
 	
 	#############################################################
+	# Result: 
+	if evalf(Determinant(mat))>=0 then col:=cyan 
+	else col:=khaki; 
+	end if
+	# Result: 
+	 evalf(Determinant(mat))>=0 
+	# Result: 
+	 col:=cyan 
+	
+	# Result: 
+	 col:=khaki; 
+	
 	

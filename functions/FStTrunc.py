@@ -3,7 +3,9 @@
 # functions/FStTrunc.py
 
 
-# 
+# Description:
+No description provided
+#
 # Globals: 
 # Locals:  rP, fst
 # Parameters: r, L

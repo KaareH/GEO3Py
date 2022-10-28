@@ -3,10 +3,12 @@
 # functions/deprecated_curveDrawFat.py
 
 
+# Description:
 # Fat drawing of a given space curve 
-parametrized by r in interval B with netraw. 
-Non-regular points are highlighted. 
-Further output global: static, dynamic: call with display.
+# parametrized by r in interval B with netraw. 
+# Non-regular points are highlighted. 
+# Further output global: static, dynamic: call with display.
+#
 # Globals: : static, dynamic: call with display."
 # Locals:  
 k,w, i, j,anim, net, questn, Af,Delta, questr, questB, kurve,  maksval, extension, 
@@ -138,4 +140,22 @@ def deprecated_curveDrawFat(r, B, netraw):
 	
 	else end if;
 	
+	# Result: 
+	if nargs=3 then
+	net:= netraw;
+	if
+	type(net[1], numeric) then 
+	questn:=true else questn:=false;
+	net:= [5] end if
+	# Result: 
+	 nargs=3 
+	# Result: 
+	
+	net:= netraw;
+	if
+	type(net[1], numeric) then 
+	questn:=true 
+	# Result: 
+	 questn:=false;
+	net:= [5] 
 	

@@ -3,11 +3,13 @@
 # functions/RotationFactors.py
 
 
+# Description:
 # Given orthogonal 3x3 matrix R decompose it into R = rotZ(w).rotY(v).rotX(u) and output: arguments [u,v,w] in  list.
+#
 # Globals: 
 # Locals:  rot, uu, vv, ww, G, i
 # Parameters: R::Matrix
-def RotationFactors(R::Matrix):
+def RotationFactors(R):
 	
 	
 	###########################################################
@@ -46,4 +48,12 @@ def RotationFactors(R::Matrix):
 	
 	
 	#############################################################
+	# Result: 
+	if evalf(abs(vv - Pi/2))<10^(-6) then uu:= 0; ww:= arccos(R[2,2]); else end if
+	# Result: 
+	 evalf(abs(vv - Pi/2))<10^(-6) 
+	# Result: 
+	 uu:= 0; ww:= arccos(R[2,2]); 
+	# Result: 
+	 
 	

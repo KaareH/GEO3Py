@@ -3,9 +3,11 @@
 # functions/LMN.py
 
 
+# Description:
 # Calculates the 3 components L, M, and N as a list
-[L, M, N] from given parametrization r. 
-Out parameters or values are specified in given 2-element list L
+# [L, M, N] from given parametrization r. 
+# Out parameters or values are specified in given 2-element list L
+#
 # Globals: 
 # Locals:  rPPuu, rPPuv, rPPvv, Lr, Mr, Nr, Ur
 # Parameters: r, L

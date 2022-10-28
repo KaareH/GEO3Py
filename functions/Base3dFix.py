@@ -3,12 +3,14 @@
 # functions/Base3dFix.py
 
 
+# Description:
 # 3d New Fixed base plot with axes of explicit length specification in list len dimmed colors
+#
 # Globals: 
 # Locals:  e1_3d, mark1_3d, e2_3d, mark2_3d, e3_3d, mark3_3d, 
 axlong1, axlong2, axlong3, Nlen
 # Parameters: x,y,z, len
-def Base3dFix(x,y,z, len):
+def Base3dFix(x, y, z, len):
 	
 	
 	####################
@@ -37,4 +39,16 @@ def Base3dFix(x,y,z, len):
 	lightmodel=light4, scaling=constrained, projection=0.8):
 	
 	####################
+	# Result: 
+	if nargs=3 then 
+	Nlen:= [0, 1.5, 0,1.5, 0,1.5] 
+	else Nlen:= len end if
+	# Result: 
+	 nargs=3 
+	# Result: 
+	 
+	Nlen:= [0, 1.5, 0,1.5, 0,1.5] 
+	
+	# Result: 
+	 Nlen:= len 
 	

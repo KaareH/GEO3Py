@@ -3,7 +3,9 @@
 # functions/Rx.py
 
 
+# Description:
 # Rotation matrix angle  t  around x-axis. Output Matrix.
+#
 # Globals: 
 # Locals:  new
 # Parameters: t

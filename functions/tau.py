@@ -3,7 +3,9 @@
 # functions/tau.py
 
 
-# 
+# Description:
+No description provided
+#
 # Globals: 
 # Locals:  ta, rP, rPP, rPPP
 # Parameters: r, L

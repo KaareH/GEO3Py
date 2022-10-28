@@ -3,11 +3,13 @@
 # functions/RotY.py
 
 
+# Description:
 # List a rotated angle  t  around y-axis. Output list.
+#
 # Globals: 
 # Locals:  new
 # Parameters: a::list, t
-def RotY(a::list, t):
+def RotY(a, t):
 	
 	
 	###########################################################

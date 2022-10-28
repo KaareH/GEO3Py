@@ -3,11 +3,13 @@
 # functions/deprecated_FSnDraw.py
 
 
+# Description:
 # Display of Frenet-Serret frame field n from given
-parametrization, arc-length or not. Along thin curve. 
-Singular points and points of zero curvature 
-are tracked down and marked. Single frames are globally accessible: call
-FSstill(p), p=1....net[1]. 
+# parametrization, arc-length or not. Along thin curve. 
+# Singular points and points of zero curvature 
+# are tracked down and marked. Single frames are globally accessible: call
+# FSstill(p), p=1....net[1]. 
+#
 # Globals: ly accessible: call
 FSstill(p), p=1....net[1]. "
 # Locals:  k, w, i, j, questn, questB, Delta, Af, questr, maxi, mini, 
@@ -160,4 +162,22 @@ def deprecated_FSnDraw(r, B, netraw):
 	FSanim:= display([base3d(x,y,z), singulStack, CurvStack, zeroCstack, curveThin, anim], 
 	view=[-ex...ex, -ex...ex, -ex...ex]);
 	else end if;
+	# Result: 
+	if nargs=3 then
+	net:= netraw;
+	if
+	type(net[1], numeric) then 
+	questn:=true else questn:=false;
+	net:= [5] end if
+	# Result: 
+	 nargs=3 
+	# Result: 
+	
+	net:= netraw;
+	if
+	type(net[1], numeric) then 
+	questn:=true 
+	# Result: 
+	 questn:=false;
+	net:= [5] 
 	

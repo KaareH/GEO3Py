@@ -3,8 +3,10 @@
 # functions/FII.py
 
 
+# Description:
 # Calculates the second fundamental form FII as a matrix from given 
-parametrization r. Out parameters or values are specified in given 2-element list L
+# parametrization r. Out parameters or values are specified in given 2-element list L
+#
 # Globals: 
 # Locals:  rPPuu, rPPuv, rPPvv, Lr, Mr, Nr, Ur, sec
 # Parameters: r, L

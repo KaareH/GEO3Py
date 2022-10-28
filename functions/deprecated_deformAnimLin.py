@@ -3,9 +3,11 @@
 # functions/deprecated_deformAnimLin.py
 
 
+# Description:
 # Display of animated deformation from first surface r1 
-to second surface r2 via (1-t)*r1(u,v) + t*r2(u,v) from common parameter 
-domain for (u,v). The integer frames is number of figures in one way sequence
+# to second surface r2 via (1-t)*r1(u,v) + t*r2(u,v) from common parameter 
+# domain for (u,v). The integer frames is number of figures in one way sequence
+#
 # Globals: 
 # Locals:  tt
 # Parameters: r1, r2, Br, netr, frames

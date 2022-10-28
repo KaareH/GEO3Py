@@ -3,13 +3,15 @@
 # functions/SVDshowPair3D.py
 
 
+# Description:
 # Given column lists of three vectors a, b, and c, the matrix is SVD
-decomposed and the corresponding deformation is displayed in 11 moves --
-the last parallel translation only if p is given.
+# decomposed and the corresponding deformation is displayed in 11 moves --
+# the last parallel translation only if p is given.
+#
 # Globals:  rot0, rot1, rot2, rot3, rot4, rot5, rot6, defX, defY, defZ, tower, stillFin, parall
 # Locals:  pp, aa, bb, cc, Uargs, Vtargs, uu, vv, ww, uuu, vvv, www, aaa, bbb, ccc, q, figflip, figscaleX, figscaleY, figscaleZ, a1m, b1m, c1m, a1mm, b1mm, c1mm, fig1, fig2, fig3, fig4, fig5, fig6, A, detA, ee, ff, gg, target, figparall,  rotZ, rotY, rotX, a,b,c,a10,b10,c10,a1t, b1t, c1t, a2t, b2t, c2t, K1, K2, K, p, detK, FF, KK, KK1, KK2
 # Parameters: a1::list, b1::list, c1::list, p1::list, a2::list, b2::list, c2::list, p2::list
-def SVDshowPair3D(a1::list, b1::list, c1::list, p1::list, a2::list, b2::list, c2::list, p2::list):
+def SVDshowPair3D(a1, b1, c1, p1, a2, b2, c2, p2):
 	
 	
 	###########################################################
@@ -165,4 +167,16 @@ def SVDshowPair3D(a1::list, b1::list, c1::list, p1::list, a2::list, b2::list, c2
 	
 	
 	#############################################################
+	# Result: 
+	if detK >= 0 then 
+	KK1:= K1 ; KK2:= K2; else
+	KK1:= K1.FF; KK2:= K2;  end if
+	# Result: 
+	 detK >= 0 
+	# Result: 
+	 
+	KK1:= K1 ; KK2:= K2; 
+	# Result: 
+	
+	KK1:= K1.FF; KK2:= K2;  
 	

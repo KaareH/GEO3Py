@@ -3,11 +3,13 @@
 # functions/Hinge.py
 
 
+# Description:
 # Hinge display with marked orientation.
+#
 # Globals: 
 # Locals:  col, mat, pt, ara, arb, faceab
 # Parameters: p::list, a::list, b::list
-def Hinge(p::list, a::list, b::list):
+def Hinge(p, a, b):
 	
 	
 	###########################################################
@@ -53,4 +55,26 @@ def Hinge(p::list, a::list, b::list):
 	
 	
 	#############################################################
+	# Result: 
+	if nops(a)=2 then
+	##########
+	
+	mat:= Transpose(Matrix([a, b])); 
+	
+	if evalf(Determinant(mat))>=0 then col:=cyan 
+	else col:=khaki; 
+	end if
+	# Result: 
+	 nops(a)=2 
+	# Result: 
+	
+	##########
+	
+	mat:= Transpose(Matrix([a, b])); 
+	
+	if evalf(Determinant(mat))>=0 then col:=cyan 
+	
+	# Result: 
+	 col:=khaki; 
+	
 	

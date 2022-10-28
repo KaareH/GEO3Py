@@ -3,7 +3,9 @@
 # functions/wireFramePlanarGray.py
 
 
+# Description:
 # Wireframe model of planar domain - in gray
+#
 # Globals: 
 # Locals:  
           q, p, Delta,x, y,  ku, kv, sys

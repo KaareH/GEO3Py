@@ -3,9 +3,11 @@
 # functions/FInrm.py
 
 
+# Description:
 # Calculates the length of vector v with given coordinates [uP, vP] w.r.t. 
-standard coordinate basis at parameter point (L[1], L[2]) from given 
-parametrization r. Out parameters or values are as specified in 2-element list L
+# standard coordinate basis at parameter point (L[1], L[2]) from given 
+# parametrization r. Out parameters or values are as specified in 2-element list L
+#
 # Globals: 
 # Locals:  rP1,rP2, u,v, E, F, G, len
 # Parameters: r, vec, L

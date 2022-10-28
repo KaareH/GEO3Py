@@ -3,7 +3,9 @@
 # functions/deprecated_wireFrameSurfaceBound.py
 
 
+# Description:
 # Wireframe model of surface with boundary
+#
 # Globals: 
 # Locals:  
      q, p, i, Delta, rr, ku, kv, sys, deform, kurve, kurveTotal, flade, paramC
@@ -49,5 +51,21 @@ def deprecated_wireFrameSurfaceBound(r, B, net, gamU, BgamU):
 	
 	display([deform, kurveTotal, base3d(x,y,z), paramC], 
 	scaling=constrained, projection=0.8);
+	
+	# Result: 
+	if nargs > 3 then 
+	paramC:= spacecurve(r(gamU(t)[1], gamU(t)[2]), t=BgamU[1]...BgamU[2], color=black, thickness=2);
+	else
+	paramC:= NULL;
+	end if
+	# Result: 
+	 nargs > 3 
+	# Result: 
+	 
+	paramC:= spacecurve(r(gamU(t)[1], gamU(t)[2]), t=BgamU[1]...BgamU[2], color=black, thickness=2);
+	
+	# Result: 
+	
+	paramC:= NULL;
 	
 	
