@@ -34,19 +34,57 @@ class GEO3Function:
         # Function definition
         body = "def {}({}):\n".format(self.name, params)
     
+        # Function body
         # Behandling af if statements !!! Har brug for arbejde, virker ikke! Lav loop etc...
-        try:
-            result = re.search("if([\s\S\n]*?)then([\s\S\n]*?)else([\s\S\n]*?)end if", codeStr)
-            
-            codeStr += "# Result: \n" + result.group(0) + "\n"
-            codeStr += "# Result: \n" + result.group(1) + "\n"
-            codeStr += "# Result: \n" + result.group(2) + "\n"
-            codeStr += "# Result: \n" + result.group(3) + "\n"
-        except:
-            None
+        # results = re.findall("if([\s\S\n]*?)then([\s\S\n]*?)else([\s\S\n]*?)end if", codeStr)
+        # for result in results:
+        #     codeStr += "# Result: #########################################\n"
+        #     codeStr += "# if" + result[0] + ":" #+ "\n"
+        #     codeStr += "#     " + result[1].replace("\n", "\n#     ") + "\n"
+        #     codeStr += "# else:" #+"\n"
+        #     codeStr += "#     " + result[2].replace("\n", "\n#     ") + "\n"
+        #     codeStr += "#\n"
+
+        #     #codeStr += "# Result: \n" + result.group(0) + "\n"
+        #     #codeStr += "# Result: \n" + result.group(1) + "\n"
+        #     #codeStr += "# Result: \n" + result.group(2) + "\n"
+        #     #codeStr += "# Result: \n" + result.group(3) + "\n"
+
+        codeStrOriginal = codeStr
+        codeStr = codeStr.replace(';', ';\n').replace(";\n\n", "\n")
+        clines = codeStr.splitlines()
+        codeStr = ''
+
+        codeStr += "##################################\n"
+        codeStr += "########## CONVERTED #############\n"
+        codeStr += "##################################\n"
+        if_indent = 0
+        for line in clines:
+            this_indent = 0
+            line = line.strip()
+            if line.startswith('if '):
+                if_indent += 1
+                this_indent = -1
+                line = line.replace('then', ':')
+            elif line.startswith('else'):
+                line = 'else:'
+                this_indent = -1
+            elif line.startswith('end if'):
+                if_indent -= 1
+                this_indent = -1
+                line = ''
+
+            codeStr += (if_indent + this_indent)*'\t' + line + "\n"
 
         codeStr = codeStr.replace("\n", "\n\t")
+        #codeStr = codeStr.replace("\n\n\n", "\n\n")
         body += "\t" + codeStr + "\n"
+
+        body += "##################################\n"
+        body += "########## ORIGINAL ##############\n"
+        body += "##################################\n"
+        codeStrOriginal = codeStrOriginal.replace("\n", "\n\t")
+        body += "\t" + codeStrOriginal + "\n"
         return body
 
 def readFile(filePath):
@@ -172,7 +210,7 @@ def run():
 
     funcStrList = readFile("GEO3.txt")
     # Uncomment below to only run for some functions for quicker development
-    #funcStrList = [funcStrList[22], funcStrList[25]]
+    funcStrList = [funcStrList[22], funcStrList[25]]
 
     print("Description count:", descriptionCount)
     print("Local count:", localCount)
