@@ -1,4 +1,7 @@
-# GEO3Py
+GEO3Py
+==================
+[![Build Status](https://github.com/KaareZ/GEO3Py/actions/workflows/python-package.yml/badge.svg)](https://github.com/KaareZ/GEO3Py/actions)
+
 Port af GEO3 til Python.
 GEO3 Maple-pakke[^1] fra DTU kursus #01237 - Differentialgeometri og parametrisk design.
 
