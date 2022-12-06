@@ -1,0 +1,11 @@
+Markdown==3.4.1
+MarkupSafe==2.1.1
+matplotlib==3.5.3
+matplotlib-inline==0.1.6
+
+mpmath==1.2.1
+
+numpy==1.23.3
+plotly==5.11.0
+sympy==1.11.1
+sympy-plot-backends==1.5.0
