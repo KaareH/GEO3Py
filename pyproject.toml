@@ -1,0 +1,26 @@
+[build-system]
+#requires = ["hatchling"]
+#build-backend = "hatchling.build"
+
+requires = ['setuptools>=42']
+build-backend = 'setuptools.build_meta'
+
+[project]
+name = "geo3py"
+version = "0.0.1"
+authors = [
+  { name="Kaare G. S. Hansen", email="kaare@gshansen.dk" },
+]
+description = "Library for use in DTU course Differential geometry and Parametric design - 01237"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/KaareZ/GEO3Py"
+"Bug Tracker" = "https://github.com/KaareZ/GEO3Py"
+
