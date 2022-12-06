@@ -39,9 +39,9 @@ test = [
 source = ["src"]
 
 [tool.pytest.ini_options]
-addopts = "--cov --cov-report html --cov-report term-missing --cov-fail-under 95"
+#addopts = "--cov --cov-report html --cov-report term-missing --cov-fail-under 95"
 minversion = "6.0"
-#addopts = "-ra -q"
+addopts = "-ra -q"
 testpaths = [
     "tests",
     #"integration",
