@@ -14,15 +14,17 @@ def test_exam_E21_3_3(): # Bestem areal af P2
     expected_area = 10*pi*sqrt(5) + 5*pi*asinh(2)
     assert area.equals(expected_area)
 
-# def test_exam_E21_3_4(): # Bestem volumen af P2
-#     u, v, t = symbols('u v t', real=True)
-#     r = Matrix([cos(v) * (u + 5), sin(v) * (u + 5), -u ** 2 + 1])
+# Test ikke færdig! Den vil fejle!
+def test_exam_E21_3_4(): # Bestem volumen af P2
+    u, v, t = symbols('u v t', real=True)
+    r = Matrix([cos(v) * (u + 5), sin(v) * (u + 5), -u ** 2 + 1])
 
-#     u_dom = (u, -1, 1)
-#     v_dom = (v, 0, 2*pi)
-#     surf = Surface3D("r(u,v)", r, u_dom, v_dom)
+    u_dom = (u, -1, 1)
+    v_dom = (v, 0, 2*pi)
+    surf = Surface3D("r(u,v)", r, u_dom, v_dom)
 
-#     vol, details = surf.getArea()
+    vol, details = surf.getArea()
     
-#     expected_vol = 40/3*pi
-#     assert vol.equals(expected_vol)
+    expected_vol = 40/3*pi
+    assert vol.equals(expected_vol)
+
