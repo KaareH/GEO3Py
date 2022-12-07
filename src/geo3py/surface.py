@@ -1,8 +1,8 @@
 #__all__ = ["Surface3D"]
 
-from functions import *
-from sympy import *
+from .functions import *
 from .utils import *
+from sympy import *
 from collections import namedtuple
 
 class Surface3D:
