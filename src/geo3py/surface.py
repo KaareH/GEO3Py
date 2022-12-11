@@ -1,7 +1,8 @@
 #__all__ = ["Surface3D"]
 
-from sympy import *
+from .functions import *
 from .utils import *
+from sympy import *
 from collections import namedtuple
 
 class Surface3D:
@@ -21,6 +22,7 @@ class Surface3D:
         return simplify(jacobi)
         
     def getArea(self, dom_1=None, dom_2=None):
+        # Brug objektets interval eller det der bliver givet
         if dom_1 is None: dom_1 = self.dom_1
         if dom_2 is None: dom_2 = self.dom_2
         jacobi = self.getJacobi()
@@ -28,8 +30,8 @@ class Surface3D:
         area_int = simplify(Integral(jacobi, dom_1, dom_2))
         area = area_int.doit()
 
-        Details = namedtuple('details', 'jacobi integrand dom_1 dom_2')
-        return area, Details(jacobi, area_int, dom_1, dom_2)
+        details = namedtuple('details', 'jacobi integrand dom_1 dom_2')
+        return area, details(jacobi, area_int, dom_1, dom_2)
     
     def __getDefInfo(self):
         return self.r, self.dom_1[0], self.dom_2[0]
@@ -51,42 +53,4 @@ class Surface3D:
     
     def getMiddelH(self):
         return get_MiddelH(self.getWeingarten())
-
-# Definition 12.10, tangentplan
-def get_N(r, u, v):
-    rxr = diff(r, u).cross(diff(r, v))
-    return rxr / rxr.norm()
-
-# Definition 13.1
-def get_F_I(r, u, v):
-    m = Matrix([[diff(r,u).dot(diff(r,u)), diff(r,u).dot(diff(r,v))],
-                [diff(r,v).dot(diff(r,u)), diff(r,v).dot(diff(r,v))]])
-    return m
-
-# Definition 13.1
-def get_F_II(r, u, v):
-    r_N = get_N(r, u, v)
-    m = Matrix([[diff(r,u,u).dot(r_N), diff(r,u,v).dot(r_N)],
-                [diff(r,v,u).dot(r_N), diff(r,v,v).dot(r_N)]])
-    return m
-
-# Definition 13.6
-def get_Weingarten(r, u, v):
-    F_I = simplify(get_F_I(r, u, v))
-    F_II = simplify(get_F_II(r, u, v))
-    return simplify(F_I.inverse() * F_II)
-
-# Definition 14.1
-#def get_GaussK(kappa1, kappa2, u, v):
-#    return
-
-# Definition 14.3, 14.1
-def get_GaussK(Weingarten):
-    return Weingarten.det()
-
-# Definition 14.3, 14.1
-def get_MiddelH(Weingarten):
-    return Weingarten.trace() / 2
-        
-
 

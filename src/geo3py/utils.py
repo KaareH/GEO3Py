@@ -1,11 +1,9 @@
 from sympy import *
+from IPython.display import display, Markdown, Latex
 
-# # Display equation
-# def EqPrint(lhs, rhs):
-#     return Markdown(f"${lhs} = "f"{latex(rhs)}$")
-
-def testUtil():
-    print("TestUtil func!")
+# Display equation
+def EqPrint(lhs, rhs):
+    return Markdown(f"${lhs} = "f"{latex(rhs)}$")
 
 def domain_latex(domain):
     symb = domain[0]
