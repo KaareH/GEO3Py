@@ -1,5 +1,6 @@
 from sympy import *
 from .utils import *
+from collections import namedtuple
 
 # Definition 12.10, tangentplan
 def get_N(r, u, v):
@@ -36,5 +37,34 @@ def get_GaussK(Weingarten):
 # Definition 14.3, 14.1
 def get_MiddelH(Weingarten):
     return Weingarten.trace() / 2
-        
 
+# Sætning mangler
+def get_v(p, t):
+    return simplify(diff(p, t).norm())
+
+# Sætning 8.25, kruming
+def get_kappa(p, t, v = None):
+    if v == None:
+        v = get_v(p, t)
+
+    kappa = simplify(((diff(p, t).cross(diff(p, t, t))).norm()) / (v**3))
+    return kappa
+
+# Sætning 8.25, torsion
+def get_tau(p, t):
+    torsion = simplify((diff(p, t).cross(diff(p, t, t)).dot(diff(p, t, t, t)))
+        / ((diff(p, t).cross(diff(p, t, t))).norm()**2))
+    return torsion
+
+# Sætning 8.25, Frenet-Serret
+def get_FrenetSerret(p, t):
+    v = get_v(p, t)
+    pm = diff(p, t)
+    pmm = diff(p, t, t)
+    e = simplify(pm/v)
+    g = simplify((pm.cross(pmm)) / ((pm.cross(pmm)).norm()))
+    f = simplify(g.cross(e))
+    result = namedtuple('Frenet-Serret vec', 'e f g')
+    return result(e, f, g)
+
+    
