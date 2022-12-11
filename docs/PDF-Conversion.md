@@ -8,7 +8,8 @@
 4. Find and replace `attachment:./` with nothing
 5. Find and replace `<img src="` with `![](`
 6. Find and replace `.png"` with `.png)`
-7. Starting from the bottom of the markdown-cell, split the cells between each section and subsection. Shortcut in VSCode `Shift + ctrl + -`
+7. Find and replace `.jpg"` with `.jpg)`
+8. Starting from the bottom of the markdown-cell, split the cells between each section and subsection. Shortcut in VSCode `Shift + ctrl + -`
 
 
 # Convert Jupyter-notebook to PDF

@@ -18,7 +18,7 @@ class Surface3D:
     def getJacobi(self):
         symbol_1 = self.dom_1[0]
         symbol_2 = self.dom_2[0]
-        jacobi = diff(self.r, symbol_1).cross(diff(self.r, symbol_2)).norm()
+        jacobi = get_Jacobi2(self.r, symbol_1, symbol_2)
         return simplify(jacobi)
         
     def getArea(self, dom_1=None, dom_2=None):

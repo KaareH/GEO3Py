@@ -67,4 +67,6 @@ def get_FrenetSerret(p, t):
     result = namedtuple('Frenet-Serret vec', 'e f g')
     return result(e, f, g)
 
-    
+def get_Jacobi2(r, u, v):
+    jac = diff(r, u).cross(diff(r, v)).norm()
+    return simplify(jac)
