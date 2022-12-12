@@ -18,7 +18,7 @@ class Solid3D:
         symbol_1 = self.dom_1[0]
         symbol_2 = self.dom_2[0]
         symbol_3 = self.dom_3[0]
-        jacobi = diff(self.r, symbol_1).cross(diff(self.r, symbol_2)).dot(diff(self.r, symbol_3))
+        jacobi = get_Jacobi3(self.r, symbol_1, symbol_2, symbol_3)
         return jacobi
 
     def getVolume(self, dom_1=None, dom_2=None, dom_3=None):
