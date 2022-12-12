@@ -70,3 +70,19 @@ def get_FrenetSerret(p, t):
 def get_Jacobi2(r, u, v):
     jac = diff(r, u).cross(diff(r, v)).norm()
     return simplify(jac)
+
+def get_Jacobi3(r, u, v, w):
+    jac = (diff(r, u).cross(diff(r, v))).dot(diff(r, w))
+    return simplify(jac)
+
+# 8.85, side 156
+def get_Omega(R, t):
+    Omega = simplify(diff(R, t)*(R.T))
+    # omega = Matrix([Omega[1,2], Omega[2,0], Omega[0,1]])
+    omega = Matrix([Omega[2,1], Omega[0,2], Omega[1,0]])
+    return Omega, omega
+
+def get_skrue_h(omega, p, t):
+    pdiff = diff(p, t)
+    h = simplify((omega.dot(pdiff)) / (omega.norm()**2))
+    return h
