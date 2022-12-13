@@ -2,7 +2,8 @@
 # Todo SVD
 # SVD for generelle matrix m x n
 
-from sympy import Matrix, eye, cos, sin, simplify
+from IPython.display import display, Markdown, Latex
+from sympy import Matrix, eye, cos, sin, simplify, latex
 from collections import namedtuple
 
 # Sætning 4.29
@@ -48,3 +49,10 @@ def getRxyz(u, v, w):
 def getF():
     E = eye(3)
     return Matrix([E[1,:], E[0,:], E[2,:]])
+
+def getSigmas(S):
+    sigmas = [S[0,0], S[1,1], S[2,2]]
+    sigmas.sort()
+    sigmas.reverse()
+    md = Markdown(f"$\sigma_1={latex(sigmas[0])}, \sigma_2={latex(sigmas[1])}, \sigma_3={latex(sigmas[2])}$")
+    return Matrix(sigmas), md
