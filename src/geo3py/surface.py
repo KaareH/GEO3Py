@@ -30,10 +30,15 @@ class Surface3D:
         jacobi = self.getJacobi()
 
         area_int = simplify(Integral(jacobi, dom_1, dom_2))
-        area = area_int.doit()
+        area = simplify(area_int.doit())
 
-        details = namedtuple('details', 'jacobi integrand dom_1 dom_2')
-        return area, details(jacobi, area_int, dom_1, dom_2)
+        details = namedtuple('details', 'area jacobi integrand dom_1 dom_2')
+        return area, details(
+            Eq(Symbol('A'), area),
+            Eq(Symbol('Jacobi'), jacobi),
+            Eq(Symbol('A'), area_int),
+            dom_1,
+            dom_2)
     
     def __getDefInfo(self):
         return self.r, self.dom_1[0], self.dom_2[0]
