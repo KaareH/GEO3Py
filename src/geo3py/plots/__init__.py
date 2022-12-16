@@ -1,3 +1,3 @@
 __all__ = ['plot']
 
-from .plot import plotTest
+from .plot import *
