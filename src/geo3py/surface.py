@@ -24,6 +24,19 @@ class Surface3D:
         return simplify(jacobi)
         
     def getArea(self, dom_1=None, dom_2=None):
+        """
+        Calculate surface area of parametric surface
+
+            Parameters:
+                dom_1 (tuple(symbol, lower, upper)): Optionally alter the domain of the 1st paramter
+                dom_2 (tuple(symbol, lower, upper)): Optionally alter the domain of the 2nd paramter
+
+            Return:
+                area (sympy.core.baisc.Baisc): Calculated area
+                details (tuple): Tuple containing additional details about the calculation
+
+        """
+
         # Brug objektets interval eller det der bliver givet
         if dom_1 is None: dom_1 = self.dom_1
         if dom_2 is None: dom_2 = self.dom_2
