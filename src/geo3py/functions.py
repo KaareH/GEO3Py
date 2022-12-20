@@ -64,7 +64,7 @@ def get_FrenetSerret(p, t):
     e = simplify(pm/v)
     g = simplify((pm.cross(pmm)) / ((pm.cross(pmm)).norm()))
     f = simplify(g.cross(e))
-    result = namedtuple('Frenet-Serret vec', 'e f g')
+    result = namedtuple('FrenetSerretVec', 'e f g')
     return result(e, f, g)
 
 def get_Jacobi2(r, u, v):
