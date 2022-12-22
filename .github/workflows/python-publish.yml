@@ -25,3 +25,8 @@ jobs:
         pip install build
     - name: Build package
       run: python -m build
+    - name: Store release files
+      uses: actions/upload-artifact@v3
+      with:
+          name: release_files
+          path: dist/
