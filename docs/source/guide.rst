@@ -1,7 +1,8 @@
 Getting started
-===============
+=================
 
-Please refer to the install chapter, to learn how to install geo3py.
+Please refer to the :doc:`install`-chapter to learn how to install geo3py.
+
 
 geo3py is still under development, and not all functionality is yet covered.
 
@@ -11,5 +12,5 @@ E.g. geo3py is mainly based on sympy, which does not always evaluate and simplif
 .. toctree::
    :maxdepth: 2
 
-   PDF-Conversion
    examples
+   PDF-Conversion
