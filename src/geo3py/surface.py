@@ -1,5 +1,3 @@
-#__all__ = ["Surface3D"]
-
 from .functions import *
 from .utils import *
 from sympy import *
