@@ -10,10 +10,29 @@ project = 'geo3py'
 copyright = '2022, Kaare Hansen'
 author = 'Kaare Hansen'
 
+
+
+import sys
+import os
+
+# Make sure we import sympy from git
+sys.path.insert(0, os.path.abspath('../../src'))
+
+import geo3py
+#import geo3py.surface
+
+
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = []
+extensions = ['sphinx.ext.autodoc', #'sphinx.ext.linkcode',
+              'sphinx.ext.mathjax',
+             
+              'sphinx.ext.graphviz', 'matplotlib.sphinxext.plot_directive',
+              'sphinx.ext.intersphinx',
+              ]
+
+
 
 templates_path = ['_templates']
 exclude_patterns = []
