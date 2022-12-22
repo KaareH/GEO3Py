@@ -1,6 +1,12 @@
 GEO3Py
 ==================
 [![Build Status](https://github.com/KaareZ/GEO3Py/actions/workflows/python-package.yml/badge.svg)](https://github.com/KaareZ/GEO3Py/actions)
+[![Doc-Build Status](https://github.com/KaareZ/GEO3Py/actions/workflows/buildDocs.yml/badge.svg)](https://github.com/KaareZ/GEO3Py/actions)
+
+[<img src="./docs/source/geo3py-logo.svg" width=40%>](https://kaarez.github.io/GEO3Py/)
+
+GEO3Py har sin egen hjemmeside med senest tilgængelige dokumentation og eksempler:
+[Documentation](https://kaarez.github.io/GEO3Py)
 
 ***Bemærk!*** **Dette Python bibliotek (GEO3Py) er endnu ikke klar til brug! API kan blive ændret.**
 
