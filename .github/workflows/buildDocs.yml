@@ -37,7 +37,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: DocumentationHTML
-        path: build/html/
+        path: docs/build/html/
 
 #  # Deployment job
 #  deploy:
