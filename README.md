@@ -16,7 +16,7 @@ GEO3Py er beregnet til brug i DTU-kursus #01237 - Differentialgeometri og parame
 - Kør kommandoen `pip install .` i denne mappe
 - I dit Python-miljø kan du nu importere biblioteket ved `from geo3py import *`
 
-Se eksempler på brug i Jupyter-notebooks i [examples](./examples).
+Se eksempler på brug i Jupyter-notebooks i [notebooks](./docs/source/notebooks) ~~[examples](./examples)~~.
 
 ## Andet
 
