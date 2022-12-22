@@ -1,3 +1,7 @@
+"""
+Useful utilities for convienience.
+"""
+
 from sympy import *
 from IPython.display import display, Markdown, Latex
 

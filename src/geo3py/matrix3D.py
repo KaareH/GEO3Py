@@ -1,3 +1,8 @@
+"""
+3D-matrix functions.
+Rotation matrices, SVD etc...
+"""
+
 # Todo rotaioner, skaleringer
 # Todo SVD
 # SVD for generelle matrix m x n

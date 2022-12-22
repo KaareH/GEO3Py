@@ -1,3 +1,7 @@
+"""
+geo3py core functions
+"""
+
 from sympy import symbols
 
 def initSymbols():

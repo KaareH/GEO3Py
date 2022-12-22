@@ -1,9 +1,14 @@
+"""
+Raw mathematical functions. Most functions in this module are from the official course material, 2022_DGPD_NOTER.pdf
+"""
+
 from sympy import *
 from .utils import *
 from collections import namedtuple
 
 # Definition 12.10, tangentplan
 def get_N(r, u, v):
+    """DGPD, def-12.10, tangentplan"""
     rxr = diff(r, u).cross(diff(r, v))
     return rxr / rxr.norm()
 

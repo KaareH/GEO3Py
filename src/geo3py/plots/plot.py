@@ -1,3 +1,8 @@
+"""
+This modules contains interactive plots.
+Interactive with plotting-backends different from Matplotlib may not render in exported Jupyter-notebooks.
+"""
+
 # init
 #%matplotlib widget
 #%matplotlib inline

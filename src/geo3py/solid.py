@@ -1,3 +1,7 @@
+"""
+Represent parametric volumes in 3D space. Convenient common functions
+"""
+
 from .functions import *
 from .utils import *
 from sympy import *
