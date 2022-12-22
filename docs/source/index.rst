@@ -13,7 +13,6 @@ Welcome to geo3py's documentation!
    guide
    install
    examples
-   PDF-Conversion
    modules
    geo3py
 
