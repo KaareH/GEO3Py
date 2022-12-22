@@ -48,7 +48,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v1
       with:
-      #  name: DocumentationHTML
+        name: DocumentationHTML
         path: docs/build/html/
 
 
@@ -63,8 +63,8 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
-        #with:
-        #  artifact_name: DocumentationHTML
+        with:
+          artifact_name: DocumentationHTML
 
 
 #  # Deployment job
