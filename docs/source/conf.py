@@ -7,10 +7,8 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'geo3py'
-copyright = '2022, Kaare Hansen'
-author = 'Kaare Hansen'
-
-
+copyright = '2022, Kaare G. S. Hansen, s214282 - DTU'
+author = 'Kaare G. S. Hansen'
 
 import sys
 import os
@@ -27,7 +25,6 @@ import geo3py
 
 extensions = ['sphinx.ext.autodoc', #'sphinx.ext.linkcode',
               'sphinx.ext.mathjax',
-             
               'sphinx.ext.graphviz', 'matplotlib.sphinxext.plot_directive',
               'sphinx.ext.intersphinx',
               ]
