@@ -10,6 +10,11 @@ from spb import plot3d_parametric_surface, PB, MB, KB
 from numpy import ptp, array, min, max
 
 class Surface3D:
+    """
+    A class to contain all necessary properties for a parametric surface.
+    Keeps parametric function, parameter domains etc... as one object for easy use of class-methods.
+    """
+
     def __init__(self, name, r, dom_1, dom_2):
         self.name = name
         self.r = r
@@ -77,6 +82,12 @@ class Surface3D:
         return get_MiddelH(self.getWeingarten())
 
     def quickPlot(self, showPlot=True):
+        """
+        Render surface in a 3D plot view.
+        MatplotLib is used as backend, thus graphics should be capable of PDF export in notebook.
+        """
+
+
         plt1 = plot3d_parametric_surface(*self.r, self.dom_1, self.dom_2, backend=MB, rendering_kw={"alpha": 0.8}, wireframe=True, use_cm=False, show=False)
         xs = plt1[0].get_data()[0]
         ys = plt1[0].get_data()[1]
