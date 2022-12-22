@@ -18,6 +18,7 @@ sys.path.insert(0, os.path.abspath('../../src/'))
 
 import geo3py
 
+import sphinx_rtd_theme
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -26,7 +27,8 @@ extensions = ['sphinx.ext.autodoc', #'sphinx.ext.linkcode',
               'sphinx.ext.mathjax',
               'sphinx.ext.graphviz', 'matplotlib.sphinxext.plot_directive',
               'sphinx.ext.intersphinx',
-              'nbsphinx'
+              'nbsphinx',
+              'sphinx_rtd_theme',
               ]
 
 
@@ -37,5 +39,7 @@ exclude_patterns = []
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'alabaster'
+# html_theme = 'alabaster'
+# html_theme = 'classic'
+html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
