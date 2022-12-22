@@ -1,4 +1,4 @@
-name: "Pull Request Docs Check"
+name: "Build docs"
 on: 
   workflow_dispatch:
 jobs:
