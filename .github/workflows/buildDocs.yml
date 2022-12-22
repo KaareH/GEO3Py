@@ -1,0 +1,48 @@
+name: "Build docs"
+on: 
+  workflow_dispatch:
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.8'
+        cache: 'pip'
+    - name: Install dependencies
+      run: |
+        sudo apt install pandoc
+        python -m pip install --upgrade pip
+        python -m pip install setuptools wheel
+        python -m pip install flake8 pytest
+        python -m pip install -U sphinx
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+   # - name: Build docs
+   #   uses: ammaraskar/sphinx-action@master
+   #   with:
+   #     docs-folder: "docs/"
+   # - name: Upload artifact
+   #   uses: actions/upload-artifact@v1
+   #   with:
+   #       name: DocumentationHTML
+   #       path: docs/_build/html/
+    - name: Build sphinx documentation
+      working-directory: ./docs
+      run: |
+        make html
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v1
+
+#  # Deployment job
+#  deploy:
+#    environment:
+#      name: github-pages
+#      url: ${{ steps.deployment.outputs.page_url }}
+#    runs-on: ubuntu-latest
+#    needs: build
+#    steps:
+#      - name: Deploy to GitHub Pages
+#        id: deployment
+#        uses: actions/deploy-pages@v1
