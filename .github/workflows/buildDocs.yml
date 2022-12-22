@@ -34,7 +34,10 @@ jobs:
       run: |
         make html
     - name: Upload artifact
-      uses: actions/upload-pages-artifact@v1
+      uses: actions/upload-artifact@v3
+      with:
+        name: DocumentationHTML
+        path: build/html/
 
 #  # Deployment job
 #  deploy:
