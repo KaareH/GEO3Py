@@ -10,7 +10,9 @@ Welcome to geo3py's documentation!
 .. toctree::
    :maxdepth: 2
 
+   guide
    install
+   examples
    PDF-Conversion
    modules
    geo3py

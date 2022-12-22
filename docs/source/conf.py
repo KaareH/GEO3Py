@@ -26,6 +26,7 @@ extensions = ['sphinx.ext.autodoc', #'sphinx.ext.linkcode',
               'sphinx.ext.mathjax',
               'sphinx.ext.graphviz', 'matplotlib.sphinxext.plot_directive',
               'sphinx.ext.intersphinx',
+              'nbsphinx'
               ]
 
 
