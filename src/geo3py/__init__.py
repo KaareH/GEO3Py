@@ -1,6 +1,11 @@
 """
-geo3py is a convienient Python library intended for use in DTU-course #01237 - Differentialgeometri og parametrisk design
+geo3py is a convienient Python library intended for use in DTU-course #01237 - Differentialgeometri og parametrisk design.
+
+Website: https://github.com/KaareZ/GEO3Py
+
 """
+
+#__all__ = ['functions, core, utils, curve, surface, solid']
 
 from .core          import *
 from .utils         import *

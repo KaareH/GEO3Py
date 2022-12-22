@@ -4,21 +4,16 @@
    contain the root `toctree` directive.
 
 
-
-
-
-
 Welcome to geo3py's documentation!
 ==================================
-.. automodule:: geo3py
-   :members:
-
-.. automodule:: geo3py.surface
-   :members:
 
 .. toctree::
-   :maxdepth: 4
-   :caption: Contents:
+   :maxdepth: 2
+
+   install
+   PDF-Conversion
+   modules
+   geo3py
 
 
 

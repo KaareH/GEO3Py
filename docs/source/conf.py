@@ -14,10 +14,9 @@ import sys
 import os
 
 # Make sure we import sympy from git
-sys.path.insert(0, os.path.abspath('../../src'))
+sys.path.insert(0, os.path.abspath('../../src/'))
 
 import geo3py
-#import geo3py.surface
 
 
 # -- General configuration ---------------------------------------------------
@@ -30,10 +29,8 @@ extensions = ['sphinx.ext.autodoc', #'sphinx.ext.linkcode',
               ]
 
 
-
 templates_path = ['_templates']
 exclude_patterns = []
-
 
 
 # -- Options for HTML output -------------------------------------------------
