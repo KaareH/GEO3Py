@@ -8,6 +8,6 @@ Here are some usage examples of geo3py...
    :caption: Contents:
 
    notebooks/SurfaceArea
-   notebooks/E22-Differentialgeometri
-   
+   notebooks/E22/E22-Differentialgeometri
+
 
