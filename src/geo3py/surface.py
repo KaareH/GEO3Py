@@ -1,4 +1,6 @@
-#__all__ = ["Surface3D"]
+"""
+Represent parametric surfaces in 3D space. Convenient common functions
+"""
 
 from .functions import *
 from .utils import *
@@ -24,16 +26,34 @@ class Surface3D:
         return simplify(jacobi)
         
     def getArea(self, dom_1=None, dom_2=None):
+        """
+        Calculate surface area of parametric surface
+
+            Parameters:
+                dom_1 (tuple(symbol, lower, upper)): Optionally alter the domain of the 1st paramter
+                dom_2 (tuple(symbol, lower, upper)): Optionally alter the domain of the 2nd paramter
+
+            Return:
+                area (sympy.core.baisc.Baisc): Calculated area
+                details (tuple): Tuple containing additional details about the calculation
+
+        """
+
         # Brug objektets interval eller det der bliver givet
         if dom_1 is None: dom_1 = self.dom_1
         if dom_2 is None: dom_2 = self.dom_2
         jacobi = self.getJacobi()
 
         area_int = simplify(Integral(jacobi, dom_1, dom_2))
-        area = area_int.doit()
+        area = simplify(area_int.doit())
 
-        details = namedtuple('details', 'jacobi integrand dom_1 dom_2')
-        return area, details(jacobi, area_int, dom_1, dom_2)
+        details = namedtuple('details', 'area jacobi integrand dom_1 dom_2')
+        return area, details(
+            Eq(Symbol('A'), area),
+            Eq(Symbol('Jacobi'), jacobi),
+            Eq(Symbol('A'), area_int),
+            dom_1,
+            dom_2)
     
     def __getDefInfo(self):
         return self.r, self.dom_1[0], self.dom_2[0]

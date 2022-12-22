@@ -1,0 +1,3 @@
+"""
+The basic triangular shape
+"""

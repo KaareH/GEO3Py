@@ -1,3 +1,7 @@
+"""
+Simple representaion of a tetraeder
+"""
+
 # Todo deformation
 
 from .functions import *

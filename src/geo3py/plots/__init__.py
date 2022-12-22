@@ -1,3 +1,7 @@
-__all__ = ['plot']
+"""
+Convienient plotting functions
+"""
 
-from .plot import plotTest
+from .plot          import *
+
+# __all__ = ['plot']

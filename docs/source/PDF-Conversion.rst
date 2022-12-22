@@ -1,4 +1,6 @@
-# PDF to Jupyter-notebook steps
+PDF to Jupyter-notebook steps
+=============================
+
 
 (For exam and assignment use when given a `.pdf`)
 

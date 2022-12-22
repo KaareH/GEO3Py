@@ -1,9 +1,14 @@
+"""
+Raw mathematical functions. Most functions in this module are from the official course material, 2022_DGPD_NOTER.pdf
+"""
+
 from sympy import *
 from .utils import *
 from collections import namedtuple
 
 # Definition 12.10, tangentplan
 def get_N(r, u, v):
+    """DGPD, def-12.10, tangentplan"""
     rxr = diff(r, u).cross(diff(r, v))
     return rxr / rxr.norm()
 
@@ -64,7 +69,7 @@ def get_FrenetSerret(p, t):
     e = simplify(pm/v)
     g = simplify((pm.cross(pmm)) / ((pm.cross(pmm)).norm()))
     f = simplify(g.cross(e))
-    result = namedtuple('Frenet-Serret vec', 'e f g')
+    result = namedtuple('FrenetSerretVec', 'e f g')
     return result(e, f, g)
 
 def get_Jacobi2(r, u, v):
