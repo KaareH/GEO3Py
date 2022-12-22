@@ -43,3 +43,10 @@ exclude_patterns = []
 # html_theme = 'classic'
 html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
+html_logo = "geo3py-logo-white.svg"
+html_theme_options = {
+    'logo_only': True,
+    'display_version': False,
+}
+
+latex_logo = "geo3py-logo.png"
