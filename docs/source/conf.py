@@ -49,4 +49,14 @@ html_theme_options = {
     'display_version': False,
 }
 
+html_context = {
+    "display_github": True, # Integrate GitHub
+    "github_user": "KaareZ", # Username
+    "github_repo": "GEO3Py", # Repo name
+    "github_version": "main", # Version
+    "conf_py_path": "/docs/source/", # Path in the checkout to the docs root
+}
+
+# -- Options for LaTeX output -------------------------------------------------
+
 latex_logo = "geo3py-logo.png"
