@@ -7,6 +7,13 @@
 Welcome to geo3py's documentation!
 ==================================
 
+This Python-module is intended for use in course *01237 - Differential geometry and parametric design* at DTU.
+
+**geo3py is still under development, and not all functionality is yet covered.**
+
+
+Content
+-----------
 .. toctree::
    :maxdepth: 2
 
@@ -17,9 +24,8 @@ Welcome to geo3py's documentation!
    geo3py
 
 
-
 Indices and tables
-==================
+-------------------
 
 * :ref:`genindex`
 * :ref:`modindex`
