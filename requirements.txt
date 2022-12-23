@@ -18,3 +18,4 @@ Sphinx==5.3.0
 nbsphinx==0.8.10
 sphinx-rtd-theme==1.1.1
 sphinx-copybutton==0.5.1
+sphinx-charts==0.2.1
