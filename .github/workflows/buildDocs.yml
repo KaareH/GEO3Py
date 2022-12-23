@@ -52,6 +52,8 @@ jobs:
     - name: Build PDF
       working-directory: ./docs
       run: |
+        sudo apt update
+        sudo apt install latexmk texlive-latex-recommended texlive-latex-extra texlive-xetex fonts-freefont-otf texlive-fonts-recommended texlive-lang-greek tex-gyre
         make latexpdf
     - name: PDF artifact
       uses: actions/upload-artifact@v3
