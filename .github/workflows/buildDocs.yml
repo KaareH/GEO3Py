@@ -35,9 +35,9 @@ jobs:
         python -m pip install --upgrade pip
         #python -m pip install setuptools wheel
         #python -m pip install flake8 pytest
-        python -m pip install -U sphinx
-        python -m pip install nbsphinx
-        python -m pip install sphinx-rtd-theme
+        #python -m pip install -U sphinx
+        #python -m pip install nbsphinx
+        #python -m pip install sphinx-rtd-theme
         # Install geo3py
         python -m pip install .
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
