@@ -71,3 +71,8 @@ html_context = {
 # -- Options for LaTeX output -------------------------------------------------
 
 latex_logo = "geo3py-logo.png"
+latex_elements = {
+    'extrapackages': r'\usepackage{mathrsfs}',
+    'papersize': 'a4paper'
+}
+
