@@ -1,6 +1,6 @@
 from sympy import symbols, Matrix, cos, pi, sin, asinh, sqrt, evalf
-from src.geo3py.surface import Surface3D
-from src.geo3py.solid import Solid3D
+from geo3py.surface import Surface3D
+from geo3py.solid import Solid3D
 
 def test_exam_E21_3_3(): # Bestem areal af P2
     u, v, t = symbols('u v t', real=True)

@@ -1,5 +1,5 @@
 from sympy import symbols, Matrix, cos, pi, sin
-from src.geo3py.surface import Surface3D
+from geo3py.surface import Surface3D
 
 def test_get_surface_area():
     u, v, t = symbols('u v t', real=True)
