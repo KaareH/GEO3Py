@@ -55,8 +55,11 @@ jobs:
     - name: Build sphinx documentation
       working-directory: ./docs
       run: |
+        cd build
         # Dummy file for first build
-        touch geo3pyDocHTML.zip
+        touch dummyfile
+        zip -r geo3pyDocHTML.zip dummyfile
+        cd ../
         make html
         zip -r geo3pyDocHTML.zip build/html
         make html

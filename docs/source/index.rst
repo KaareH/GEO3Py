@@ -13,8 +13,9 @@ This Python-module is intended for use in course *01237 - Differential geometry 
 
 
 :download:`geo3py.pdf <../build/latex/geo3py.pdf>`.
-:download:`geo3pyDocHTML.zip <../geo3pyDocHTML.zip>`.
 
+
+:download:`geo3pyDocHTML.zip <../build/geo3pyDocHTML.zip>`.
 
 
 Content
