@@ -61,7 +61,9 @@ jobs:
         zip -r geo3pyDocHTML.zip dummyfile
         cd ../
         make html
-        zip -r geo3pyDocHTML.zip build/html
+        cd build
+        zip -r geo3pyDocHTML.zip html
+        cd ../
         make html
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v1
