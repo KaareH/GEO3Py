@@ -3,22 +3,23 @@
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
+
+import sys
+import os
+# Make sure we import sympy from git
+sys.path.insert(0, os.path.abspath('../../src/'))
+
+import geo3py
+import sphinx_rtd_theme
+
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'geo3py'
 copyright = '2022, Kaare G. S. Hansen, s214282 - DTU'
 author = 'Kaare G. S. Hansen'
+version = geo3py.__version__
 
-import sys
-import os
-
-# Make sure we import sympy from git
-sys.path.insert(0, os.path.abspath('../../src/'))
-
-import geo3py
-
-import sphinx_rtd_theme
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
