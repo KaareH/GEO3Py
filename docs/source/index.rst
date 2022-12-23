@@ -18,6 +18,7 @@ This Python-module is intended for use in course *01237 - Differential geometry 
 :download:`geo3pyDocHTML.zip <../build/geo3pyDocHTML.zip>`.
 
 
+
 Content
 -----------
 .. toctree::
@@ -36,3 +37,26 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+
+
+
+
+Documentation build details
+=============================
+
+Git commit details
+-----------------------------
+.. git_commit_detail::
+    :branch:
+    :commit:
+    :sha_length: 10
+    :uncommitted:
+    :untracked:
+
+
+Recent Changes
+--------------
+
+.. git_changelog::
+

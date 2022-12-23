@@ -32,6 +32,7 @@ extensions = ['sphinx.ext.autodoc', #'sphinx.ext.linkcode',
               'sphinx_charts.charts',
               'jupyter_sphinx',
               'sphinx_rtd_theme',
+              'sphinx_git',
               ]
 
 
@@ -57,7 +58,11 @@ html_static_path = ['_static']
 html_logo = "geo3py-logo-white.svg"
 html_theme_options = {
     'logo_only': True,
-    'display_version': False,
+    'display_version': True,
+    #'use_download_button': True,
+    'prev_next_buttons_location': 'both',
+    'style_external_links': True,
+
 }
 
 html_context = {
