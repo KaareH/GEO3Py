@@ -27,7 +27,10 @@ extensions = ['sphinx.ext.autodoc', #'sphinx.ext.linkcode',
               'sphinx.ext.mathjax',
               'sphinx.ext.graphviz', 'matplotlib.sphinxext.plot_directive',
               'sphinx.ext.intersphinx',
+              'sphinx_copybutton',
               'nbsphinx',
+              'sphinx_charts.charts',
+              'jupyter_sphinx',
               'sphinx_rtd_theme',
               ]
 
@@ -36,8 +39,16 @@ templates_path = ['_templates']
 exclude_patterns = []
 
 
+# -- Notebook configuration --------------------------------------------------
+#nbsphinx_execute = 'always'
+
+
+
+
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
+
+# html_js_files = ["https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"]
 
 # html_theme = 'alabaster'
 # html_theme = 'classic'

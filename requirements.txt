@@ -9,3 +9,11 @@ numpy==1.23.3
 plotly==5.11.0
 sympy==1.11.1
 sympy-plot-backends==1.5.0
+
+
+# Sphinx, docs build
+ipykernel
+IPython
+Sphinx
+nbsphinx
+sphinx-rtd-theme
