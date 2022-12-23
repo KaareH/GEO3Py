@@ -49,6 +49,15 @@ jobs:
       uses: actions/upload-pages-artifact@v1
       with:
         path: docs/build/html/
+    - name: Build PDF
+      working-directory: ./docs
+      run: |
+        make latexpdf
+    - name: PDF artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: geo3py-docs-PDF
+        path: docs/build/latex/geo3py.pdf
 
   # Deployment job
   deploy:
