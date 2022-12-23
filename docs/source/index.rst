@@ -12,6 +12,11 @@ This Python-module is intended for use in course *01237 - Differential geometry 
 **geo3py is still under development, and not all functionality is yet covered.**
 
 
+:download:`geo3py.pdf <../build/latex/geo3py.pdf>`.
+:download:`geo3pyDocHTML.zip <../geo3pyDocHTML.zip>`.
+
+
+
 Content
 -----------
 .. toctree::
