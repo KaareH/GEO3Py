@@ -24,6 +24,7 @@ Content
 .. toctree::
    :maxdepth: 2
 
+   Home <self>
    guide
    install
    examples
