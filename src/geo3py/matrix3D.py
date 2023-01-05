@@ -14,6 +14,13 @@ from collections import namedtuple
 # Sætning 4.29
 def SVD3(K):
     U, S, V = K.singular_value_decomposition()
+    sigmas = [S[0,0], S[1,1], S[2,2]]
+    sigmas.sort()
+    sigmas.reverse()
+    S[0,0] = sigmas[0]
+    S[1,1] = sigmas[1]
+    S[2,2] = sigmas[2]
+
     E = eye(3)
     F_hat = E
     if K.det() < 0:
