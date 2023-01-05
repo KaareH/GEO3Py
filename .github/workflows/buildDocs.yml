@@ -33,8 +33,16 @@ jobs:
       run: |
         sudo apt update
         sudo apt upgrade
-        sudo apt install pandoc
+
+        #sudo apt install pandoc
+        # apt install pandoc, installs version 2.9.2 which has a bug regarding nbsphinx
+        # See: https://github.com/spatialaudio/nbsphinx/issues/162
+        # TL;DR, when notebooks with multiple images are converted to HTML, the same image will appear for images supposed to be different
+        # Installing pandoc 2.19 instead:
+        wget https://github.com/jgm/pandoc/releases/download/2.19.2/pandoc-2.19.2-1-amd64.deb
+        sudo dpkg -i pandoc-2.19.2-1-amd64.deb
         pandoc --version
+
         python -m pip install --upgrade pip
         #python -m pip install setuptools wheel
         #python -m pip install flake8 pytest
