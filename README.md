@@ -14,6 +14,8 @@ GEO3Py er beregnet til brug i DTU-kursus #01237 - Differentialgeometri og parame
 
 ## Installering
 
+***NB!*** Se hellere installationsvejledningen her: [installation](https://kaarez.github.io/GEO3Py/install.html).
+
 (dette er foreløbigt - bliver evt. uploadet som pakke i fremtiden)
 
 - Download dette git-repository til lokal maskine (hvis du ikke har git, kan du blot downloade som ZIP fra GitHub - husk at udpak ZIP-filen)
