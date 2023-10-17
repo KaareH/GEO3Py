@@ -1,12 +1,12 @@
 GEO3Py
 ==================
-[![Build Status](https://github.com/KaareZ/GEO3Py/actions/workflows/python-package.yml/badge.svg)](https://github.com/KaareZ/GEO3Py/actions)
-[![Doc-Build Status](https://github.com/KaareZ/GEO3Py/actions/workflows/buildDocs.yml/badge.svg)](https://github.com/KaareZ/GEO3Py/actions)
+[![Build Status](https://github.com/kaareh/GEO3Py/actions/workflows/python-package.yml/badge.svg)](https://github.com/kaareh/GEO3Py/actions)
+[![Doc-Build Status](https://github.com/kaareh/GEO3Py/actions/workflows/buildDocs.yml/badge.svg)](https://github.com/kaareh/GEO3Py/actions)
 
-[<img src="./docs/source/geo3py-logo.svg" width=40%>](https://kaarez.github.io/GEO3Py/)
+[<img src="./docs/source/geo3py-logo.svg" width=40%>](https://kaareh.github.io/GEO3Py/)
 
 GEO3Py har sin egen hjemmeside med senest tilgængelige dokumentation og eksempler:
-[Documentation](https://kaarez.github.io/GEO3Py)
+[Documentation](https://kaareh.github.io/GEO3Py)
 
 ***Bemærk!*** **Dette Python bibliotek (GEO3Py) er endnu ikke klar til brug! API kan blive ændret.**
 
@@ -14,7 +14,7 @@ GEO3Py er beregnet til brug i DTU-kursus #01237 - Differentialgeometri og parame
 
 ## Installering
 
-***NB!*** Se hellere installationsvejledningen her: [installation](https://kaarez.github.io/GEO3Py/install.html).
+***NB!*** Se hellere installationsvejledningen her: [installation](https://kaareh.github.io/GEO3Py/install.html).
 
 (dette er foreløbigt - bliver evt. uploadet som pakke i fremtiden)
 
