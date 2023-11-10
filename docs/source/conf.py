@@ -68,7 +68,7 @@ html_theme_options = {
 
 html_context = {
     "display_github": True, # Integrate GitHub
-    "github_user": "KaareZ", # Username
+    "github_user": "KaareH", # Username
     "github_repo": "GEO3Py", # Repo name
     "github_version": "main", # Version
     "conf_py_path": "/docs/source/", # Path in the checkout to the docs root
