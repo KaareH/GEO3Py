@@ -32,8 +32,8 @@ test = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/KaareZ/GEO3Py"
-"Bug Tracker" = "https://github.com/KaareZ/GEO3Py"
+"Homepage" = "https://github.com/KaareH/GEO3Py"
+"Bug Tracker" = "https://github.com/KaareH/GEO3Py"
 
 [tool.coverage.run]
 source = ["src"]
